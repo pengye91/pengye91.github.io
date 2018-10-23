@@ -264,6 +264,8 @@
       
         
         
+          
+        
 
         
           <center><img src="/images/designing-data-intensive-applications.png" alt=""></center>
@@ -306,54 +308,9 @@
 </tr>
 </tbody>
 </table>
-<h2 id="数据仓库"><a href="#数据仓库" class="headerlink" title="数据仓库"></a>数据仓库</h2><p><strong>OLTP 数据库通常不允许分析师查询大量的数据做分析，因为扫描大量数据时间太长从而影响线上的并发查询性能。</strong></p>
-<p>因此，<strong>数据仓库</strong>的概念就由此而生了。数据仓库包含了一组来自很多 <strong>ＯLTP</strong> 数据库的可读数据的备份。</p>
-<p>把数据从 <strong>OLTP</strong>　数据库移到数据仓库的过程叫做 <strong>Extract-Transform-Load (ETL)</strong>，这个过程如下图所示：</p>
-<center><img src="/images/etl.png" alt="ETL images here"></center>
-
-<p>之前讨论的索引方法在 OLTP 数据库上效果很好，然而它们对 OLAP 数据库的效果没那么好。</p>
-<h4 id="OLTP-数据库和-OLAP-数据库之间的差异"><a href="#OLTP-数据库和-OLAP-数据库之间的差异" class="headerlink" title="OLTP 数据库和 OLAP 数据库之间的差异"></a>OLTP 数据库和 OLAP 数据库之间的差异</h4><p>数据仓库通常都是关系型的。这是因为 SQL 语言是很通用而且很有表达力的语言。</p>
-<p>价格！</p>
-<h4 id="星形模型和雪花模型"><a href="#星形模型和雪花模型" class="headerlink" title="星形模型和雪花模型"></a>星形模型和雪花模型</h4><p>在之前的文章中看到过，OLTP 数据库有很多中数据模型，但是在 OLAP 数据库中，可选的模型就没那么多了。大多数都使用了 <strong>星形模型</strong>，也被称为<strong>维度模型</strong>。</p>
-<p>以下图为例：</p>
-<center><img src="/images/data-warehouse-example.png" alt="data-warehouse-example.png"></center>
-
-<p>在这个模型中，处于中心位置的被称为<strong>事实表(fact-table)</strong>，在本例中是 <em>fact_sales</em>，在事实表中的每一行都代表在一个特定时间发生了某个特定的时间，在本例中是某个用户购买了某个商品，当分析网站流量是，可以换成用户浏览和点击了某个页面。</p>
-<p>事实表通常来说都很大。</p>
-<p>在事实表中，有些<em>列</em>是事件的属性，比如本例中的几个 <em>price</em> 字段。而另一些列的值相当于其他表的外键，这些表称为<strong>维度表</strong>。</p>
-<p>由于事实表可以被看做是事件的展现，因此维度表可以被看做是事件发生的<strong>who</strong>, <strong>what</strong>，<strong>where</strong>, <strong>when</strong>, <strong>how</strong>。</p>
-<p><strong>星形模型</strong>名称的来源是：把事实表放在中间，维度表放在事实表的周围，它们之间的关系用线条来表示时，看起来就像是一颗星星一样。</p>
-<p>另一种常见的模式叫做<strong>雪花模型</strong>，在<em>雪花模型</em>中，维度表进一步被拆解成更多的子维度表。</p>
-<p>比如在本例中，<em>dim_product</em> 表中的 <em>brand</em> 和 <em>category</em> 字段可以用 <em>brand</em> 表和 <em>category</em> 表的主键来表示。</p>
-<p><em>雪花模型</em>比<em>星形模型</em>更加归一化，但是大家更喜欢用<em>星形模型</em>来实现数据仓库，因为更加简单。</p>
-<p>在数据仓库中，表通常都是大宽表。不仅仅是事实表，维度表同样如此。</p>
-<h2 id="面向列的存储"><a href="#面向列的存储" class="headerlink" title="面向列的存储"></a>面向列的存储</h2><p>在数据仓库中，事实表的存储通常是大家最为关心的，因为其数据量非常大。</p>
-<p>虽然事实表通常都是大宽表，但是在分析查询的过程中通常只需要 4 到 5 个字段。</p>
-<p>大多数 OLTP 数据库都是面向行存储，意味着每一行的所有数据都紧接着上一行所有数据存储，<strong>文档型</strong>数据库也一样。所以，如果事实表使用面向行存储的数据库，每行将有大量无用的数据被加载到内存。</p>
-<p><strong>面向列存储</strong>的原理是：将每一列的所有数据都连续得存储在一起。如果每一列的数据都单独存储在一个文件中，一次查询只用读这些想要的列文件就可以了。</p>
-<h3 id="列压缩"><a href="#列压缩" class="headerlink" title="列压缩"></a>列压缩</h3><p>每列中有重复数据的概率非常大，因此对压缩很有利。<br>常用的压缩策略是：<strong>bitmap encoding</strong>(位图编码)(可以参见<a href="http://blog.jobbole.com/79760/" target="_blank" rel="noopener">这篇文章</a>)。见下图所示：</p>
-<center><img src="/images/bitmap.png" alt="bitmap.png"></center>
-
-<p>查询对应的条件时，可以对位图进行相应的 <strong>AND(位与)</strong> 或者 <strong>OR(位或)</strong> 操作。</p>
-<h4 id="并行向量处理"><a href="#并行向量处理" class="headerlink" title="并行向量处理"></a><a href="https://zh.wikipedia.org/wiki/%E5%B9%B6%E8%A1%8C%E5%90%91%E9%87%8F%E5%A4%84%E7%90%86%E6%9C%BA" target="_blank" rel="noopener">并行向量处理</a></h4><h3 id="列存储中的排序"><a href="#列存储中的排序" class="headerlink" title="列存储中的排序"></a>列存储中的排序</h3><p>理论上来说，对列存储引擎而言，行数据根本不用排序。<br>然而我们仍然可以像 <em>SSTables</em> 一样对其进行排序操作，从而起到索引的作用。</p>
-<p>例如，如果<strong>时间</strong>是经常被范围查询的条件，那么可以将其作为第一个排序字段，从而减小范围查询的时间，不用全列扫描了。在第一个排序字段的基础上还可以继续添加后续的排序字段。</p>
-<p>排序后还有一个好处是：可以帮助列压缩。如果首个排序字段的唯一值不多，将为压缩带来很大的好处。</p>
-<h3 id="向列存储写数据"><a href="#向列存储写数据" class="headerlink" title="向列存储写数据"></a>向列存储写数据</h3><p>所有这些优化都是为了大量读而设计的，但所有这些优化都为写数据带来困扰。</p>
-<p>不能考虑<em>就地更新</em>类型的方式，比如 <em>B-树</em>，因为每一次写入都会更新所有的列数据，实在太糟糕了。</p>
-<p>而 <strong>LSM-Tree</strong> 类型的存储方式就非常适合这种列存储数据库。</p>
-<h3 id="聚合：数据立方和物化视图"><a href="#聚合：数据立方和物化视图" class="headerlink" title="聚合：数据立方和物化视图"></a>聚合：数据立方和物化视图</h3><p>既然大部分数据仓库处理的数据都和<strong>聚合函数计算</strong>相关，那么为什么要浪费大量的运算资源来实时计算呢？另一种思路是：将常用的聚合函数和方法应用在数据上并缓存起来供以后使用。</p>
-<p>一种产生这些缓存数据的方法是 <strong>物化视图</strong>。</p>
-<p><em>物化视图</em>是将计算后的结果存在一张类似表的结构中，而这个表的数据是被写入硬盘中的。</p>
-<p>由于每次数据更新都要更新这个物化视图，所以常见的 OLTP 数据库很少采用这个方式，但对于多读少写的 OLAP 数据库，这很合适。</p>
-<p>一种常见的物化视图是<strong>数据立方</strong>。这是一个根据不同维度聚合而成的网表。</p>
-<p>下图是一个二维数据立方：</p>
-<center><img src="/images/two-demension-cube.png" alt="two-demension-cube.png"></center>
-
-<p>基本思路如上图所示。</p>
-<p>数据立方的优势在于对一些特定的聚合查询，速度非常快，因为已经提前计算好了。<br>劣势在于：不够灵活。</p>
-<p>所以大部分数据库都尽量保存所有的原始数据，但对一些常见的聚合数据使用 <em>数据立方</em> 来提速。</p>
-<p>第三章就此结束了。</p>
-
+          <div class="read-more">
+            <a href="/2018/10/21/野猪书读书笔记第三章续2/" class="read-more-link">阅读更多</a>
+          </div>
         
       
     </div>
