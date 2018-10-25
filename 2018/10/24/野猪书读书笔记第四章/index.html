@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+
+  <meta name="description" content="野猪书读书笔记第四章"/>
+
+
+
+
+  <meta name="keywords" content="读书笔记, 设计数据密集型应用, 数据, Lingering Fragments" />
+
+
+
+
+
+
+
+
+
+
+  <link rel="alternate" href="/default" title="Lingering Fragments">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.10.1" />
+
+
+
+<link rel="canonical" href="https://pengye91.github.io/2018/10/24/野猪书读书笔记第四章/"/>
+
+
+
+  <link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/lib/nprogress/nprogress.min.css" />
+
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.10.1" />
+
+
+
+  
+
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-127442719-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-127442719-1');
+</script>
+
+
+  <script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+
+
+
+
+
+<script>
+  window.config = {"title":"Lingering Fragments","subtitle":"一些想法和总结","description":null,"author":"xyp","language":"zh-CN","timezone":"Asia/Shanghai","url":"https://pengye91.github.io","root":"/","permalink":":year/:month/:day/:title/","permalink_defaults":null,"source_dir":"source","public_dir":"public","tag_dir":"tags","archive_dir":"archives","category_dir":"categories","code_dir":"downloads/code","i18n_dir":":lang","skip_render":null,"new_post_name":":title.md","default_layout":"post","titlecase":false,"external_link":true,"filename_case":0,"render_drafts":false,"post_asset_folder":false,"relative_link":false,"future":true,"highlight":{"enable":true,"auto_detect":false,"line_number":true,"tab_replace":null},"default_category":"uncategorized","category_map":null,"tag_map":null,"date_format":"YYYY-MM-DD","time_format":"HH:mm:ss","per_page":10,"pagination_dir":"page","theme":"even","deploy":{"type":"git","repo":"https://github.com/pengye91/pengye91.github.io.git","branch":"master"},"ignore":[],"keywords":null,"index_generator":{"per_page":10,"order_by":"-date","path":""},"sitemap":{"path":"sitemap.xml"},"baidusitemap":{"path":"baidusitemap.xml"},"archive_generator":{"per_page":10,"yearly":true,"monthly":true,"daily":false},"category_generator":{"per_page":10},"tag_generator":{"per_page":10},"marked":{"gfm":true,"pedantic":false,"sanitize":false,"tables":true,"breaks":true,"smartLists":true,"smartypants":true,"modifyAnchors":"","autolink":true},"server":{"port":4000,"log":false,"compress":false,"header":true},"since":2018,"favicon":"/favicon.ico","rss":"default","menu":{"Home":"/","Archives":"/archives/","Tags":"/tags","Categories":"/categories","About":"/about"},"color":"cobalt blue","mode":"default","toc":true,"fancybox":true,"pjax":true,"copyright":{"enable":false,"license":"<a rel=\"license\" href=\"http://creativecommons.org/licenses/by-nc/4.0/\" target=\"_blank\">知识共享署名-非商业性使用 4.0 国际许可协议</a>"},"reward":{"enable":false,"qrCode":{"wechat":null,"alipay":null}},"social":{"email":"pengye91@gmail.com","stack-overflow":null,"twitter":null,"facebook":null,"linkedin":null,"google":null,"github":"https://github.com/pengye91","weibo":null,"zhihu":null,"douban":null,"pocket":null,"tumblr":null,"instagram":null},"leancloud":{"app_id":null,"app_key":null},"baidu_analytics":null,"baidu_verification":null,"google_analytics":"UA-127442719-1","google_verification":null,"disqus_shortname":null,"valine":{"appid":"xeDhasO1xV7F1SpCG0oRuiol-gzGzoHsz","appkey":"wgFvo2YMOmn0Qcv7YPFxtePy","notify":false,"verify":false,"avatar":"identicon","visitor":true,"placeholder":"在此评论......"},"changyan":{"appid":null,"appkey":null},"livere_datauid":null,"version":"2.10.1"};
+</script>
+
+    <title> 野猪书读书笔记第四章 - Lingering Fragments </title>
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">Lingering Fragments</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    
+      <a href="/">
+        <li class="mobile-menu-item">
+          
+          
+            首页
+          
+        </li>
+      </a>
+    
+      <a href="/archives/">
+        <li class="mobile-menu-item">
+          
+          
+            归档
+          
+        </li>
+      </a>
+    
+      <a href="/tags">
+        <li class="mobile-menu-item">
+          
+          
+            标签
+          
+        </li>
+      </a>
+    
+      <a href="/categories">
+        <li class="mobile-menu-item">
+          
+          
+            分类
+          
+        </li>
+      </a>
+    
+      <a href="/about">
+        <li class="mobile-menu-item">
+          
+          
+            关于
+          
+        </li>
+      </a>
+    
+  </ul>
+</nav>
+
+    <div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">Lingering Fragments</a>
+</div>
+
+<nav class="site-navbar">
+  
+    <ul id="menu" class="menu">
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/">
+            
+            
+              首页
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            
+            
+              归档
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/tags">
+            
+            
+              标签
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/categories">
+            
+            
+              分类
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/about">
+            
+            
+              关于
+            
+          </a>
+        </li>
+      
+    </ul>
+  
+</nav>
+
+      </header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content">
+            
+  
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          野猪书读书笔记第四章
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2018-10-24
+        </span>
+        
+          <span class="post-category">
+            
+              <a href="/categories/读书笔记/">读书笔记</a>
+            
+              <a href="/categories/读书笔记/设计数据密集型应用/">设计数据密集型应用</a>
+            
+              <a href="/categories/读书笔记/设计数据密集型应用/数据/">数据</a>
+            
+          </span>
+        
+        
+      </div>
+    </header>
+
+    
+    
+  <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#数据编码格式"><span class="toc-text">数据编码格式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#和编程语言相关的格式"><span class="toc-text">和编程语言相关的格式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#JSON-XML-以及二进制"><span class="toc-text">JSON, XML 以及二进制</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#二进制编码"><span class="toc-text">二进制编码</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Thrift-和-Protocol-Buffers"><span class="toc-text">Thrift 和 Protocol Buffers</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#字段-tag-和-schema-演进"><span class="toc-text">字段 tag 和 schema 演进</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#数据类型和-schema-演进"><span class="toc-text">数据类型和 schema 演进</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Avro"><span class="toc-text">Avro</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#编解码方-Schema"><span class="toc-text">编解码方 Schema</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#编码方-Schema-到底是啥"><span class="toc-text">编码方 Schema 到底是啥</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#动态生成-Schema"><span class="toc-text">动态生成 Schema</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#这些二进制编码的优势"><span class="toc-text">这些二进制编码的优势</span></a></li></ol></li></ol>
+    </div>
+  </div>
+
+
+
+    <div class="post-content">
+      
+        <p><strong>编码和演进</strong></p>
+<p>数据库中的数据格式会经常变化。</p>
+<p>随着数据格式的变化，应用代码也应该随之改变。但是在大型应用中，代码变化通常不会瞬间完成：</p>
+<ul>
+<li>在服务端，有<a href="https://www.zhihu.com/question/23444990/answer/89426003" target="_blank" rel="noopener"><em>滚动发行</em></a>的概念。</li>
+<li>在客户端，用户很可能不会能安装更新版本。</li>
+</ul>
+<p>所以需要<strong>兼容性</strong>:</p>
+<ul>
+<li><p>向后兼容：<br>新代码可以读老代码写的数据。</p>
+</li>
+<li><p>向前兼容：<br>老代码可以读新代码写的数据。</p>
+</li>
+</ul>
+<a id="more"></a>
+<h2 id="数据编码格式"><a href="#数据编码格式" class="headerlink" title="数据编码格式"></a>数据编码格式</h2><p>数据通常以(至少)两种不同的表现形式和应用程序交互:</p>
+<ol>
+<li><p>在内存中，数据以各种 objects, structs, lists, arrays, hash tables, trees 等结构存储。这些数据结构通常会根据 CPU 的操作来做优化(通常以指针的形式)。</p>
+</li>
+<li><p>当数据需要被写入文件或者通过网络传输时，需要被编码成某种独立的字节序列。</p>
+</li>
+</ol>
+<p>因此，我们需要在这两种表现形式之间做翻译：</p>
+<ul>
+<li>内存 –&gt; 字节序列：称为<strong>编码</strong>(encoding)，也叫<strong>序列化</strong>;</li>
+<li>字节序列 –&gt; 内存: 称为<strong>解码</strong>(decoding), 也叫<strong>反序列化</strong>;</li>
+</ul>
+<h3 id="和编程语言相关的格式"><a href="#和编程语言相关的格式" class="headerlink" title="和编程语言相关的格式"></a>和编程语言相关的格式</h3><p>许多语言都自带了<strong>序列化</strong>功能的支持:</p>
+<ul>
+<li><code>Java</code>: <code>java.io.Serializable</code></li>
+<li><code>Python</code>: <code>pickle</code></li>
+</ul>
+<p>这些内置的序列化库在便捷好用的同时有一些很深的坑：</p>
+<ul>
+<li>序列化后的数据只能被同一种语言读取；</li>
+<li>为了恢复成任意的对象类型，解码进程需要能创建任意类。这会带来一种安全隐患：攻击者能初始化任意类，这意味着攻击者可以远程执行任意代码。</li>
+<li>数据的版本经常被忽视：<strong>兼容性</strong>在快速和便捷的需求面前经常被忽略。</li>
+<li>性能问题：编解码是一种 CPU 消耗大户。</li>
+</ul>
+<h3 id="JSON-XML-以及二进制"><a href="#JSON-XML-以及二进制" class="headerlink" title="JSON, XML 以及二进制"></a>JSON, XML 以及二进制</h3><p>JSON, XML 和 CSV 格式都是<em>人类可读</em>的文本格式。除了表面的语法问题外，还有一些小问题：</p>
+<ul>
+<li><p>数字<br>XML 和 CSV 不区分字符串和数字；JSON 虽然区分，但是不区分整数和浮点数，也没有精度；<br>当处理的数值很大时，这个问题尤其困扰；</p>
+</li>
+<li><p>JSON 和 XML 对 UNICODE 字符串的支持很好，但是不支持二进制字符串；</p>
+</li>
+<li><p>类型校验不好做</p>
+</li>
+</ul>
+<p>除了这些问题之外，JSON、XML 和 CSV 都足够好用了，特别是在做数据交换的时候。在这种时候，只要大家都认同这个格式，性能和格式是否优雅就一点都不重要了：毕竟，<strong>让不同组织都认同某件事的难度比啥都大</strong>。</p>
+<h4 id="二进制编码"><a href="#二进制编码" class="headerlink" title="二进制编码"></a>二进制编码</h4><p>当数据只在一个组织内部流转时，可以采用不那么通用的编码格式：比如，可以考虑数据的大小和编解码的性能。在数据量小的时候，这个优势看似微不足道，但是当数据量了之后，带来好处不容忽视。</p>
+<h3 id="Thrift-和-Protocol-Buffers"><a href="#Thrift-和-Protocol-Buffers" class="headerlink" title="Thrift 和 Protocol Buffers"></a>Thrift 和 Protocol Buffers</h3><p>两者都是二进制编码格式；在数据被编码前都需要一个 Schema 来定义数据的格式。</p>
+<p>两者都提供了代码生成工具来生成这个定义好的类型在不同语言内的代码实现。</p>
+<p><strong>Thrift</strong> 有两种二进制编码格式：</p>
+<ul>
+<li>BinaryProtocol</li>
+</ul>
+<center><img src="/images/thrift-binary-protocol.png" alt=""></center>
+
+<ul>
+<li>CompactProtocol</li>
+</ul>
+<center><img src="/images/thrift-compact-protocol.png" alt=""></center>
+
+<p><strong>CompactProtocol</strong>压缩更厉害了，通过：1. 字段类型和 Tag 合并成单个 byte；2. 整数的字节长度是变长的 ——- 数字越大长度越长。</p>
+<p><strong>Protocol Buffers</strong> </p>
+<center><img src="/images/proto-buff.png" alt=""></center>
+
+<p>需要值得一提的是：<em>required</em> 和 <em>optional</em> 字段不在编码中体现，单纯地是 <em>runtime</em> 行为。</p>
+<h4 id="字段-tag-和-schema-演进"><a href="#字段-tag-和-schema-演进" class="headerlink" title="字段 tag 和 schema 演进"></a>字段 tag 和 schema 演进</h4><p>整个定义中，tag number 是最重要的。</p>
+<p>只要 tag number 不被重新使用就可以保证 <em>向前兼容</em>: 老的代码可以读新的代码写的数据。<br>只要 tag number 不被重用并且保证新的字段是 <em>optional</em> 的就可以保证 <em>向后兼容</em>：新的代码可以读老的代码写的数据。</p>
+<h4 id="数据类型和-schema-演进"><a href="#数据类型和-schema-演进" class="headerlink" title="数据类型和 schema 演进"></a>数据类型和 schema 演进</h4><p>数据类型可以改变，但是会有<strong>精度丢失</strong>的风险。<br>另外，对于 <em>list</em> 类型的字段，不同的编码格式处理的方式不同。</p>
+<h3 id="Avro"><a href="#Avro" class="headerlink" title="Avro"></a>Avro</h3><p><em>Avro</em>是另一种二进制编码格式。</p>
+<p>Avro 同样使用 Schema 来定义被编码的数据的结构。Avro 有两种 Schema 语言：<em>Avro IDL</em> 是用于人类编辑的; 基于 <em>JSON</em> 的另一种是机器读的。</p>
+<center><img src="/images/avro-example.png" alt=""></center>
+
+<p>从下图可以看到，在编码数据中，没有任何字段标志和类型，只是单纯的把所有数据都拼接在一起，所以数据量非常小。</p>
+<center><img src="/images/avro.png" alt=""></center>
+
+<p>为了正确地解码，解码方必须使用和编码方<em>一模一样</em>的 Schema 格式。</p>
+<h4 id="编解码方-Schema"><a href="#编解码方-Schema" class="headerlink" title="编解码方 Schema"></a>编解码方 Schema</h4><p>为了正常解码，关键的是 解码方需要理解编码方的 schema。</p>
+<p>在 Avro 中，重要的是：<strong>编解码方的 Schema 不必完全一样 —– 只需要兼容就行。</strong></p>
+<p>在解码的时候，<em>Avro Lib</em> 会把编码方的 Schema 翻译成 解码方 Schema，如下所示：</p>
+<center><img src="/images/write-schema-to-read.png" alt=""></center>
+
+<h4 id="编码方-Schema-到底是啥"><a href="#编码方-Schema-到底是啥" class="headerlink" title="编码方 Schema 到底是啥"></a>编码方 Schema 到底是啥</h4><p>由上可知，重要的一点是：解码方要怎么才能知道编码方 Schema ?</p>
+<p>有几种情况：</p>
+<ul>
+<li><p>有超多记录的大文件<br>当数据量超大时，多一份 Schema 文件也无所谓了。所以编码方在写文件时可以把编码方的 Schema 写在文件开头。</p>
+</li>
+<li><p>小文件但是记录又很多时<br>使用版本号来控制 Schema。</p>
+</li>
+<li><p>通过网络连接传送记录<br>当两个进程通过网络连接时，可以在建立链接前协商 Schema 版本号来控制 Schema。</p>
+</li>
+</ul>
+<h4 id="动态生成-Schema"><a href="#动态生成-Schema" class="headerlink" title="动态生成 Schema"></a>动态生成 Schema</h4><p>类似 Avro 这样的 Schema 方式的一大优势在于：如果编码方有 schema 的改动，不用手动修改 Avro 编码 Schema，而 PB 和 Thrift 都需要。</p>
+<h3 id="这些二进制编码的优势"><a href="#这些二进制编码的优势" class="headerlink" title="这些二进制编码的优势"></a>这些二进制编码的优势</h3><ul>
+<li>更压缩，因为没有字段名字了</li>
+<li>schema 可以当做数据文档</li>
+<li>通过保存所有版本，可以保证兼容性</li>
+<li>对于静态语言，编译阶段的类型检查是很有用的</li>
+</ul>
+<p>(TO BE CONTINUED…)</p>
+
+      
+    </div>
+
+    
+      
+      
+
+
+
+      
+      
+    
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/读书笔记/">读书笔记</a>
+            
+              <a href="/tags/设计数据密集型应用/">设计数据密集型应用</a>
+            
+              <a href="/tags/数据/">数据</a>
+            
+          </div>
+        
+        
+        
+  <nav class="post-nav">
+    
+    
+      <a class="next" href="/2018/10/21/野猪书读书笔记第三章续2/">
+        <span class="next-text nav-default">野猪书读书笔记第三章(续二)</span>
+        <span class="prev-text nav-mobile">下一篇</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+
+      </footer>
+    
+
+  </article>
+
+
+          </div>
+          
+  <div class="comments" id="comments">
+    
+      <div id="vcomments"></div>
+    
+  </div>
+
+
+        </div>
+      </main>
+
+      <footer id="footer" class="footer">
+
+  <div class="social-links">
+    
+      
+        
+          <a href="mailto:pengye91@gmail.com" class="iconfont icon-email" title="email"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        
+          <a href="https://github.com/pengye91" class="iconfont icon-github" title="github"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+
+    
+      
+      <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    
+  </div>
+
+
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://hexo.io/">Hexo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">
+    
+    &copy; 
+    
+    2018
+
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">xyp</span>
+  </span>
+</div>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+
+    
+  
+  
+<!-- valine Comments -->
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//cdn.jsdelivr.net/gh/xcss/valine@v1.3.3/dist/Valine.min.js"></script>
+<script type="text/javascript">
+    new Valine({
+        el: '#vcomments',
+        notify: false,
+        verify: false,
+        visitor: true,
+        app_id: "xeDhasO1xV7F1SpCG0oRuiol-gzGzoHsz",
+        app_key: "wgFvo2YMOmn0Qcv7YPFxtePy",
+        placeholder: "在此评论......",
+        avatar: 'identicon'
+    });
+</script>
+
+
+  
+
+  
+
+
+
+    
+  
+
+
+
+  
+  
+
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/pjax/jquery.pjax.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/nprogress/nprogress.min.js"></script>
+  
+
+
+    <script type="text/javascript" src="/js/src/even.js?v=2.10.1"></script>
+
+  </body>
+</html>
