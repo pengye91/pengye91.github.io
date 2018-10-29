@@ -17,8 +17,12 @@
 
 
 
+  <meta name="description" content="野猪书读书笔记第五章"/>
 
 
+
+
+  <meta name="keywords" content="读书笔记, 设计数据密集型应用, 数据, Lingering Fragments" />
 
 
 
@@ -38,7 +42,7 @@
 
 
 
-<link rel="canonical" href="https://pengye91.github.io/categories/读书笔记/"/>
+<link rel="canonical" href="https://pengye91.github.io/2018/10/29/野猪书读书笔记第五章/"/>
 
 
 
@@ -95,11 +99,7 @@
   window.config = {"title":"Lingering Fragments","subtitle":"一些想法和总结","description":null,"author":"xyp","language":"zh-CN","timezone":"Asia/Shanghai","url":"https://pengye91.github.io","root":"/","permalink":":year/:month/:day/:title/","permalink_defaults":null,"source_dir":"source","public_dir":"public","tag_dir":"tags","archive_dir":"archives","category_dir":"categories","code_dir":"downloads/code","i18n_dir":":lang","skip_render":null,"new_post_name":":title.md","default_layout":"post","titlecase":false,"external_link":true,"filename_case":0,"render_drafts":false,"post_asset_folder":false,"relative_link":false,"future":true,"highlight":{"enable":true,"auto_detect":false,"line_number":true,"tab_replace":null},"default_category":"uncategorized","category_map":null,"tag_map":null,"date_format":"YYYY-MM-DD","time_format":"HH:mm:ss","per_page":10,"pagination_dir":"page","theme":"even","deploy":{"type":"git","repo":"https://github.com/pengye91/pengye91.github.io.git","branch":"master"},"ignore":[],"keywords":null,"index_generator":{"per_page":10,"order_by":"-date","path":""},"sitemap":{"path":"sitemap.xml"},"baidusitemap":{"path":"baidusitemap.xml"},"archive_generator":{"per_page":10,"yearly":true,"monthly":true,"daily":false},"category_generator":{"per_page":10},"tag_generator":{"per_page":10},"marked":{"gfm":true,"pedantic":false,"sanitize":false,"tables":true,"breaks":true,"smartLists":true,"smartypants":true,"modifyAnchors":"","autolink":true},"server":{"port":4000,"log":false,"compress":false,"header":true},"since":2018,"favicon":"/favicon.ico","rss":"default","menu":{"Home":"/","Archives":"/archives/","Tags":"/tags","Categories":"/categories","About":"/about"},"color":"cobalt blue","mode":"default","toc":true,"fancybox":true,"pjax":true,"copyright":{"enable":false,"license":"<a rel=\"license\" href=\"http://creativecommons.org/licenses/by-nc/4.0/\" target=\"_blank\">知识共享署名-非商业性使用 4.0 国际许可协议</a>"},"reward":{"enable":false,"qrCode":{"wechat":null,"alipay":null}},"social":{"email":"pengye91@gmail.com","stack-overflow":null,"twitter":null,"facebook":null,"linkedin":null,"google":null,"github":"https://github.com/pengye91","weibo":null,"zhihu":null,"douban":null,"pocket":null,"tumblr":null,"instagram":null},"leancloud":{"app_id":null,"app_key":null},"baidu_analytics":null,"baidu_verification":null,"google_analytics":"UA-127442719-1","google_verification":null,"disqus_shortname":null,"valine":{"appid":"xeDhasO1xV7F1SpCG0oRuiol-gzGzoHsz","appkey":"wgFvo2YMOmn0Qcv7YPFxtePy","notify":false,"verify":false,"avatar":"identicon","visitor":true,"placeholder":"在此评论......"},"changyan":{"appid":null,"appkey":null},"livere_datauid":null,"version":"2.10.1"};
 </script>
 
-    <title>
-  
-    读书笔记 · Lingering Fragments
-  
-</title>
+    <title> 野猪书读书笔记第五章 - Lingering Fragments </title>
   </head>
 
   <body><div id="mobile-navbar" class="mobile-navbar">
@@ -229,92 +229,132 @@
           <div id="content" class="content">
             
   
-  
-  
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          野猪书读书笔记第五章
+        
+      </h1>
 
-  <section id="archive" class="archive">
-    
-      
-        <div class="archive-title category">
-          <h2 class="archive-name">读书笔记</h2>
-        </div>
-      
-    
-
-    
-      
-
-      <div class="archive-post">
-        <span class="archive-post-time">
-          
-            2018-10-29
-          
+      <div class="post-meta">
+        <span class="post-time">
+          2018-10-29
         </span>
-        <span class="archive-post-title">
-          <a href="/2018/10/29/野猪书读书笔记第五章/" class="archive-post-link">
-            野猪书读书笔记第五章
-          </a>
-        </span>
+        
+          <span class="post-category">
+            
+              <a href="/categories/读书笔记/">读书笔记</a>
+            
+              <a href="/categories/读书笔记/设计数据密集型应用/">设计数据密集型应用</a>
+            
+              <a href="/categories/读书笔记/设计数据密集型应用/数据/">数据</a>
+            
+          </span>
+        
+        
       </div>
+    </header>
+
+    
+    
+  <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#扩展以达到高负载"><span class="toc-text">扩展以达到高负载</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#啥都不分享架构-Shared-Nothing-Architectures"><span class="toc-text">啥都不分享架构(Shared-Nothing Architectures)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#副本-vs-分区"><span class="toc-text">副本 vs 分区</span></a></li></ol></li></ol>
+    </div>
+  </div>
+
+
+
+    <div class="post-content">
+      
+        <center><img src="/images/designing-data-intensive-applications.png" alt=""></center>
+
+<p><strong>分布式数据</strong></p>
+<p>把数据分布到不同的机器上的原因：</p>
+<ul>
+<li><p><em>可扩展性</em><br>当数据量过大或者读数据负载大或者写数据负载大时，一台机器可能不够用了。</p>
+</li>
+<li><p><em>容错性/高可用性</em><br>当一台或者几台机器失效时，通过冗余多台，可以实现高可用性。</p>
+</li>
+<li><p><em>延迟</em><br>多地备份可以减小距离远的用户的请求延迟。</p>
+</li>
+</ul>
+<a id="more"></a>
+<h2 id="扩展以达到高负载"><a href="#扩展以达到高负载" class="headerlink" title="扩展以达到高负载"></a>扩展以达到高负载</h2><p>如果你只是想要处理更高的负载，最简单的办法就是：<strong>买买买</strong>。买性能更好的机器。这种方法通常被称为 <em>垂直扩展</em>。这种方式的问题是：</p>
+<ul>
+<li>价格不是线性的</li>
+<li>器大小不是线性的</li>
+<li>容错性小</li>
+</ul>
+<h3 id="啥都不分享架构-Shared-Nothing-Architectures"><a href="#啥都不分享架构-Shared-Nothing-Architectures" class="headerlink" title="啥都不分享架构(Shared-Nothing Architectures)"></a>啥都不分享架构(Shared-Nothing Architectures)</h3><p>又称为 <em>水平扩展</em>。</p>
+<p>在这种模型下，每台机器（或者虚拟机）都被称为一个<em>节点</em>。每个节点独立地使用自己的硬件资源，节点之间的协调都是在软件层面通过网络解决。</p>
+<h3 id="副本-vs-分区"><a href="#副本-vs-分区" class="headerlink" title="副本 vs 分区"></a>副本 vs 分区</h3><p>把数据分布到不同机器上有两种常见的方式：</p>
+<ul>
+<li><p><em>副本</em><br>把相同的数据放在不同的机器上。这样提供了冗余性：当一些节点不可用，整个服务依然可用。</p>
+</li>
+<li><p><em>分区</em><br>把一个大的数据集分成小的数据集并且把这些小的数据集分发到不同的机器上。</p>
+</li>
+</ul>
+<center><img src="partition-vs-replica.png" alt=""> </center>
+
+<p>接下来就要讲这些哦。</p>
+
+      
+    </div>
+
     
       
-
-      <div class="archive-post">
-        <span class="archive-post-time">
-          
-            2018-10-27
-          
-        </span>
-        <span class="archive-post-title">
-          <a href="/2018/10/27/野猪书读书笔记第四章续1/" class="archive-post-link">
-            野猪书读书笔记第四章(续)
-          </a>
-        </span>
-      </div>
-    
       
 
-      <div class="archive-post">
-        <span class="archive-post-time">
-          
-            2018-10-24
-          
-        </span>
-        <span class="archive-post-title">
-          <a href="/2018/10/24/野猪书读书笔记第四章/" class="archive-post-link">
-            野猪书读书笔记第四章
-          </a>
-        </span>
-      </div>
-    
+
+
       
-
-      <div class="archive-post">
-        <span class="archive-post-time">
-          
-            2018-10-21
-          
-        </span>
-        <span class="archive-post-title">
-          <a href="/2018/10/21/野猪书读书笔记第三章续2/" class="archive-post-link">
-            野猪书读书笔记第三章(续二)
-          </a>
-        </span>
-      </div>
+      
     
-  </section>
 
-  
-  <nav class="pagination">
     
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/读书笔记/">读书笔记</a>
+            
+              <a href="/tags/设计数据密集型应用/">设计数据密集型应用</a>
+            
+              <a href="/tags/数据/">数据</a>
+            
+          </div>
+        
+        
+        
+  <nav class="post-nav">
+    
+    
+      <a class="next" href="/2018/10/27/野猪书读书笔记第四章续1/">
+        <span class="next-text nav-default">野猪书读书笔记第四章(续)</span>
+        <span class="prev-text nav-mobile">下一篇</span>
+        <i class="iconfont icon-right"></i>
+      </a>
     
   </nav>
 
 
+      </footer>
+    
+
+  </article>
 
 
           </div>
           
+  <div class="comments" id="comments">
+    
+      <div id="vcomments"></div>
+    
+  </div>
+
 
         </div>
       </main>
