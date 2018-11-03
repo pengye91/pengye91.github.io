@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+
+  <meta name="description" content="野猪书读书笔记第五章(续1)"/>
+
+
+
+
+  <meta name="keywords" content="读书笔记, 设计数据密集型应用, 数据, Lingering Fragments" />
+
+
+
+
+
+
+
+
+
+
+  <link rel="alternate" href="/default" title="Lingering Fragments">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.10.1" />
+
+
+
+<link rel="canonical" href="https://pengye91.github.io/2018/10/30/野猪书读书笔记第五章1/"/>
+
+
+
+  <link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/lib/nprogress/nprogress.min.css" />
+
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.10.1" />
+
+
+
+  
+
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-127442719-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-127442719-1');
+</script>
+
+
+  <script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+
+
+
+
+
+<script>
+  window.config = {"title":"Lingering Fragments","subtitle":"一些想法和总结","description":null,"author":"xyp","language":"zh-CN","timezone":"Asia/Shanghai","url":"https://pengye91.github.io","root":"/","permalink":":year/:month/:day/:title/","permalink_defaults":null,"source_dir":"source","public_dir":"public","tag_dir":"tags","archive_dir":"archives","category_dir":"categories","code_dir":"downloads/code","i18n_dir":":lang","skip_render":null,"new_post_name":":title.md","default_layout":"post","titlecase":false,"external_link":true,"filename_case":0,"render_drafts":false,"post_asset_folder":false,"relative_link":false,"future":true,"highlight":{"enable":true,"auto_detect":false,"line_number":true,"tab_replace":null},"default_category":"uncategorized","category_map":null,"tag_map":null,"date_format":"YYYY-MM-DD","time_format":"HH:mm:ss","per_page":10,"pagination_dir":"page","theme":"even","deploy":{"type":"git","repo":"https://github.com/pengye91/pengye91.github.io.git","branch":"master"},"ignore":[],"keywords":null,"index_generator":{"per_page":10,"order_by":"-date","path":""},"sitemap":{"path":"sitemap.xml"},"baidusitemap":{"path":"baidusitemap.xml"},"archive_generator":{"per_page":10,"yearly":true,"monthly":true,"daily":false},"category_generator":{"per_page":10},"marked":{"gfm":true,"pedantic":false,"sanitize":false,"tables":true,"breaks":true,"smartLists":true,"smartypants":true,"modifyAnchors":"","autolink":true},"tag_generator":{"per_page":10},"server":{"port":4000,"log":false,"compress":false,"header":true},"since":2018,"favicon":"/favicon.ico","rss":"default","menu":{"Home":"/","Archives":"/archives/","Tags":"/tags","Categories":"/categories","About":"/about"},"color":"cobalt blue","mode":"default","toc":true,"fancybox":true,"pjax":true,"copyright":{"enable":false,"license":"<a rel=\"license\" href=\"http://creativecommons.org/licenses/by-nc/4.0/\" target=\"_blank\">知识共享署名-非商业性使用 4.0 国际许可协议</a>"},"reward":{"enable":false,"qrCode":{"wechat":null,"alipay":null}},"social":{"email":"pengye91@gmail.com","stack-overflow":null,"twitter":null,"facebook":null,"linkedin":null,"google":null,"github":"https://github.com/pengye91","weibo":null,"zhihu":null,"douban":null,"pocket":null,"tumblr":null,"instagram":null},"leancloud":{"app_id":null,"app_key":null},"baidu_analytics":null,"baidu_verification":null,"google_analytics":"UA-127442719-1","google_verification":null,"disqus_shortname":null,"valine":{"appid":"xeDhasO1xV7F1SpCG0oRuiol-gzGzoHsz","appkey":"wgFvo2YMOmn0Qcv7YPFxtePy","notify":false,"verify":false,"avatar":"identicon","visitor":true,"placeholder":"在此评论......"},"changyan":{"appid":null,"appkey":null},"livere_datauid":null,"version":"2.10.1"};
+</script>
+
+    <title> 野猪书读书笔记第五章(续1) - Lingering Fragments </title>
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">Lingering Fragments</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    
+      <a href="/">
+        <li class="mobile-menu-item">
+          
+          
+            首页
+          
+        </li>
+      </a>
+    
+      <a href="/archives/">
+        <li class="mobile-menu-item">
+          
+          
+            归档
+          
+        </li>
+      </a>
+    
+      <a href="/tags">
+        <li class="mobile-menu-item">
+          
+          
+            标签
+          
+        </li>
+      </a>
+    
+      <a href="/categories">
+        <li class="mobile-menu-item">
+          
+          
+            分类
+          
+        </li>
+      </a>
+    
+      <a href="/about">
+        <li class="mobile-menu-item">
+          
+          
+            关于
+          
+        </li>
+      </a>
+    
+  </ul>
+</nav>
+
+    <div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">Lingering Fragments</a>
+</div>
+
+<nav class="site-navbar">
+  
+    <ul id="menu" class="menu">
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/">
+            
+            
+              首页
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            
+            
+              归档
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/tags">
+            
+            
+              标签
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/categories">
+            
+            
+              分类
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/about">
+            
+            
+              关于
+            
+          </a>
+        </li>
+      
+    </ul>
+  
+</nav>
+
+      </header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content">
+            
+  
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          野猪书读书笔记第五章(续1)
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2018-10-30
+        </span>
+        
+          <span class="post-category">
+            
+              <a href="/categories/读书笔记/">读书笔记</a>
+            
+              <a href="/categories/读书笔记/设计数据密集型应用/">设计数据密集型应用</a>
+            
+              <a href="/categories/读书笔记/设计数据密集型应用/数据/">数据</a>
+            
+          </span>
+        
+        
+      </div>
+    </header>
+
+    
+    
+  <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Leaders-and-Followers"><span class="toc-text">Leaders and Followers</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#同步-vs-异步"><span class="toc-text">同步 vs 异步</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#配置新从节点"><span class="toc-text">配置新从节点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#处理节点挂掉"><span class="toc-text">处理节点挂掉</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#从节点down掉，追加恢复"><span class="toc-text">从节点down掉，追加恢复</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#主节点挂掉-故障转移-failover"><span class="toc-text">主节点挂掉: 故障转移(failover)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#备份日志的实现"><span class="toc-text">备份日志的实现</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#基于声明的副本"><span class="toc-text">基于声明的副本</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Write-ahead-log-WAL"><span class="toc-text">Write-ahead log(WAL)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#逻辑-基于行的-日志副本"><span class="toc-text">逻辑(基于行的)日志副本</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#触发器副本"><span class="toc-text">触发器副本</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#副本延迟的问题"><span class="toc-text">副本延迟的问题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#只读自己写的数据"><span class="toc-text">只读自己写的数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#单调读"><span class="toc-text">单调读</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#一致性前缀读"><span class="toc-text">一致性前缀读</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#解决副本延迟的方法"><span class="toc-text">解决副本延迟的方法</span></a></li></ol></li></ol>
+    </div>
+  </div>
+
+
+
+    <div class="post-content">
+      
+        <center><img src="/images/designing-data-intensive-applications.png" alt=""></center>
+
+<p><strong>副本</strong></p>
+<p>副本的作用：</p>
+<ul>
+<li>地理位置上距离使用者更近</li>
+<li>当系统的某些节点挂掉后可以继续正常运行</li>
+<li>减小读操作的负载</li>
+</ul>
+<p>备份这件事情最麻烦的地方在于：<strong>处理备份数据的变化</strong></p>
+<p>有三种算法来处理节点间的数据变化：</p>
+<ul>
+<li>单 leader</li>
+<li>多 leader</li>
+<li>无 leader</li>
+</ul>
+<p>处理副本时还需要做一些权衡：<strong>同步备份</strong>还是<strong>异步备份</strong>，<strong>如何处理失败的备份</strong>。</p>
+<a id="more"></a>
+<h2 id="Leaders-and-Followers"><a href="#Leaders-and-Followers" class="headerlink" title="Leaders and Followers"></a>Leaders and Followers</h2><p>每个存储了数据库一份拷贝的节点都叫做一个<strong>副本(replica)</strong>。<br>每一个对数据库的写都需要被每个副本正确处理，否则的话，副本里的数据就会不一样。为了解决这个问题，最常见的解决办法叫做 <strong>leader-based 备份</strong>(又叫<strong>主动/被动</strong>，<strong>主从备份</strong>)。如下图所示：</p>
+<center><img src="/images/master-slave.png" alt=""></center>
+
+<p>其作用模式是：</p>
+<ol>
+<li>某一个节点被设计为 <strong>leader(master)</strong>，当有写操作时，只能发送请求到这个节点，主节点先将这个写操作的数据存在自己的存储空间里；</li>
+<li>其他几点称作 <strong>followers(slave)</strong>，当主节点写数据到自己的存储空间时，它同时通过<em>备份日志</em>将数据改变发送给所有的从节点。每个从节点通过顺序地应用所有的 日志改动 来改变数据。</li>
+<li>读操作可以从任意节点读，写操作只能从主节点写</li>
+</ol>
+<h2 id="同步-vs-异步"><a href="#同步-vs-异步" class="headerlink" title="同步 vs 异步"></a>同步 vs 异步</h2><p>直接上图：</p>
+<center><img src="/images/replica-sync-vs-async.png" alt=""></center>
+
+<p>follower 1 是<strong>同步的</strong>：主节点等到从节点返回更改成功的信号才进一步操作;<br>follower 2 是 <strong>异步的</strong>：主节点不等待从节点返回。</p>
+<p><strong>同步的好处</strong>是：数据可以被确保被存在了从节点上；<strong>坏处是</strong>：等！如果从节点挂了，主节点会一直等！<br>所以，不可能所有的从节点都是<strong>同步的</strong>。</p>
+<p><strong>半同步</strong>：如果有一个同步从节点挂了或者很慢，异步从节点中的一个就变成了同步的。</p>
+<p>通常情况下，主从备份机制都被配置为<strong>完全异步的</strong>，缺点是，如果在备份的过程中主节点挂了，还没有被备份到从节点的数据就永远丢失了。好处是，主节点可以一直处理写操作。</p>
+<p>当从节点很多或者从节点分布在不同的地理位置时，<em>完全异步</em>方式是被广泛采用的。</p>
+<h2 id="配置新从节点"><a href="#配置新从节点" class="headerlink" title="配置新从节点"></a>配置新从节点</h2><p>步骤：</p>
+<ol>
+<li>在某个时间点得到一个主节点的快照；</li>
+<li>把快照拷贝到新节点上；</li>
+<li>新节点连接到主节点并请求自从快照发生后的新数据；要求数据库有一个标志可以记录这个节点：log sequence number 之类的；</li>
+<li>追加成功之后，开始正常处理数据</li>
+</ol>
+<h2 id="处理节点挂掉"><a href="#处理节点挂掉" class="headerlink" title="处理节点挂掉"></a>处理节点挂掉</h2><p>节点除了意外 down 掉外，也有可能主动 down 掉，比如升级系统，升级数据库等等。</p>
+<h3 id="从节点down掉，追加恢复"><a href="#从节点down掉，追加恢复" class="headerlink" title="从节点down掉，追加恢复"></a>从节点down掉，追加恢复</h3><p>每个从节点在本地磁盘上保留一份从主节点接收的数据更改的日志。当从节点从崩溃中恢复后，只需要读这个日志然后向主节点请求crash之后的数据即可。等追加成功后，正常备份就好。</p>
+<h3 id="主节点挂掉-故障转移-failover"><a href="#主节点挂掉-故障转移-failover" class="headerlink" title="主节点挂掉: 故障转移(failover)"></a>主节点挂掉: 故障转移(failover)</h3><p>当主节点挂掉后，某个从节点被顶上来当主节点。</p>
+<p>步骤：</p>
+<ol>
+<li>定义主节点挂掉：timeout。</li>
+<li>选新的主节点<br><em>选举机制</em>：大多数从节点选一个新的从节点成为主节点。<br><em>controller 节点</em>: 事前选一个<em>controller node</em>。</li>
+<li>重新配置系统<br>客户端发送写请求到新的主节点。其他从节点要知道新的主节点。老的主节点恢复后要知道自己已经是从节点了。</li>
+</ol>
+<p>故障转移可能会因为这些事情出错：</p>
+<ul>
+<li>如果使用的是异步备份，有一种情况：新的主节点没有收到老的主节点的全部数据，而这时老的主节点又变成了新的从节点，那这时候老的主节点上的没有备份的数据怎么办呢？现实中大部分数据库的做法是：丢弃这些数据。</li>
+<li>丢弃数据有时候很可怕：当数据和其他系统有交互时。<br>真实事件发生在 GitHub。一台数据不完整的 MySQL 从节点被选举为了主节点，而同时公司使用了自增 Primary Key，而这些 Primary Key 同时存在了 Redis 中。这就导致了新的主节点上位后用了已经存在Redis中的 PK 作为新的 PK，从而导致了混乱。</li>
+<li>有一种神奇的场景：两个节点都觉得自己是主节点。。。数据会错乱。</li>
+<li>Timeout 时间长短的设定要考虑清楚</li>
+</ul>
+<p>这些都是 分布式系统 的基本问题</p>
+<h2 id="备份日志的实现"><a href="#备份日志的实现" class="headerlink" title="备份日志的实现"></a>备份日志的实现</h2><h3 id="基于声明的副本"><a href="#基于声明的副本" class="headerlink" title="基于声明的副本"></a>基于声明的副本</h3><p>最简单的情况是：<strong>主节点把每个写操作都发送给从节点</strong>。对于关系型数据库而言，就是把 <em>INSERT</em>, <em>UPDATE</em>, <em>DELETE</em> 语句都发送给从节点，每个从节点都要解析并执行这些 SQL 语句就像这些语句是直接从客户端来的一样。</p>
+<p>听起来很有道理，但这种方法有不少问题：</p>
+<ul>
+<li>只要语句中有 <strong>非确定性</strong>的函数，比如 <strong>NOW()</strong>, <strong>RAND()</strong>等，就会造成每个 副本 出来的数据不一致；</li>
+<li>顺序必须一致！当有大量并发实务操作时会有问题；</li>
+<li>有副作用的语句(比如 触发器，存储过程，UDF 等)通常也是非确定性的。</li>
+</ul>
+<p>解决办法就是：<strong>主节点在发送之前把非决定性的语句转换为决定性的</strong>。</p>
+<h3 id="Write-ahead-log-WAL"><a href="#Write-ahead-log-WAL" class="headerlink" title="Write-ahead log(WAL)"></a>Write-ahead log(WAL)</h3><p>几乎所有的存储引擎都使用了这种先写数据后记录日志的方式。</p>
+<p>我们可以使用同样的日志文件在每个节点构建出一个副本。</p>
+<p>这种方式有一个大问题：<strong>WAL 包含了太多实现细节</strong>，导致版本更新或者更换存储引擎变得几乎不可能。</p>
+<h3 id="逻辑-基于行的-日志副本"><a href="#逻辑-基于行的-日志副本" class="headerlink" title="逻辑(基于行的)日志副本"></a>逻辑(基于行的)日志副本</h3><p>另一种存储方式是：日志格式和存储引擎解耦。这种日志称为<em>逻辑日志</em>(以区别存储引擎中真是的<em>物理日志</em>)。</p>
+<p>逻辑日志通常是一系列记录，用于描述以行为粒度对行的写入：</p>
+<ul>
+<li>对于一行的写入操作，日志会包含这一行所有列的值；</li>
+<li>对于一行的删除操作，日志会包含足够的信息来说明这一行被删除了，通常来说是<strong>主键</strong>;如果这个表没有主键，日志需要记录这行所有的数据；</li>
+<li>对于一行的更新操作，日志会包含足够的信息来说明这一行被更新了，以及被更新后的所有列的值。</li>
+</ul>
+<p>如果有一个事务操作更改了很多行，就会记录行日志，然后会有一行记录表明这个事务被提交(<strong>committed</strong>)了。</p>
+<p>这种方式使数据和日志解耦了，所以兼容性更好得多。</p>
+<p>这种兼容性不仅体现在同一个数据库的不同版本，也体现在同一份数据可以被不同数据库使用。</p>
+<h3 id="触发器副本"><a href="#触发器副本" class="headerlink" title="触发器副本"></a>触发器副本</h3><p>如果你想在应用层面手动控制副本(只复制某些数据)，需要用到<em>触发器</em>和<em>存储过程</em>。</p>
+<h2 id="副本延迟的问题"><a href="#副本延迟的问题" class="headerlink" title="副本延迟的问题"></a>副本延迟的问题</h2><p>单主多从结构只适用<em>异步复制</em>。但<em>异步复制</em>的问题是：在某些时候，某些从节点的数据和主节点不一致(你懂的)。等一段时间后，这些从节点上的数据最后会追加回来和主节点保持一致。这个问题被称为数据的<em>最终一致性</em>。</p>
+<p>从节点最终追加回来的时间被称为<em>复制延迟</em>。复制延迟可能会带来下面这些问题。</p>
+<h3 id="只读自己写的数据"><a href="#只读自己写的数据" class="headerlink" title="只读自己写的数据"></a>只读自己写的数据</h3><p>当被写的数据需要立马被读的时候，需要<em>写后读一致性</em>，也称为<em>读你自己写的数据一致性</em>。有几种方式可以实现这种一致性：</p>
+<ul>
+<li>这种场景的数据从主节点读，其他数据从从节点读。前提是需要对业务了如指掌。</li>
+<li>当大部分数据都需要满足<em>写后读一致性</em>时，不能全部从主节点读，需要更复杂的机制保证从从节点读数据而不遗漏；</li>
+<li>由客户端记住数据最近一次被写的时间戳，根据这个时间戳来决定从库里的数据是否可用。问题是<em>时间戳</em>的同步问题。</li>
+<li>如果是<strong>多数据中心</strong>架构，如果一个查询需要主节点参与，那么这个查询必须要路由到包含主节点的数据中心，这会带来额外的复杂度。</li>
+</ul>
+<h3 id="单调读"><a href="#单调读" class="headerlink" title="单调读"></a>单调读</h3><p>哈哈哈，有时会出现时光倒流的效果：第一次读到一个延时比较小的副本，第二次读到一个延时比较长的副本：<strong>时光倒流了</strong>！</p>
+<p><strong>单调读(monotonic reads)</strong>就是为了保证这种情况不会发生而存在的。</p>
+<p>一种实现<em>单调读</em>的办法是：保证同一个用户只读同一个副本。</p>
+<h3 id="一致性前缀读"><a href="#一致性前缀读" class="headerlink" title="一致性前缀读"></a>一致性前缀读</h3><p><strong>如果一连串的写操作以某个固定的顺序发生，那么读这些顺序化的数据必须以同样的顺序出现。</strong></p>
+<p>在 <strong>分 Shard 的数据库架构</strong>中，要保证这个非常困难。</p>
+<p>一种解决办法是在分区的时候，手动控制和这个需求相关的数据都放在同一个分区。</p>
+<h3 id="解决副本延迟的方法"><a href="#解决副本延迟的方法" class="headerlink" title="解决副本延迟的方法"></a>解决副本延迟的方法</h3><ol>
+<li>看需求。看是否有这方面的需求。</li>
+<li>事务。分布式系统中的事务是个复杂的话题；以后会讲。</li>
+</ol>
+<p>(TO BE CONTINUED…)</p>
+
+      
+    </div>
+
+    
+      
+      
+
+
+
+      
+      
+    
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/读书笔记/">读书笔记</a>
+            
+              <a href="/tags/设计数据密集型应用/">设计数据密集型应用</a>
+            
+              <a href="/tags/数据/">数据</a>
+            
+          </div>
+        
+        
+        
+  <nav class="post-nav">
+    
+    
+      <a class="next" href="/2018/10/29/野猪书读书笔记第五章/">
+        <span class="next-text nav-default">野猪书读书笔记第五章</span>
+        <span class="prev-text nav-mobile">下一篇</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+
+      </footer>
+    
+
+  </article>
+
+
+          </div>
+          
+  <div class="comments" id="comments">
+    
+      <div id="vcomments"></div>
+    
+  </div>
+
+
+        </div>
+      </main>
+
+      <footer id="footer" class="footer">
+
+  <div class="social-links">
+    
+      
+        
+          <a href="mailto:pengye91@gmail.com" class="iconfont icon-email" title="email"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        
+          <a href="https://github.com/pengye91" class="iconfont icon-github" title="github"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+
+    
+      
+      <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    
+  </div>
+
+
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://hexo.io/">Hexo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">
+    
+    &copy; 
+    
+    2018
+
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">xyp</span>
+  </span>
+</div>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+
+    
+  
+  
+<!-- valine Comments -->
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//cdn.jsdelivr.net/gh/xcss/valine@v1.3.3/dist/Valine.min.js"></script>
+<script type="text/javascript">
+    new Valine({
+        el: '#vcomments',
+        notify: false,
+        verify: false,
+        visitor: true,
+        app_id: "xeDhasO1xV7F1SpCG0oRuiol-gzGzoHsz",
+        app_key: "wgFvo2YMOmn0Qcv7YPFxtePy",
+        placeholder: "在此评论......",
+        avatar: 'identicon'
+    });
+</script>
+
+
+  
+
+  
+
+
+
+    
+  
+
+
+
+  
+  
+
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/pjax/jquery.pjax.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/nprogress/nprogress.min.js"></script>
+  
+
+
+    <script type="text/javascript" src="/js/src/even.js?v=2.10.1"></script>
+
+  </body>
+</html>
