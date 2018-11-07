@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+
+  <meta name="description" content="野猪书读书笔记第五章(续2)"/>
+
+
+
+
+  <meta name="keywords" content="读书笔记, 设计数据密集型应用, 数据, Lingering Fragments" />
+
+
+
+
+
+
+
+
+
+
+  <link rel="alternate" href="/default" title="Lingering Fragments">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.10.1" />
+
+
+
+<link rel="canonical" href="https://pengye91.github.io/2018/11/04/野猪书读书笔记第五章2/"/>
+
+
+
+  <link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/lib/nprogress/nprogress.min.css" />
+
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.10.1" />
+
+
+
+  
+
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-127442719-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-127442719-1');
+</script>
+
+
+  <script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+
+
+
+
+
+<script>
+  window.config = {"title":"Lingering Fragments","subtitle":"一些想法和总结","description":null,"author":"xyp","language":"zh-CN","timezone":"Asia/Shanghai","url":"https://pengye91.github.io","root":"/","permalink":":year/:month/:day/:title/","permalink_defaults":null,"source_dir":"source","public_dir":"public","tag_dir":"tags","archive_dir":"archives","category_dir":"categories","code_dir":"downloads/code","i18n_dir":":lang","skip_render":null,"new_post_name":":title.md","default_layout":"post","titlecase":false,"external_link":true,"filename_case":0,"render_drafts":false,"post_asset_folder":false,"relative_link":false,"future":true,"highlight":{"enable":true,"auto_detect":false,"line_number":true,"tab_replace":null},"default_category":"uncategorized","category_map":null,"tag_map":null,"date_format":"YYYY-MM-DD","time_format":"HH:mm:ss","per_page":10,"pagination_dir":"page","theme":"even","deploy":{"type":"git","repo":"https://github.com/pengye91/pengye91.github.io.git","branch":"master"},"ignore":[],"keywords":null,"index_generator":{"per_page":10,"order_by":"-date","path":""},"sitemap":{"path":"sitemap.xml"},"baidusitemap":{"path":"baidusitemap.xml"},"archive_generator":{"per_page":10,"yearly":true,"monthly":true,"daily":false},"category_generator":{"per_page":10},"tag_generator":{"per_page":10},"marked":{"gfm":true,"pedantic":false,"sanitize":false,"tables":true,"breaks":true,"smartLists":true,"smartypants":true,"modifyAnchors":"","autolink":true},"server":{"port":4000,"log":false,"compress":false,"header":true},"since":2018,"favicon":"/favicon.ico","rss":"default","menu":{"Home":"/","Archives":"/archives/","Tags":"/tags","Categories":"/categories","About":"/about"},"color":"cobalt blue","mode":"default","toc":true,"fancybox":true,"pjax":true,"copyright":{"enable":false,"license":"<a rel=\"license\" href=\"http://creativecommons.org/licenses/by-nc/4.0/\" target=\"_blank\">知识共享署名-非商业性使用 4.0 国际许可协议</a>"},"reward":{"enable":false,"qrCode":{"wechat":null,"alipay":null}},"social":{"email":"pengye91@gmail.com","stack-overflow":null,"twitter":null,"facebook":null,"linkedin":null,"google":null,"github":"https://github.com/pengye91","weibo":null,"zhihu":null,"douban":null,"pocket":null,"tumblr":null,"instagram":null},"leancloud":{"app_id":null,"app_key":null},"baidu_analytics":null,"baidu_verification":null,"google_analytics":"UA-127442719-1","google_verification":null,"disqus_shortname":null,"valine":{"appid":"xeDhasO1xV7F1SpCG0oRuiol-gzGzoHsz","appkey":"wgFvo2YMOmn0Qcv7YPFxtePy","notify":false,"verify":false,"avatar":"identicon","visitor":true,"placeholder":"在此评论......"},"changyan":{"appid":null,"appkey":null},"livere_datauid":null,"version":"2.10.1"};
+</script>
+
+    <title> 野猪书读书笔记第五章(续2) - Lingering Fragments </title>
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">Lingering Fragments</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    
+      <a href="/">
+        <li class="mobile-menu-item">
+          
+          
+            首页
+          
+        </li>
+      </a>
+    
+      <a href="/archives/">
+        <li class="mobile-menu-item">
+          
+          
+            归档
+          
+        </li>
+      </a>
+    
+      <a href="/tags">
+        <li class="mobile-menu-item">
+          
+          
+            标签
+          
+        </li>
+      </a>
+    
+      <a href="/categories">
+        <li class="mobile-menu-item">
+          
+          
+            分类
+          
+        </li>
+      </a>
+    
+      <a href="/about">
+        <li class="mobile-menu-item">
+          
+          
+            关于
+          
+        </li>
+      </a>
+    
+  </ul>
+</nav>
+
+    <div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">Lingering Fragments</a>
+</div>
+
+<nav class="site-navbar">
+  
+    <ul id="menu" class="menu">
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/">
+            
+            
+              首页
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            
+            
+              归档
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/tags">
+            
+            
+              标签
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/categories">
+            
+            
+              分类
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/about">
+            
+            
+              关于
+            
+          </a>
+        </li>
+      
+    </ul>
+  
+</nav>
+
+      </header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content">
+            
+  
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          野猪书读书笔记第五章(续2)
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2018-11-04
+        </span>
+        
+          <span class="post-category">
+            
+              <a href="/categories/读书笔记/">读书笔记</a>
+            
+              <a href="/categories/读书笔记/设计数据密集型应用/">设计数据密集型应用</a>
+            
+              <a href="/categories/读书笔记/设计数据密集型应用/数据/">数据</a>
+            
+          </span>
+        
+        
+      </div>
+    </header>
+
+    
+    
+  <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#主主备份的使用场景"><span class="toc-text">主主备份的使用场景</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#多数据中心操作"><span class="toc-text">多数据中心操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#离线操作客户端"><span class="toc-text">离线操作客户端</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#协作编辑"><span class="toc-text">协作编辑</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#处理写冲突"><span class="toc-text">处理写冲突</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#冲突避免"><span class="toc-text">冲突避免</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#收敛一致性状态"><span class="toc-text">收敛一致性状态</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#自定义冲突解决逻辑"><span class="toc-text">自定义冲突解决逻辑</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#自动冲突解决方案："><span class="toc-text">自动冲突解决方案：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#多主节点副本拓扑结构"><span class="toc-text">多主节点副本拓扑结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#无主副本"><span class="toc-text">无主副本</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#当有一个节点不可用时向数据库写数据"><span class="toc-text">当有一个节点不可用时向数据库写数据</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#读修复和反熵-anti-entropy"><span class="toc-text">读修复和反熵(anti-entropy)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#读和写的规定数量-Quorums"><span class="toc-text">读和写的规定数量(Quorums)</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#法定数量一致性的局限"><span class="toc-text">法定数量一致性的局限</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#过时监测"><span class="toc-text">过时监测</span></a></li></ol></li></ol></li></ol>
+    </div>
+  </div>
+
+
+
+    <div class="post-content">
+      
+        <p><center><img src="/images/designing-data-intensive-applications.png" alt=""></center>!</p>
+<p><strong>多主节点备份</strong></p>
+<p>使用单主节点有一个天然的缺陷：当主节点不可用时，就瘫痪了。</p>
+<p>所以有了<em>多主节点</em>的模型：<strong>每个主节点都要将数据变化的过程告诉其他所有节点(包括其他主节点)</strong>。</p>
+<a id="more"></a>
+<h2 id="主主备份的使用场景"><a href="#主主备份的使用场景" class="headerlink" title="主主备份的使用场景"></a>主主备份的使用场景</h2><p><strong>主主备份</strong>通常用在多数据中心的场景。</p>
+<h3 id="多数据中心操作"><a href="#多数据中心操作" class="headerlink" title="多数据中心操作"></a>多数据中心操作</h3><p>在多数据中心场景下，如果只有一个主节点，那么所有的写操作都会路由到主节点所在的数据中心。这显然不合理。</p>
+<p>在 <em>主主备份</em> 模型下，每个数据中心都有一个主节点。如下图所示：</p>
+<p><center><img src="/images/master-master.png" alt=""></center>!</p>
+<p>在每个数据中心中，使用的是常规的 <em>主从模型</em>，数据中心之间通过主节点复制数据。</p>
+<p>在读数据中心的场景下，<em>主从 vs. 主主</em>：</p>
+<ul>
+<li>性能<br>主从模型中，选择主节点的路由时间会严重影响性能。而主主模型对用户的平均时间更短。</li>
+<li>崩溃恢复<br>主从模型中：主节点崩溃后从节点会被选举违心的主节点；主主模型中：一样的。</li>
+<li>网络问题恢复<br>主从模型：强烈依赖内网的可靠性；主主模型：对公网的崩溃容忍性更强。</li>
+</ul>
+<p>如上图所示，主主模型中有一个大问题：<em>多个主节点的同一份数据被同时修改了</em>，也就是途中的<em>conflict resolution</em>。</p>
+<p>主主备份通常来说存在很多危险的问题：自增主键，触发器，数据完备性等，所以轻易不要用。</p>
+<h3 id="离线操作客户端"><a href="#离线操作客户端" class="headerlink" title="离线操作客户端"></a>离线操作客户端</h3><p>当数据中心之间的数据是离线的时候，或者说副本延迟不那么敏感的时候。多客户端的数据同步就是用的主主模型。</p>
+<h3 id="协作编辑"><a href="#协作编辑" class="headerlink" title="协作编辑"></a>协作编辑</h3><p>和离线客户端类似，是多写的场景，区别是对实时性有要求。某个用户的修改会立即异步地在 Server 和其他客户端上修改。</p>
+<p>这种情况对冲突处理要求很高。</p>
+<h2 id="处理写冲突"><a href="#处理写冲突" class="headerlink" title="处理写冲突"></a>处理写冲突</h2><p>主主备份中最麻烦的就是<strong>冲突处理</strong>。</p>
+<p>如下图所示:</p>
+<p><center><img src="/images/write-conflict.png" alt=""></center>!</p>
+<h3 id="冲突避免"><a href="#冲突避免" class="headerlink" title="冲突避免"></a>冲突避免</h3><p>最简单的冲突处理方法是——<strong>避免冲突</strong>: 所有向同一份记录的写操作都经由一个主节点，冲突自然就避免了。</p>
+<p>但是总不能一直不处理吧。</p>
+<h3 id="收敛一致性状态"><a href="#收敛一致性状态" class="headerlink" title="收敛一致性状态"></a>收敛一致性状态</h3><p>单主节点的写操作的序列的：最后一个写操作决定了某个记录的最终值。</p>
+<p>多主节点的写操作没有绝对的顺序。</p>
+<p>系统必须保证每个副本上的数据的最终一致性。</p>
+<p>因此，数据库必须以一种 <em>收敛</em> 的方式保证数据在所有副本的最终一致。</p>
+<p>有几种收敛冲突解决的办法：</p>
+<ul>
+<li>给每个写操作一个唯一的 ID （UUID 之类的）。只保留最后一个写。但是有很大的风险会丢失数据；</li>
+<li>用某种手段把写的值合并到一起：比如直接拼接在一起。</li>
+<li>把所有的冲突都显示地保留下来，让用户自己解决。</li>
+</ul>
+<h3 id="自定义冲突解决逻辑"><a href="#自定义冲突解决逻辑" class="headerlink" title="自定义冲突解决逻辑"></a>自定义冲突解决逻辑</h3><p>在应用代码中自定义解决冲突的办法：</p>
+<ul>
+<li><p>写时解决<br>数据库一旦检测到不同副本之间有冲突，就在后台中立立即调用冲突解决方法解决掉了；用户无感知；</p>
+</li>
+<li><p>读时解决<br>有冲突时，全部记录下来，读的时候再自动解决冲突或者让用户解决。</p>
+</li>
+</ul>
+<h3 id="自动冲突解决方案："><a href="#自动冲突解决方案：" class="headerlink" title="自动冲突解决方案："></a>自动冲突解决方案：</h3><p>直接上图吧，不想翻译了。</p>
+<p><center><img src="/images/auto-conflict-resolution.png" alt=""></center>!</p>
+<h2 id="多主节点副本拓扑结构"><a href="#多主节点副本拓扑结构" class="headerlink" title="多主节点副本拓扑结构"></a>多主节点副本拓扑结构</h2><p><strong>副本拓扑</strong>是多个主节点通信的路径的结构。</p>
+<p><center><img src="/images/multi-leader-topologies.png" alt=""></center>!</p>
+<p>如上图所示，最常见的拓扑结构是 c <em>all-to-all</em>。</p>
+<p>环形拓扑和星形拓扑的每个节点使用唯一的标示来表明自己以避免重复写入。这种结构有这个缺陷：单点错误(不用多说了吧)。<em>All-to-all</em>结构可以避免这个，但是它有其他的问题：</p>
+<p><center><img src="/images/all-to-all-overtake.png" alt=""></center>!</p>
+<p>为了解决这个问题，一种叫做 <em>版本向量</em> 的技术被使用了。</p>
+<p>仔细阅读数据库文档！</p>
+<h2 id="无主副本"><a href="#无主副本" class="headerlink" title="无主副本"></a>无主副本</h2><p>Amazon 的 <strong>Dynamo</strong> 使用的是 <strong>无主副本</strong> 模式，<em>Riak</em>, <em>Cassandra</em> 也一样。</p>
+<p>两种大概的实现:</p>
+<ol>
+<li>客户端直接向多个副本写数据</li>
+<li>中间有一个协调器，协调器不强制顺序。</li>
+</ol>
+<h3 id="当有一个节点不可用时向数据库写数据"><a href="#当有一个节点不可用时向数据库写数据" class="headerlink" title="当有一个节点不可用时向数据库写数据"></a>当有一个节点不可用时向数据库写数据</h3><p>如图所示：</p>
+<p><center><img src="/images/leaderless-node-outage.png" alt=""></center>!</p>
+<p>图片表示得很明显了，当有两个 ok 时客户端就认为已经 ok 了，不理会没回复的 down 掉的节点。</p>
+<p>为了解决 down 掉的节点的过时数据问题，<strong>读请求也同时发给了多个副本</strong>。当得到的数据不一样时，使用类似 <em>版本</em> 的方法来解决冲突。</p>
+<h4 id="读修复和反熵-anti-entropy"><a href="#读修复和反熵-anti-entropy" class="headerlink" title="读修复和反熵(anti-entropy)"></a>读修复和反熵(anti-entropy)</h4><p>副本机制应该保证最终所有副本上的数据都一样，在<em>无主模型</em>的副本机制下，有两种方法：</p>
+<ul>
+<li><p><em>读修复(Read repair)</em><br>使用类似 <em>数据版本</em> 的方法，当检测到有过时数据时更新这个副本上的数据。<strong>这种方法适用于读频繁的场景</strong>。</p>
+</li>
+<li><p><em>反熵(anti-entropy)进程</em><br>一个后台进程持续地关注副本间的数据差并且不停地复制这些不同。和有主副本不同的是，<em>反熵进程</em>不以一定的顺序来复制数据，因此，也存在数据延迟的可能。</p>
+</li>
+</ul>
+<h4 id="读和写的规定数量-Quorums"><a href="#读和写的规定数量-Quorums" class="headerlink" title="读和写的规定数量(Quorums)"></a>读和写的规定数量(Quorums)</h4><p>假设有 n 个副本节点，当写入的时候要求至少有 w 个副本回复 ok，读的时候至少读 r 个节点，那么必须满足：</p>
+<pre><code>w + r &gt; n
+</code></pre><p>很明显，不再赘述。通常的配置是：</p>
+<pre><code>n 是一个奇数，w = r = (n+1)/2
+</code></pre><p>当然也可以变: 比如是读频繁的操作的话可以: <code>w=n, r=1</code>。</p>
+<h3 id="法定数量一致性的局限"><a href="#法定数量一致性的局限" class="headerlink" title="法定数量一致性的局限"></a>法定数量一致性的局限</h3><p>有很多情况会造成即使满足了上述公式也会返回过时数据的问题。</p>
+<h4 id="过时监测"><a href="#过时监测" class="headerlink" title="过时监测"></a>过时监测</h4><p>从运维角度来看，监测数据库是否返回过时数据是很重要的事情。</p>
+<p>在<em>有主副本</em>中，要监测副本数据的延迟量很容易，只需要用主节点的 log position - 副节点的 log Posion 就知道了每个副本节点的延迟量。</p>
+<p>在 <em>无主副本</em> 模式中，就不那么好办了，特别是如果这种模式只使用了 <em>读修复</em> 而没有 <em>反熵进程</em>。</p>
+<p>(TO BE CONTINUED…)</p>
+
+      
+    </div>
+
+    
+      
+      
+
+
+
+      
+      
+    
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/读书笔记/">读书笔记</a>
+            
+              <a href="/tags/设计数据密集型应用/">设计数据密集型应用</a>
+            
+              <a href="/tags/数据/">数据</a>
+            
+          </div>
+        
+        
+        
+  <nav class="post-nav">
+    
+    
+      <a class="next" href="/2018/10/30/野猪书读书笔记第五章1/">
+        <span class="next-text nav-default">野猪书读书笔记第五章(续1)</span>
+        <span class="prev-text nav-mobile">下一篇</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+
+      </footer>
+    
+
+  </article>
+
+
+          </div>
+          
+  <div class="comments" id="comments">
+    
+      <div id="vcomments"></div>
+    
+  </div>
+
+
+        </div>
+      </main>
+
+      <footer id="footer" class="footer">
+
+  <div class="social-links">
+    
+      
+        
+          <a href="mailto:pengye91@gmail.com" class="iconfont icon-email" title="email"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        
+          <a href="https://github.com/pengye91" class="iconfont icon-github" title="github"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+
+    
+      
+      <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    
+  </div>
+
+
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://hexo.io/">Hexo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">
+    
+    &copy; 
+    
+    2018
+
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">xyp</span>
+  </span>
+</div>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+
+    
+  
+  
+<!-- valine Comments -->
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//cdn.jsdelivr.net/gh/xcss/valine@v1.3.3/dist/Valine.min.js"></script>
+<script type="text/javascript">
+    new Valine({
+        el: '#vcomments',
+        notify: false,
+        verify: false,
+        visitor: true,
+        app_id: "xeDhasO1xV7F1SpCG0oRuiol-gzGzoHsz",
+        app_key: "wgFvo2YMOmn0Qcv7YPFxtePy",
+        placeholder: "在此评论......",
+        avatar: 'identicon'
+    });
+</script>
+
+
+  
+
+  
+
+
+
+    
+  
+
+
+
+  
+  
+
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/pjax/jquery.pjax.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/nprogress/nprogress.min.js"></script>
+  
+
+
+    <script type="text/javascript" src="/js/src/even.js?v=2.10.1"></script>
+
+  </body>
+</html>
