@@ -269,7 +269,8 @@
 
     <div class="post-content">
       
-        <p><center><img src="/images/designing-data-intensive-applications.png" alt=""></center>!</p>
+        <center><img src="/images/designing-data-intensive-applications.jpg" alt=""></center>
+
 <p><strong>多主节点备份</strong></p>
 <p>使用单主节点有一个天然的缺陷：当主节点不可用时，就瘫痪了。</p>
 <p>所以有了<em>多主节点</em>的模型：<strong>每个主节点都要将数据变化的过程告诉其他所有节点(包括其他主节点)</strong>。</p>
@@ -277,7 +278,8 @@
 <h2 id="主主备份的使用场景"><a href="#主主备份的使用场景" class="headerlink" title="主主备份的使用场景"></a>主主备份的使用场景</h2><p><strong>主主备份</strong>通常用在多数据中心的场景。</p>
 <h3 id="多数据中心操作"><a href="#多数据中心操作" class="headerlink" title="多数据中心操作"></a>多数据中心操作</h3><p>在多数据中心场景下，如果只有一个主节点，那么所有的写操作都会路由到主节点所在的数据中心。这显然不合理。</p>
 <p>在 <em>主主备份</em> 模型下，每个数据中心都有一个主节点。如下图所示：</p>
-<p><center><img src="/images/master-master.png" alt=""></center>!</p>
+<center><img src="/images/master-master.jpg" alt=""></center>
+
 <p>在每个数据中心中，使用的是常规的 <em>主从模型</em>，数据中心之间通过主节点复制数据。</p>
 <p>在读数据中心的场景下，<em>主从 vs. 主主</em>：</p>
 <ul>
@@ -292,7 +294,8 @@
 <p>这种情况对冲突处理要求很高。</p>
 <h2 id="处理写冲突"><a href="#处理写冲突" class="headerlink" title="处理写冲突"></a>处理写冲突</h2><p>主主备份中最麻烦的就是<strong>冲突处理</strong>。</p>
 <p>如下图所示:</p>
-<p><center><img src="/images/write-conflict.png" alt=""></center>!</p>
+<center><img src="/images/write-conflict.jpg" alt=""></center>
+
 <h3 id="冲突避免"><a href="#冲突避免" class="headerlink" title="冲突避免"></a>冲突避免</h3><p>最简单的冲突处理方法是——<strong>避免冲突</strong>: 所有向同一份记录的写操作都经由一个主节点，冲突自然就避免了。</p>
 <p>但是总不能一直不处理吧。</p>
 <h3 id="收敛一致性状态"><a href="#收敛一致性状态" class="headerlink" title="收敛一致性状态"></a>收敛一致性状态</h3><p>单主节点的写操作的序列的：最后一个写操作决定了某个记录的最终值。</p>
@@ -313,12 +316,15 @@
 </li>
 </ul>
 <h3 id="自动冲突解决方案："><a href="#自动冲突解决方案：" class="headerlink" title="自动冲突解决方案："></a>自动冲突解决方案：</h3><p>直接上图吧，不想翻译了。</p>
-<p><center><img src="/images/auto-conflict-resolution.png" alt=""></center>!</p>
+<center><img src="/images/auto-conflict-resolution.jpg" alt=""></center>
+
 <h2 id="多主节点副本拓扑结构"><a href="#多主节点副本拓扑结构" class="headerlink" title="多主节点副本拓扑结构"></a>多主节点副本拓扑结构</h2><p><strong>副本拓扑</strong>是多个主节点通信的路径的结构。</p>
-<p><center><img src="/images/multi-leader-topologies.png" alt=""></center>!</p>
+<center><img src="/images/multi-leader-topologies.jpg" alt=""></center>
+
 <p>如上图所示，最常见的拓扑结构是 c <em>all-to-all</em>。</p>
 <p>环形拓扑和星形拓扑的每个节点使用唯一的标示来表明自己以避免重复写入。这种结构有这个缺陷：单点错误(不用多说了吧)。<em>All-to-all</em>结构可以避免这个，但是它有其他的问题：</p>
-<p><center><img src="/images/all-to-all-overtake.png" alt=""></center>!</p>
+<center><img src="/images/all-to-all-overtake.jpg" alt=""></center>
+
 <p>为了解决这个问题，一种叫做 <em>版本向量</em> 的技术被使用了。</p>
 <p>仔细阅读数据库文档！</p>
 <h2 id="无主副本"><a href="#无主副本" class="headerlink" title="无主副本"></a>无主副本</h2><p>Amazon 的 <strong>Dynamo</strong> 使用的是 <strong>无主副本</strong> 模式，<em>Riak</em>, <em>Cassandra</em> 也一样。</p>
@@ -328,7 +334,8 @@
 <li>中间有一个协调器，协调器不强制顺序。</li>
 </ol>
 <h3 id="当有一个节点不可用时向数据库写数据"><a href="#当有一个节点不可用时向数据库写数据" class="headerlink" title="当有一个节点不可用时向数据库写数据"></a>当有一个节点不可用时向数据库写数据</h3><p>如图所示：</p>
-<p><center><img src="/images/leaderless-node-outage.png" alt=""></center>!</p>
+<center><img src="/images/leaderless-node-outage.jpg" alt=""></center>
+
 <p>图片表示得很明显了，当有两个 ok 时客户端就认为已经 ok 了，不理会没回复的 down 掉的节点。</p>
 <p>为了解决 down 掉的节点的过时数据问题，<strong>读请求也同时发给了多个副本</strong>。当得到的数据不一样时，使用类似 <em>版本</em> 的方法来解决冲突。</p>
 <h4 id="读修复和反熵-anti-entropy"><a href="#读修复和反熵-anti-entropy" class="headerlink" title="读修复和反熵(anti-entropy)"></a>读修复和反熵(anti-entropy)</h4><p>副本机制应该保证最终所有副本上的数据都一样，在<em>无主模型</em>的副本机制下，有两种方法：</p>
