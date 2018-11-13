@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+
+  <meta name="description" content="野猪书读书笔记第六章"/>
+
+
+
+
+  <meta name="keywords" content="读书笔记, 设计数据密集型应用, 数据, Lingering Fragments" />
+
+
+
+
+
+
+
+
+
+
+  <link rel="alternate" href="/default" title="Lingering Fragments">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.10.1" />
+
+
+
+<link rel="canonical" href="https://pengye91.github.io/2018/11/09/野猪书读书笔记第六章/"/>
+
+
+
+  <link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/lib/nprogress/nprogress.min.css" />
+
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.10.1" />
+
+
+
+  
+
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-127442719-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-127442719-1');
+</script>
+
+
+  <script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+
+
+
+
+
+<script>
+  window.config = {"title":"Lingering Fragments","subtitle":"一些想法和总结","description":null,"author":"xyp","language":"zh-CN","timezone":"Asia/Shanghai","url":"https://pengye91.github.io","root":"/","permalink":":year/:month/:day/:title/","permalink_defaults":null,"source_dir":"source","public_dir":"public","tag_dir":"tags","archive_dir":"archives","category_dir":"categories","code_dir":"downloads/code","i18n_dir":":lang","skip_render":null,"new_post_name":":title.md","default_layout":"post","titlecase":false,"external_link":true,"filename_case":0,"render_drafts":false,"post_asset_folder":false,"relative_link":false,"future":true,"highlight":{"enable":true,"auto_detect":false,"line_number":true,"tab_replace":null,"first_line_number":"always1"},"default_category":"uncategorized","category_map":null,"tag_map":null,"date_format":"YYYY-MM-DD","time_format":"HH:mm:ss","per_page":10,"pagination_dir":"page","theme":"even","deploy":{"type":"git","repo":"https://github.com/pengye91/pengye91.github.io.git","branch":"master"},"ignore":[],"keywords":null,"index_generator":{"per_page":10,"order_by":"-date","path":""},"sitemap":{"path":"sitemap.xml"},"baidusitemap":{"path":"baidusitemap.xml"},"archive_generator":{"per_page":10,"yearly":true,"monthly":true,"daily":false},"category_generator":{"per_page":10},"tag_generator":{"per_page":10},"marked":{"gfm":true,"pedantic":false,"sanitize":false,"tables":true,"breaks":true,"smartLists":true,"smartypants":true,"modifyAnchors":"","autolink":true},"server":{"port":4000,"log":false,"compress":false,"header":true},"since":2018,"favicon":"/favicon.ico","rss":"default","menu":{"Home":"/","Archives":"/archives/","Tags":"/tags","Categories":"/categories","About":"/about"},"color":"cobalt blue","mode":"default","toc":true,"fancybox":true,"pjax":true,"copyright":{"enable":false,"license":"<a rel=\"license\" href=\"http://creativecommons.org/licenses/by-nc/4.0/\" target=\"_blank\">知识共享署名-非商业性使用 4.0 国际许可协议</a>"},"reward":{"enable":false,"qrCode":{"wechat":null,"alipay":null}},"social":{"email":"pengye91@gmail.com","stack-overflow":null,"twitter":null,"facebook":null,"linkedin":null,"google":null,"github":"https://github.com/pengye91","weibo":null,"zhihu":null,"douban":null,"pocket":null,"tumblr":null,"instagram":null},"leancloud":{"app_id":null,"app_key":null},"baidu_analytics":null,"baidu_verification":null,"google_analytics":"UA-127442719-1","google_verification":null,"disqus_shortname":null,"valine":{"appid":"xeDhasO1xV7F1SpCG0oRuiol-gzGzoHsz","appkey":"wgFvo2YMOmn0Qcv7YPFxtePy","notify":false,"verify":false,"avatar":"identicon","visitor":true,"placeholder":"在此评论......"},"changyan":{"appid":null,"appkey":null},"livere_datauid":null,"version":"2.10.1"};
+</script>
+
+    <title> 野猪书读书笔记第六章 - Lingering Fragments </title>
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">Lingering Fragments</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    
+      <a href="/">
+        <li class="mobile-menu-item">
+          
+          
+            首页
+          
+        </li>
+      </a>
+    
+      <a href="/archives/">
+        <li class="mobile-menu-item">
+          
+          
+            归档
+          
+        </li>
+      </a>
+    
+      <a href="/tags">
+        <li class="mobile-menu-item">
+          
+          
+            标签
+          
+        </li>
+      </a>
+    
+      <a href="/categories">
+        <li class="mobile-menu-item">
+          
+          
+            分类
+          
+        </li>
+      </a>
+    
+      <a href="/about">
+        <li class="mobile-menu-item">
+          
+          
+            关于
+          
+        </li>
+      </a>
+    
+  </ul>
+</nav>
+
+    <div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">Lingering Fragments</a>
+</div>
+
+<nav class="site-navbar">
+  
+    <ul id="menu" class="menu">
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/">
+            
+            
+              首页
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            
+            
+              归档
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/tags">
+            
+            
+              标签
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/categories">
+            
+            
+              分类
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/about">
+            
+            
+              关于
+            
+          </a>
+        </li>
+      
+    </ul>
+  
+</nav>
+
+      </header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content">
+            
+  
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          野猪书读书笔记第六章
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2018-11-09
+        </span>
+        
+          <span class="post-category">
+            
+              <a href="/categories/读书笔记/">读书笔记</a>
+            
+              <a href="/categories/读书笔记/设计数据密集型应用/">设计数据密集型应用</a>
+            
+              <a href="/categories/读书笔记/设计数据密集型应用/数据/">数据</a>
+            
+          </span>
+        
+        
+      </div>
+    </header>
+
+    
+    
+  <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#分区和副本"><span class="toc-text">分区和副本</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#键-值数据的分区"><span class="toc-text">键-值数据的分区</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#依据键的范围来分区"><span class="toc-text">依据键的范围来分区</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#依据键的哈希值来分区"><span class="toc-text">依据键的哈希值来分区</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#负载倾斜和热点缓和"><span class="toc-text">负载倾斜和热点缓和</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#分区和二级索引"><span class="toc-text">分区和二级索引</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#基于文档的二级索引分区"><span class="toc-text">基于文档的二级索引分区</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#基于术语的二级索引分区"><span class="toc-text">基于术语的二级索引分区</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#增加分区"><span class="toc-text">增加分区</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#分区数量固定"><span class="toc-text">分区数量固定</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#动态分区"><span class="toc-text">动态分区</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#按比例分配节点"><span class="toc-text">按比例分配节点</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#请求路由"><span class="toc-text">请求路由</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#并行查询执行"><span class="toc-text">并行查询执行</span></a></li></ol></li></ol>
+    </div>
+  </div>
+
+
+
+    <div class="post-content">
+      
+        <center><img src="/images/designing-data-intensive-applications.png" alt=""></center>
+
+<p><strong>分区(partitioning)</strong></p>
+<p>把一大堆数据分成一群小数据集放在不同的节点。</p>
+<p>好处：<strong>扩展性</strong>，一次查询的负载分散在不同的节点上：每个节点分担一些子查询。</p>
+<a id="more"></a>
+<h2 id="分区和副本"><a href="#分区和副本" class="headerlink" title="分区和副本"></a>分区和副本</h2><p>分区和副本通常是一起出现的。通常来说，一个分区的数据通常有多个副本。</p>
+<p>有一种集群架构如下图所示：</p>
+<center><img src="/images/replication-and-partition.png" alt=""></center>
+
+
+<h2 id="键-值数据的分区"><a href="#键-值数据的分区" class="headerlink" title="键-值数据的分区"></a>键-值数据的分区</h2><p>分区的基本原则：把数据<strong>均匀地</strong>分布在不同的节点上。</p>
+<p><strong>数据倾斜</strong>: 某些分区的数据量或者查询量比其他分区多得多。</p>
+<p>数据量或者查询量高得不正常的分区叫做<strong>过热点</strong>。</p>
+<h3 id="依据键的范围来分区"><a href="#依据键的范围来分区" class="headerlink" title="依据键的范围来分区"></a>依据键的范围来分区</h3><p>一种分区方式是：<strong>每个分区存放一堆连续范围的键</strong>，就像百科全书一样。</p>
+<p>这种方式的重点：<strong>连续键的边界</strong>。</p>
+<p>分区的边界可以由管理人员手动选择，也可以由数据库自动选择。</p>
+<p>在每个分区内，所有的键可以按序存储：范围查询变得容易。缺点是：负载不均衡。</p>
+<h3 id="依据键的哈希值来分区"><a href="#依据键的哈希值来分区" class="headerlink" title="依据键的哈希值来分区"></a>依据键的哈希值来分区</h3><p>如图所示：</p>
+<center><img src="/images/partitioning-by-hash.png" alt=""></center>
+
+<p>好处：<strong>实在是很均匀</strong>。</p>
+<p>分区的边界可以是均匀分割的，也可以是随机决定的(这种情况就是<strong>哈希一致性</strong>)。</p>
+<p>有一个槽点：</p>
+<center><img src="/images/consistent-hash.png" alt=""></center>
+
+<p>坏处：<strong>范围查询不好做</strong></p>
+<p>在 MongoDB 中，如果开启了 <em>哈希分片模式</em>，那么<strong>任何的范围查询将会被发送到所有的分区</strong>。<br>在 Cassandra 中，一种中和的方式：<br>每个表中声明一种有多列组合成的 <em>Compound primary key</em>，其中第一列用于被哈希以决定数据被放在哪个分区，其他列用于构建排序的索引。因此，不能通过第一列来做范围查询，但是当知道第一列的值之后，再在其他列上做范围查询将非常有效率。</p>
+<h3 id="负载倾斜和热点缓和"><a href="#负载倾斜和热点缓和" class="headerlink" title="负载倾斜和热点缓和"></a>负载倾斜和热点缓和</h3><p>哈希分区也有<strong>极端情况</strong>：当读写都是对同一个 Key 时，仍然有负载倾斜的情况。</p>
+<p>这种情况也不是那么不常见: 比如 <strong>Twitter</strong> 的名人。这些名人对应的读写量非常大。而对这些 User 的 ID 的哈希没有负载均衡的意义。</p>
+<p>一种解决办法是： 在写的时候，在这些热点 ID 前随机加上一个数字，这可以把写操作分散到 10 个节点上。但带来的问题是：读操作变得麻烦，因为需要读 10 个节点然后把数据集合到一起。</p>
+<p>考虑到性能和数据量，决定权在你手上。</p>
+<h2 id="分区和二级索引"><a href="#分区和二级索引" class="headerlink" title="分区和二级索引"></a>分区和二级索引</h2><p><strong>二级索引</strong> 通常作为一种搜索某个特定值的出现的方法。二级索引是关系型数据库的基础，在 NoSQL 数据库中也很常见。但是，在 <strong>Key-Value</strong> 型的数据库中不是很受欢迎，因为带来了复杂度。</p>
+<p>另外，二级索引是搜索引擎的存在的原因。</p>
+<p>二级索引的问题是它们不能<strong>整齐地映射到分区</strong>。<br>使用二级索引对数据库进行分区有两种主要方法：<strong>基于文档</strong>的分区和<strong>基于术语</strong>的分区</p>
+<h3 id="基于文档的二级索引分区"><a href="#基于文档的二级索引分区" class="headerlink" title="基于文档的二级索引分区"></a>基于文档的二级索引分区</h3><center><img src="/images/secondary-index-partition-by-doc.png" alt=""></center>
+
+<p>这种分区方法中，每个分区只维护属于自己的文档的索引。所有的写操作只在本分区进行，所以也称作 <strong>本地索引</strong>。</p>
+<p>但是读操作就比较麻烦，每个读操作都需要应用在每个分区 —&gt; 先找，然后合并。</p>
+<p>这种查询方式被称作 <strong>分散/聚集(scatter/gather)</strong>。虽然这种方式的读操作很昂贵，但大多数数据库都是采用的这种方式。</p>
+<h3 id="基于术语的二级索引分区"><a href="#基于术语的二级索引分区" class="headerlink" title="基于术语的二级索引分区"></a>基于术语的二级索引分区</h3><center><img src="/images/secondary-index-partition-by-term.png" alt=""></center>
+
+<p>相对应的，构建一个包含所有分区数据的二级索引被称作 <strong>全局索引</strong>。但是全局索引也必须要分区存放在不同的节点上，不然就会成为瓶颈。</p>
+<p>如图所示，字母以 a ~ r 开头的颜色被放在第 0 个分区，s ~ z 的被放在 1 分区。</p>
+<p>这种对二级索引的分区方式称作 <strong>基于术语分区</strong>。在图中，<em>color:red</em>就是术语。</p>
+<p>这种方式的好处是对与读操作而言效率变高了:只需要读一个分区就好了。<br>但是对写操作变复杂了，有可能只改变了一个文档的情况下会更改多个索引分区。</p>
+<p>另外，全局索引的同步机制是异步的：<strong>文档的更新不会实时反应在索引上</strong>，数据的一致性也一样。</p>
+<h2 id="增加分区"><a href="#增加分区" class="headerlink" title="增加分区"></a>增加分区</h2><p>出于对性能和容量的考虑，分区扩展是常有的是。</p>
+<p>几点要求：</p>
+<ul>
+<li>分区增加后，各方面的负载(存储，读，写)都应该均匀。</li>
+<li>增加的过程中不能停服；</li>
+<li>在增加分区的过程中只移动需要移动的数据。</li>
+</ul>
+<p>为了以后扩展考虑，<strong>不要用 hash mod N 的方式来分区</strong>，因为当 N 增加的时候，数据的转移非常昂贵。</p>
+<h3 id="分区数量固定"><a href="#分区数量固定" class="headerlink" title="分区数量固定"></a>分区数量固定</h3><center><img src="/images/fixed-partition-number.png" alt=""></center>
+
+<p>如图所示: <strong>定义分区数量远远大于节点数量</strong></p>
+<p>很骚的操作。</p>
+<p>这种方式下，分区数量一般来说是固定的。选择好的分区数量是个技术活，你懂的，不多说.</p>
+<h3 id="动态分区"><a href="#动态分区" class="headerlink" title="动态分区"></a>动态分区</h3><p>当一个分区里数据量过大时，这个分区自动变成了两个；相反的，当一个分区的数据量太少了，会自动合并。<br>这个行为和 <strong>B 树</strong> 很类似。</p>
+<p>HBase 这种 <em>key range-partitioned</em> 数据库就是使用动态分区。</p>
+<p>和 <strong>固定数量分区</strong> 类似，每个节点有多个分区，当一个分区变成两个时，其中一个会跑到另一个节点上，从而均衡负载。在 HBase 中，这是通过 HDFS 来实现的。</p>
+<p>动态分区好处多多，不用赘述。</p>
+<h3 id="按比例分配节点"><a href="#按比例分配节点" class="headerlink" title="按比例分配节点"></a>按比例分配节点</h3><p>还有一种分区方式：<strong>每个节点的分区数量相同</strong>。</p>
+<p>当有新节点加入集群时，随机挑选固定个数的分区做分裂，然后分给新的节点。</p>
+<p>随机二字不简单。。。</p>
+<h2 id="请求路由"><a href="#请求路由" class="headerlink" title="请求路由"></a>请求路由</h2><p>又被称作 <strong>服务发现</strong>。</p>
+<p>有几种方式可以解决这个问题:</p>
+<center><img src="/images/request-route.png" alt=""></center>
+
+<p>关键问题：<strong>节点或者数据有更新该怎么办</strong></p>
+<p>有很多分布式数据系统都<strong>依赖一个单独的协作服务</strong>，比如 ZooKeeper 来跟踪数据集群的元信息。</p>
+<center><img src="/images/zookeeper-keep-track-partitions.png" alt=""></center>
+
+<p>routing tier 可以向 ZK 订阅相关的信息，当 ZK 中相关的信息有改动时会告知它。</p>
+<p>另外也有 <strong>gossip protocol</strong>的实现，就像上面图中的方式一样，这种方式在节点中增加了复杂度，但是不必依赖第三方的服务。</p>
+<h3 id="并行查询执行"><a href="#并行查询执行" class="headerlink" title="并行查询执行"></a>并行查询执行</h3><p><strong>大规模并行处理 MPP(massively parallel processing)</strong>关系型数据库通常会处理非常复杂的查询。MPP 查询优化器会把这种大的复杂查询分成好几个阶段和分区，然后把它们并行地放在多个节点上执行。</p>
+<p>第六章就到这儿啦，啦啦啦啦啦啦</p>
+
+      
+    </div>
+
+    
+      
+      
+
+
+
+      
+      
+    
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/读书笔记/">读书笔记</a>
+            
+              <a href="/tags/设计数据密集型应用/">设计数据密集型应用</a>
+            
+              <a href="/tags/数据/">数据</a>
+            
+          </div>
+        
+        
+        
+  <nav class="post-nav">
+    
+    
+      <a class="next" href="/2018/11/08/野猪书读书笔记第五章3/">
+        <span class="next-text nav-default">野猪书读书笔记第五章(续3)</span>
+        <span class="prev-text nav-mobile">下一篇</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+
+      </footer>
+    
+
+  </article>
+
+
+          </div>
+          
+  <div class="comments" id="comments">
+    
+      <div id="vcomments"></div>
+    
+  </div>
+
+
+        </div>
+      </main>
+
+      <footer id="footer" class="footer">
+
+  <div class="social-links">
+    
+      
+        
+          <a href="mailto:pengye91@gmail.com" class="iconfont icon-email" title="email"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        
+          <a href="https://github.com/pengye91" class="iconfont icon-github" title="github"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+
+    
+      
+      <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    
+  </div>
+
+
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://hexo.io/">Hexo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">
+    
+    &copy; 
+    
+    2018
+
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">xyp</span>
+  </span>
+</div>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+
+    
+  
+  
+<!-- valine Comments -->
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//cdn.jsdelivr.net/gh/xcss/valine@v1.3.3/dist/Valine.min.js"></script>
+<script type="text/javascript">
+    new Valine({
+        el: '#vcomments',
+        notify: false,
+        verify: false,
+        visitor: true,
+        app_id: "xeDhasO1xV7F1SpCG0oRuiol-gzGzoHsz",
+        app_key: "wgFvo2YMOmn0Qcv7YPFxtePy",
+        placeholder: "在此评论......",
+        avatar: 'identicon'
+    });
+</script>
+
+
+  
+
+  
+
+
+
+    
+  
+
+
+
+  
+  
+
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/pjax/jquery.pjax.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/nprogress/nprogress.min.js"></script>
+  
+
+
+    <script type="text/javascript" src="/js/src/even.js?v=2.10.1"></script>
+
+  </body>
+</html>

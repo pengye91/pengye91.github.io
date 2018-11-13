@@ -233,6 +233,65 @@
     <header class="post-header">
       <h1 class="post-title">
         
+          <a class="post-link" href="/2018/11/09/野猪书读书笔记第六章/">野猪书读书笔记第六章</a>
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2018-11-09
+        </span>
+        
+          <span class="post-category">
+            
+              <a href="/categories/读书笔记/">读书笔记</a>
+            
+              <a href="/categories/读书笔记/设计数据密集型应用/">设计数据密集型应用</a>
+            
+              <a href="/categories/读书笔记/设计数据密集型应用/数据/">数据</a>
+            
+          </span>
+        
+        
+      </div>
+    </header>
+
+    
+    
+
+
+    <div class="post-content">
+      
+        
+        
+          
+        
+
+        
+          <center><img src="/images/designing-data-intensive-applications.png" alt=""></center>
+
+<p><strong>分区(partitioning)</strong></p>
+<p>把一大堆数据分成一群小数据集放在不同的节点。</p>
+<p>好处：<strong>扩展性</strong>，一次查询的负载分散在不同的节点上：每个节点分担一些子查询。</p>
+          <div class="read-more">
+            <a href="/2018/11/09/野猪书读书笔记第六章/" class="read-more-link">阅读更多</a>
+          </div>
+        
+      
+    </div>
+
+    
+
+    
+
+  </article>
+
+      
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
           <a class="post-link" href="/2018/11/08/野猪书读书笔记第五章3/">野猪书读书笔记第五章(续3)</a>
         
       </h1>
@@ -811,62 +870,6 @@
 <p>作为开发人员，我们需要选择合适自己应用的存储系统，为了做好性能调优，我们需要知道存储引擎底层做了啥。</p>
           <div class="read-more">
             <a href="/2018/10/18/野猪书读书笔记第三章/" class="read-more-link">阅读更多</a>
-          </div>
-        
-      
-    </div>
-
-    
-
-    
-
-  </article>
-
-      
-        
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          <a class="post-link" href="/2018/10/16/构建数据仓库概念和工具一/">构建数据仓库概念和工具一</a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2018-10-16
-        </span>
-        
-          <span class="post-category">
-            
-              <a href="/categories/数据仓库/">数据仓库</a>
-            
-              <a href="/categories/数据仓库/数据处理/">数据处理</a>
-            
-          </span>
-        
-        
-      </div>
-    </header>
-
-    
-    
-
-
-    <div class="post-content">
-      
-        
-        
-          
-        
-
-        
-          <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>数据应用种的查询大致分为<strong>「即席查询 (Ad Hoc)」</strong>和<strong>「定制查询」</strong>两种。</p>
-<p>之前出现的很多 <strong>OLAP 引擎</strong>，包括 Hive, Presto, SpqrkSQL 等，都只适用于即席查询的场景。它们的优点是查询灵活，可以根据企业需要的业务场景自定义维度和指标。但是随着数据量和计算复杂度的增长，响应时间不能得到保证。</p>
-<p>在很长一段时间内，企业只能对数据仓库中的数据进行提前计算，再将计算好的结果存储在 MySQL 等 RMDBS 中，再提供给用户进行查询。然而，当业务复杂度和数据量逐渐升高后，使用这套方案的开发成本和维护成本都显著上升。</p>
-<p>因此，如何对已经固化下来的查询进行压秒级返回一直是企业数据应用中的一个痛点。</p>
-          <div class="read-more">
-            <a href="/2018/10/16/构建数据仓库概念和工具一/" class="read-more-link">阅读更多</a>
           </div>
         
       
