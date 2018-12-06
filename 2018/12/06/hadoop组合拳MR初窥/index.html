@@ -17,12 +17,12 @@
 
 
 
-  <meta name="description" content="Spark 集群相关概念"/>
+  <meta name="description" content="hadoop组合拳MR初窥"/>
 
 
 
 
-  <meta name="keywords" content="spark, 集群, Lingering Fragments" />
+  <meta name="keywords" content="Hadoop, MapReduce, 组合拳, Lingering Fragments" />
 
 
 
@@ -42,7 +42,7 @@
 
 
 
-<link rel="canonical" href="https://pengye91.github.io/2018/11/24/在集群上运行Spark/"/>
+<link rel="canonical" href="https://pengye91.github.io/2018/12/06/hadoop组合拳MR初窥/"/>
 
 
 
@@ -99,7 +99,7 @@
   window.config = {"title":"Lingering Fragments","subtitle":"一些想法和总结","description":null,"author":"xyp","language":"zh-CN","timezone":"Asia/Shanghai","url":"https://pengye91.github.io","root":"/","permalink":":year/:month/:day/:title/","permalink_defaults":null,"source_dir":"source","public_dir":"public","tag_dir":"tags","archive_dir":"archives","category_dir":"categories","code_dir":"downloads/code","i18n_dir":":lang","skip_render":null,"new_post_name":":title.md","default_layout":"post","titlecase":false,"external_link":true,"filename_case":0,"render_drafts":false,"post_asset_folder":false,"relative_link":false,"future":true,"highlight":{"enable":true,"auto_detect":false,"line_number":true,"tab_replace":null,"first_line_number":"always1"},"default_category":"uncategorized","category_map":null,"tag_map":null,"date_format":"YYYY-MM-DD","time_format":"HH:mm:ss","per_page":10,"pagination_dir":"page","theme":"even","deploy":{"type":"git","repo":"https://github.com/pengye91/pengye91.github.io.git","branch":"master"},"ignore":[],"keywords":null,"index_generator":{"per_page":10,"order_by":"-date","path":""},"sitemap":{"path":"sitemap.xml"},"baidusitemap":{"path":"baidusitemap.xml"},"archive_generator":{"per_page":10,"yearly":true,"monthly":true,"daily":false},"category_generator":{"per_page":10},"tag_generator":{"per_page":10},"marked":{"gfm":true,"pedantic":false,"sanitize":false,"tables":true,"breaks":true,"smartLists":true,"smartypants":true,"modifyAnchors":"","autolink":true},"server":{"port":4000,"log":false,"compress":false,"header":true},"since":2018,"favicon":"/favicon.ico","rss":"default","menu":{"Home":"/","Archives":"/archives/","Tags":"/tags","Categories":"/categories","About":"/about"},"color":"cobalt blue","mode":"default","toc":true,"fancybox":true,"pjax":true,"copyright":{"enable":false,"license":"<a rel=\"license\" href=\"http://creativecommons.org/licenses/by-nc/4.0/\" target=\"_blank\">知识共享署名-非商业性使用 4.0 国际许可协议</a>"},"reward":{"enable":false,"qrCode":{"wechat":null,"alipay":null}},"social":{"email":"pengye91@gmail.com","stack-overflow":null,"twitter":null,"facebook":null,"linkedin":null,"google":null,"github":"https://github.com/pengye91","weibo":null,"zhihu":null,"douban":null,"pocket":null,"tumblr":null,"instagram":null},"leancloud":{"app_id":null,"app_key":null},"baidu_analytics":null,"baidu_verification":null,"google_analytics":"UA-127442719-1","google_verification":null,"disqus_shortname":null,"valine":{"appid":"xeDhasO1xV7F1SpCG0oRuiol-gzGzoHsz","appkey":"wgFvo2YMOmn0Qcv7YPFxtePy","notify":false,"verify":false,"avatar":"identicon","visitor":true,"placeholder":"在此评论......"},"changyan":{"appid":null,"appkey":null},"livere_datauid":null,"version":"2.10.1"};
 </script>
 
-    <title> Spark 集群相关概念 - Lingering Fragments </title>
+    <title> hadoop组合拳MR初窥 - Lingering Fragments </title>
   </head>
 
   <body><div id="mobile-navbar" class="mobile-navbar">
@@ -233,20 +233,22 @@
     <header class="post-header">
       <h1 class="post-title">
         
-          Spark 集群相关概念
+          hadoop组合拳MR初窥
         
       </h1>
 
       <div class="post-meta">
         <span class="post-time">
-          2018-11-24
+          2018-12-06
         </span>
         
           <span class="post-category">
             
-              <a href="/categories/spark/">spark</a>
+              <a href="/categories/Hadoop/">Hadoop</a>
             
-              <a href="/categories/spark/数据/">数据</a>
+              <a href="/categories/Hadoop/数据处理/">数据处理</a>
+            
+              <a href="/categories/Hadoop/数据处理/MapReduce/">MapReduce</a>
             
           </span>
         
@@ -259,7 +261,7 @@
   <div class="post-toc" id="post-toc">
     <h2 class="post-toc-title">文章目录</h2>
     <div class="post-toc-content">
-      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Spark-运行时架构"><span class="toc-text">Spark 运行时架构</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Driver"><span class="toc-text">Driver</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Executors"><span class="toc-text">Executors</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#集群管理器"><span class="toc-text">集群管理器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-text">总结</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#使用-spark-submit-部署应用"><span class="toc-text">使用 spark-submit 部署应用</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#一些小坑"><span class="toc-text">一些小坑</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#资源竞争"><span class="toc-text">资源竞争</span></a></li></ol></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一些基本概念"><span class="toc-text">一些基本概念</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#hadoop-命令"><span class="toc-text">hadoop 命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MapReduce-任务-log"><span class="toc-text">MapReduce 任务 log</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#在-HDFS-集群上执行-MapReduce-任务"><span class="toc-text">在 HDFS 集群上执行 MapReduce 任务</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#数据流"><span class="toc-text">数据流</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#结合函数"><span class="toc-text">结合函数</span></a></li></ol></li></ol>
     </div>
   </div>
 
@@ -267,59 +269,74 @@
 
     <div class="post-content">
       
-        <p>编写 Spark 程序的一大好处是: 如果想要提升计算力和效率，只需要增加机器就可以了。对用户来说，只需要先在本地或者小的集群上先测试，然后不需修改任何代码就可以在生产环境执行。</p>
-<a id="more"></a>
-<h1 id="Spark-运行时架构"><a href="#Spark-运行时架构" class="headerlink" title="Spark 运行时架构"></a>Spark 运行时架构</h1><center><img src="/images/spark/distributed-spark-app-components.png" alt=""></center>
+        <p>历史啊特点啊什么的就不说了，直接开搞！</p>
+<h2 id="一些基本概念"><a href="#一些基本概念" class="headerlink" title="一些基本概念"></a>一些基本概念</h2><p><strong>MapReduce</strong> 工作流的主要特点是：把整个处理数据的过程分成两个阶段：</p>
+<ul>
+<li>Map</li>
+<li>Reduce</li>
+</ul>
+<p>每个阶段都有由<strong>键值对</strong>组成的<strong>输入</strong>和<strong>输出</strong>：</p>
+<ul>
+<li><p>Map</p>
+<ul>
+<li>输入: 是原始数据, key 是每行数据起始值对于整个数据集所在的 offset，value 是每行的具体数据;</li>
+<li>输出: 关心的 key, 关心的 value，每个输入会有一个输出 键值对。</li>
+<li>处理: MapReduce 框架会根据上面的输入键值对的 key 聚合并排序。</li>
+</ul>
+</li>
+<li><p>Reduce</p>
+<ul>
+<li>输入: Map 阶段的<strong>处理</strong>后的键值对；</li>
+<li>输出: 真正想要的键值对。</li>
+</ul>
+</li>
+</ul>
+<p>一个简单的示例图:</p>
+<center><img src="./images/hadoop/map-reduce-logic.png" alt="map-reduce-logic"></center>
 
-<p>在分布式模式下，Spark 使用 master/slave 架构：<strong>中央调节器</strong>被称作 <strong>driver</strong>，<em>driver</em> 和分布式的 <em>worker</em> 通信并协调，这些 worker 被称作 <strong>executor</strong>。每个 <em>driver</em> 都在自己的 Java 进程中运行，而其他的 <em>executor</em> 分别运行在自己单独的 Java 进程中。一个 <em>driver</em> 和它所有的 <em>executor</em> 组成一个 <em>Spark 应用</em>。</p>
-<p>一个 Spark 应用通过一个外部的服务 — <em>集群管理器</em> — 在一群机器上启动。</p>
-<h2 id="Driver"><a href="#Driver" class="headerlink" title="Driver"></a>Driver</h2><p><strong>Driver</strong>是 Spark 程序中的 main() 方法运行所在的进程：driver 负责创建 SparkContext, 创建 RDD，并且负责执行 transformations 和 actions。当 driver 进程终止运行时，整个 spark 应用也结束了。</p>
-<p>driver 在整个生命周期有两个职责：</p>
+<h3 id="hadoop-命令"><a href="#hadoop-命令" class="headerlink" title="hadoop 命令"></a>hadoop 命令</h3><p>以下面的命令为例：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hadoop jar ch02-4.0.jar com.xieyuanpeng.hadoop.book.ch02.MaxTemp /user/xieyuanpeng/isd-lite/1996,/user/xieyuanpeng/isd-lite/1949,/user/xieyuanpeng/isd-lite/1948 /user/xieyuanpeng/book3</span><br></pre></td></tr></table></figure>
+<p>当 <code>hadoop</code> 命令和 jar 子命令使用时，会调用 JVM 来运行其后跟随的 <code>class</code>。</p>
+<p><code>hadoop</code> 命令会将 <code>Hadoop</code> 库以及其依赖加载进 <code>classpath</code>。</p>
+<h3 id="MapReduce-任务-log"><a href="#MapReduce-任务-log" class="headerlink" title="MapReduce 任务 log"></a>MapReduce 任务 log</h3><p>每个 MapReduce 任务结束后在 console 中的最后的 <code>Counters</code> 对于 debug 很有用。</p>
+<h2 id="在-HDFS-集群上执行-MapReduce-任务"><a href="#在-HDFS-集群上执行-MapReduce-任务" class="headerlink" title="在 HDFS 集群上执行 MapReduce 任务"></a>在 HDFS 集群上执行 MapReduce 任务</h2><p><code>Hadoop</code> 会通过 <code>YARN</code> 将 <code>MR</code> 的计算放到每个保存了部分数据的机器上。</p>
+<h3 id="数据流"><a href="#数据流" class="headerlink" title="数据流"></a>数据流</h3><p>首先介绍一些<code>*术语*</code>:</p>
+<p><code>job</code>: 一个 <code>MR job</code> 是用户想要做的工作的组合，包含了输入数据，MR 程序，以及配置信息等。<br><code>tasks</code>: Hadoop 会将 <code>job</code> 分割为两类 <code>task</code>，<code>map tasks</code> 以及 <code>reduce tasks</code>。任务通过 YARN 被调度到集群中的节点上运行。如果一个任务失败了，会自动被重新调度到其他节点上运行。<br><code>input splits</code>: Hadoop 会将 MR 程序的输入数据分割成大小固定的片段: <code>input splits</code>。Hadoop 会为每个 split 创建一个 map 任务，这个 map 任务会为 <code>split</code> 中的每个 <code>record</code> 运行用户自定义的 <code>map</code> 函数。</p>
+<p>当集群中的节点数量足够大的情况下，有一个需要做决定的 <code>trade-off</code>:</p>
 <ul>
-<li><p>把 Saprk 程序分解为 <em>任务(task)</em><br><em>任务</em> 是真正的物理执行过程。<br>所有的 Spark 程序都遵循相同的结构：</p>
-<ul>
-<li>从 input 创建 RDD;</li>
-<li>通过 <em>transformations</em>, 从这些 RDD 派生出新的 RDD;</li>
-<li>执行 <em>action</em> 操作收集或者保存数据；<br>一个 Spark 程序会隐式地创建一个所有操作的 <em>有向无环图(DAG)</em>。driver 会将这个逻辑图转换成物理执行计划。<br>Spark 会做一些优化操作，比如将 map pipeline 到一起并合并，然后把执行图转换为一些 stage，在每个 stage 中都包含一些 tasks。任务被打包到一起并且被发送到集群中执行。</li>
+<li>splits 越多越小 —-&gt; 整个 <code>job</code> 就越负载均衡；</li>
+<li>splits 越多 —-&gt; 维护 <code>map task</code> 的开销就越大。</li>
 </ul>
-</li>
-<li><p>在 executor 上调度 task 的执行<br>当 executors 被启动时，它们会向 Driver 注册，因此在整个生命周期中 driver 都掌握着 executor 的全貌。每个 executor 代表着一个有能运行 task 并保存 RDD 数据的进程。<br><strong>driver 会根据掌握的数据分布情况将不同的任务分发到不同的 executor 上</strong>。<br>当 task 执行时，可能会有缓存数据存在于 executor 中，driver 也会掌握这些缓存数据以备后续的使用。</p>
-</li>
-</ul>
-<h2 id="Executors"><a href="#Executors" class="headerlink" title="Executors"></a>Executors</h2><p><strong>Executors</strong> 是负责运行具体 task 的 worker 进程。<em>Executor</em> 在 Spark 应用启动之初也随之启动。Executor 也有两个角色：</p>
-<ul>
-<li>运行被分配的任务，并且向 driver 返回结果；</li>
-<li>提供 RDD 的内存缓存之处。由于 RDD 被直接缓存在 executor 中，因此 task 可以伴随缓存数据执行。</li>
-</ul>
-<h2 id="集群管理器"><a href="#集群管理器" class="headerlink" title="集群管理器"></a>集群管理器</h2><p>Spark 依赖一个集群管理器来启动所有的 executor，在一些情况下，也会启动 driver。</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>在集群中运行 Spark 应用的步骤：</p>
-<ol>
-<li>用户使用 <em>spark-submit</em> 提交应用；</li>
-<li><em>spark-submit</em> 启动 driver 程序并调用 <em>main()</em> 方法；</li>
-<li><em>driver</em> 向 <em>cluster manager</em> 申请资源来启动 executors;</li>
-<li><em>cluster manager</em> 启动 executor;</li>
-<li><em>driver</em> 在整个应用执行期间一直运行，基于 RDD action 和 transformation，driver 将 task 发送给 executors.</li>
-<li><em>task</em> 在 <em>executor</em> 上运行并保存结果；</li>
-<li>如果 <em>driver</em> 上的 <code>main()</code> 方法退出了或者调用了 <code>SparkContext.stop()</code> 方法，那么 <em>driver</em> 会终止 executors 并且通知 <em>cluster manager</em> 释放资源。</li>
-</ol>
-<h1 id="使用-spark-submit-部署应用"><a href="#使用-spark-submit-部署应用" class="headerlink" title="使用 spark-submit 部署应用"></a>使用 <code>spark-submit</code> 部署应用</h1><p>使用方法：</p>
-<pre><code>bin/spark-submit [options] &lt;app jar | python file&gt; [app options]
-</code></pre><p><code>[options]</code> 是一组 <code>spark-submit</code> 使用的选项，这些选项大致上可以被分为两类：</p>
-<ul>
-<li>调度信息。比如这个 job 需要的资源</li>
-<li>运行时依赖。比如需要部署到所有 executor 上的依赖库。</li>
-</ul>
-<p>重点说一下下面的选项：</p>
-<ul>
-<li><p><code>--deploy-mode</code><br>当使用 <code>client</code> 的部署模式时，<em>driver</em> 进程就在调用 <em>spark-submit</em> 的机器上；<br>当使用 <code>cluster</code> 部署模式时，<em>driver</em> 进程在 YARN 集群上的摸一个 worker node 上；</p>
-</li>
-<li><p><code>--jars</code><br>一些会被上传并放在应用的 <code>classpath</code> 的 JAR 文件，如果应用依赖少量的 JAR 包，可以用这样的方式。</p>
-</li>
-<li><p><code>--files</code><br>一些会被放置在应用运行的文件夹的文件，如果你有想要分不到所有节点上的数据文件，可以用这样的方式。</p>
-</li>
-</ul>
-<h2 id="一些小坑"><a href="#一些小坑" class="headerlink" title="一些小坑"></a>一些小坑</h2><p>当发布 <strong>uber-jar</strong> 到集群上时，有可能会遇到你的应用所依赖的某些包和 Spark 依赖的包有冲突的情况。解决办法是使用 <strong>shading</strong> 技术。(比如使用 <code>maven-shade-plugin</code>)</p>
-<h2 id="资源竞争"><a href="#资源竞争" class="headerlink" title="资源竞争"></a>资源竞争</h2><p>Spark 程序依赖 Cluster manager 提供的类似 <em>queue</em> 的概念来解决不同 Spark 应用间的资源竞争的问题。</p>
+<p>对于大多数 <code>job</code> 而言，split 的大小都趋于和 HDFS block 大小一致 —- 默认为 128M。</p>
+<center><img src="/images/hadoop/data-local.png" alt=""></center>
+
+<p>Hadoop 会尽力保证 <code>map task</code> 在输入数据所在的 HDFS 集群的节点上运行。<code>data locality optimization</code> 是也。</p>
+<p>但有时也会发生 <code>data split</code> 所有副本所在的节点都在运行其他的 <code>map task</code> 的情况，这时 hadoop 会在同一个 rack 内找其他可用的节点来执行这个 <code>map task</code>。<code>rack-local</code> 是也。</p>
+<p>在更极端的情况下，在同一个 rack 内都找不到可用的节点执行 <code>map task</code>：hadoop 会在另外的 rack 的节点上执行这个 <code>map task</code>。<code>off-rack</code> 是也。</p>
+<p>以上就是为什么一个 <code>input split</code> 要和 一个 HDFS block 大小一致。</p>
+<p><code>map task</code>的输出数据保存在节点本地 —- 而不是 HDFS 集群上，原因是整个 job 结束后，作为中间结果的 map 输出值可以被丢掉。如果在 <code>map</code> 输出结果被上传给 <code>reduce task</code> 之前节点就崩溃了，hadoop 会重新选一个节点重新执行一遍 <code>map task</code>。</p>
+<p>对于 <code>reduce task</code> 而言，没有 <code>locality</code> 而言，因为基本上每个 <code>reduce task</code> 的输入都是所有 <code>map task</code> 的输出。<br>对于单个 <code>reduce task</code> 而言，整个数据流程如下图所示：</p>
+<center><img src="/images/hadoop/single-reduce-task.png" alt=""></center>
+
+<p>关于 HDFS 的 rack, 可以参见 <a href="https://stackoverflow.com/questions/34564231/what-is-local-datanode" target="_blank" rel="noopener">这篇文章</a>, <a href="https://community.hpe.com/t5/Around-the-Storage-Block/Data-Locality-in-Hadoop-Taking-a-Deep-Dive/ba-p/6969665#.XAf1OXUzaV4" target="_blank" rel="noopener">这篇文章</a> 以及 <a href="https://www.quora.com/What-is-the-rack-in-a-Hadoop-cluster-How-does-it-work" target="_blank" rel="noopener">这篇文章</a>。</p>
+<p><code>reduce task</code> 的数量并不是靠输入数据的大小决定的。你可以通过 <code>setReduceTaskNum()</code> 方法手动控制。以后会详细介绍。</p>
+<p>当有多个 <code>reduce task</code> 时，如下图所示：</p>
+<center><img src="/images/hadoop/multi-reduce-task.png" alt=""></center>
+
+<p>假设有 N 个 <code>reducer task</code>, <code>map tasks</code> 会把输出做<code>分区(partition)</code>，而且每个 <code>map task</code> 的输出分为 N 个分区，每个 <code>reducer task</code> 都接收一个分区的数据。在每个 分区 中，可以有多个 <code>key</code>，并且每个 <code>key</code> 对应的所有的 value 都在同一个分区中。</p>
+<p>既然有分区的概念，当然就有 <code>分区函数</code>，通常来说默认的分区函数就足够好了，以后再详细说明。</p>
+<h3 id="结合函数"><a href="#结合函数" class="headerlink" title="结合函数"></a>结合函数</h3><p>由于在 Hadoop 集群中带宽是非常昂贵的资源，所以在节点间传输的数据量越小越好。因此可以通过使用 <code>combiner functions</code> 将 <code>map task</code> 的输出做聚合处理来减小需要传输给 <code>reducer task</code> 的数据量。</p>
+<p>通常来说，Combiner class 可以就用 Reducer class:</p>
+<pre><code>job.setCombiberClass(Reducer.class);
+</code></pre><p>当然也可以不相同，但这个 <code>CombinerClass</code> 也得实现 <code>Reducer</code> 接口。</p>
+<p>Combine 前：Reduce 的 input records 和 map output records 一样</p>
+<center><img src="/images/hadoop/before-combine.png" alt=""></center>
+
+<p>Combine 后：Reduce 的 input records 和 map task 的数量一样</p>
+<center><img src="/images/hadoop/after-combine.png" alt=""></center>
+
+<p><code>Combiner Function</code> 可以减小 网络 IO，但会增加 磁盘 IO。</p>
+<p>P.S. 本问相关的代码可以在 <a href="https://github.com/pengye91/hadoop_book_new" target="_blank" rel="noopener">这个 Repo</a> 中看到。</p>
 
       
     </div>
@@ -339,9 +356,11 @@
         
           <div class="post-tags">
             
-              <a href="/tags/spark/">spark</a>
+              <a href="/tags/Hadoop/">Hadoop</a>
             
-              <a href="/tags/集群/">集群</a>
+              <a href="/tags/MapReduce/">MapReduce</a>
+            
+              <a href="/tags/组合拳/">组合拳</a>
             
           </div>
         
@@ -349,15 +368,9 @@
         
   <nav class="post-nav">
     
-      <a class="prev" href="/2018/12/06/hadoop组合拳MR初窥/">
-        <i class="iconfont icon-left"></i>
-        <span class="prev-text nav-default">hadoop组合拳MR初窥</span>
-        <span class="prev-text nav-mobile">上一篇</span>
-      </a>
     
-    
-      <a class="next" href="/2018/11/18/HBase概述/">
-        <span class="next-text nav-default">HBase概述</span>
+      <a class="next" href="/2018/11/24/在集群上运行Spark/">
+        <span class="next-text nav-default">Spark 集群相关概念</span>
         <span class="prev-text nav-mobile">下一篇</span>
         <i class="iconfont icon-right"></i>
       </a>
