@@ -17,8 +17,12 @@
 
 
 
+  <meta name="description" content="Scala Option/Some/None 模式"/>
 
 
+
+
+  <meta name="keywords" content="数据处理, Scala, 编程语言, Lingering Fragments" />
 
 
 
@@ -38,7 +42,7 @@
 
 
 
-<link rel="canonical" href="https://pengye91.github.io/"/>
+<link rel="canonical" href="https://pengye91.github.io/2018/12/18/scala-option-some-none-pattern/"/>
 
 
 
@@ -95,7 +99,7 @@
   window.config = {"title":"Lingering Fragments","subtitle":"一些想法和总结","description":null,"author":"xyp","language":"zh-CN","timezone":"Asia/Shanghai","url":"https://pengye91.github.io","root":"/","permalink":":year/:month/:day/:title/","permalink_defaults":null,"source_dir":"source","public_dir":"public","tag_dir":"tags","archive_dir":"archives","category_dir":"categories","code_dir":"downloads/code","i18n_dir":":lang","skip_render":null,"new_post_name":":title.md","default_layout":"post","titlecase":false,"external_link":true,"filename_case":0,"render_drafts":false,"post_asset_folder":false,"relative_link":false,"future":true,"highlight":{"enable":true,"auto_detect":false,"line_number":true,"tab_replace":null,"first_line_number":"always1"},"default_category":"uncategorized","category_map":null,"tag_map":null,"date_format":"YYYY-MM-DD","time_format":"HH:mm:ss","per_page":10,"pagination_dir":"page","theme":"even","deploy":{"type":"git","repo":"https://github.com/pengye91/pengye91.github.io.git","branch":"master"},"ignore":[],"keywords":null,"index_generator":{"per_page":10,"order_by":"-date","path":""},"sitemap":{"path":"sitemap.xml"},"baidusitemap":{"path":"baidusitemap.xml"},"archive_generator":{"per_page":10,"yearly":true,"monthly":true,"daily":false},"category_generator":{"per_page":10},"tag_generator":{"per_page":10},"marked":{"gfm":true,"pedantic":false,"sanitize":false,"tables":true,"breaks":true,"smartLists":true,"smartypants":true,"modifyAnchors":"","autolink":true},"server":{"port":4000,"log":false,"compress":false,"header":true},"since":2018,"favicon":"/favicon.ico","rss":"default","menu":{"Home":"/","Archives":"/archives/","Tags":"/tags","Categories":"/categories","About":"/about"},"color":"cobalt blue","mode":"default","toc":true,"fancybox":true,"pjax":true,"copyright":{"enable":false,"license":"<a rel=\"license\" href=\"http://creativecommons.org/licenses/by-nc/4.0/\" target=\"_blank\">知识共享署名-非商业性使用 4.0 国际许可协议</a>"},"reward":{"enable":false,"qrCode":{"wechat":null,"alipay":null}},"social":{"email":"pengye91@gmail.com","stack-overflow":null,"twitter":null,"facebook":null,"linkedin":null,"google":null,"github":"https://github.com/pengye91","weibo":null,"zhihu":null,"douban":null,"pocket":null,"tumblr":null,"instagram":null},"leancloud":{"app_id":null,"app_key":null},"baidu_analytics":null,"baidu_verification":null,"google_analytics":"UA-127442719-1","google_verification":null,"disqus_shortname":null,"valine":{"appid":"xeDhasO1xV7F1SpCG0oRuiol-gzGzoHsz","appkey":"wgFvo2YMOmn0Qcv7YPFxtePy","notify":false,"verify":false,"avatar":"identicon","visitor":true,"placeholder":"在此评论......"},"changyan":{"appid":null,"appkey":null},"livere_datauid":null,"version":"2.10.1"};
 </script>
 
-    <title> Lingering Fragments -  </title>
+    <title> Scala Option/Some/None 模式 - Lingering Fragments </title>
   </head>
 
   <body><div id="mobile-navbar" class="mobile-navbar">
@@ -225,15 +229,11 @@
           <div id="content" class="content">
             
   
-  <section id="posts" class="posts">
-    
-      
-        
   <article class="post">
     <header class="post-header">
       <h1 class="post-title">
         
-          <a class="post-link" href="/2018/12/18/scala-option-some-none-pattern/">Scala Option/Some/None 模式</a>
+          Scala Option/Some/None 模式
         
       </h1>
 
@@ -254,15 +254,18 @@
 
     
     
+  <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#方法返回一个-Option"><span class="toc-text">方法返回一个 Option</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#从-Option-中拿出一个值"><span class="toc-text">从 Option 中拿出一个值</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#使用-getOrElse"><span class="toc-text">使用 getOrElse</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用-foreach"><span class="toc-text">使用 foreach</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用-Try-Success-Failure-模式"><span class="toc-text">使用 Try/Success/Failure 模式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用-Either-Left-Right-模式"><span class="toc-text">使用 Either/Left/Right 模式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#一点讨论"><span class="toc-text">一点讨论</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reference"><span class="toc-text">Reference</span></a></li></ol>
+    </div>
+  </div>
+
 
 
     <div class="post-content">
       
-        
-        
-
-        
-          <h2 id="方法返回一个-Option"><a href="#方法返回一个-Option" class="headerlink" title="方法返回一个 Option"></a>方法返回一个 <code>Option</code></h2><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">toInt</span></span>(s: <span class="type">String</span>): <span class="type">Option</span>[<span class="type">Int</span>] = &#123;</span><br><span class="line">   <span class="keyword">try</span> &#123;</span><br><span class="line">       <span class="type">Some</span>(<span class="type">Integer</span>.parseInt(s.trim))</span><br><span class="line">   &#125; <span class="keyword">catch</span> &#123;</span><br><span class="line">       <span class="keyword">case</span> e: <span class="type">Exception</span> =&gt; <span class="type">None</span></span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        <h2 id="方法返回一个-Option"><a href="#方法返回一个-Option" class="headerlink" title="方法返回一个 Option"></a>方法返回一个 <code>Option</code></h2><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">toInt</span></span>(s: <span class="type">String</span>): <span class="type">Option</span>[<span class="type">Int</span>] = &#123;</span><br><span class="line">   <span class="keyword">try</span> &#123;</span><br><span class="line">       <span class="type">Some</span>(<span class="type">Integer</span>.parseInt(s.trim))</span><br><span class="line">   &#125; <span class="keyword">catch</span> &#123;</span><br><span class="line">       <span class="keyword">case</span> e: <span class="type">Exception</span> =&gt; <span class="type">None</span></span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="从-Option-中拿出一个值"><a href="#从-Option-中拿出一个值" class="headerlink" title="从 Option 中拿出一个值"></a>从 <code>Option</code> 中拿出一个值</h2><p>有三种方法：</p>
 <h3 id="使用-getOrElse"><a href="#使用-getOrElse" class="headerlink" title="使用 getOrElse"></a>使用 <code>getOrElse</code></h3><p>将 None 的默认值放在 <code>getOrElse</code> 方法里。</p>
 <figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; <span class="keyword">val</span> x = toInt(<span class="string">"1"</span>).getOrElse(<span class="number">0</span>)</span><br><span class="line">x: <span class="type">Int</span> = <span class="number">1</span></span><br></pre></td></tr></table></figure>
@@ -288,524 +291,60 @@
 <p>如果可能的话，直接使用 <code>Try/Success/Failure</code> 模式吧。</p>
 <h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p>[1] <a href="https://alvinalexander.com/scala/best-practice-option-some-none-pattern-scala-idioms" target="_blank" rel="noopener">https://alvinalexander.com/scala/best-practice-option-some-none-pattern-scala-idioms</a></p>
 
-        
       
     </div>
 
     
+      
+      
 
-    
 
-  </article>
 
       
-        
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          <a class="post-link" href="/2018/12/09/Hadoop中的Join/">Hadoop 中的 Join</a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2018-12-09
-        </span>
-        
-          <span class="post-category">
-            
-              <a href="/categories/数据处理/">数据处理</a>
-            
-              <a href="/categories/数据处理/Hadoop/">Hadoop</a>
-            
-              <a href="/categories/数据处理/Hadoop/MapReduce/">MapReduce</a>
-            
-          </span>
-        
-        
-      </div>
-    </header>
-
-    
-    
-
-
-    <div class="post-content">
       
-        
-        
-          
-        
+    
 
+    
+      <footer class="post-footer">
         
-          <p>在 Hadoop 生态体系里，对数据集的 <strong>Join</strong> 操作可能是最重要的操作之一了。因此了解 Hadoop 中的 Join 的实现原理从下面几个方面来考虑是很有必要的：</p>
-<ul>
-<li>在实际场景中该使用哪种 Join 策略；</li>
-<li>Join 过程中遇到问题该如何 debug;</li>
-<li>更好地使用 Hive;</li>
-<li>在需要更细粒度的操作时可以手撸代码。</li>
-</ul>
-          <div class="read-more">
-            <a href="/2018/12/09/Hadoop中的Join/" class="read-more-link">阅读更多</a>
+          <div class="post-tags">
+            
+              <a href="/tags/数据处理/">数据处理</a>
+            
+              <a href="/tags/Scala/">Scala</a>
+            
+              <a href="/tags/编程语言/">编程语言</a>
+            
           </div>
         
-      
-    </div>
-
-    
-
-    
-
-  </article>
-
-      
-        
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          <a class="post-link" href="/2018/12/06/hadoop组合拳HDFS/">hadoop组合拳HDFS</a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2018-12-06
-        </span>
-        
-          <span class="post-category">
-            
-              <a href="/categories/Hadoop/">Hadoop</a>
-            
-              <a href="/categories/Hadoop/数据处理/">数据处理</a>
-            
-              <a href="/categories/Hadoop/数据处理/MapReduce/">MapReduce</a>
-            
-          </span>
         
         
-      </div>
-    </header>
-
+  <nav class="post-nav">
     
     
-
-
-    <div class="post-content">
-      
-        
-        
-
-        
-          
-        
-      
-    </div>
-
-    
-
-    
-
-  </article>
-
-      
-        
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          <a class="post-link" href="/2018/12/06/hadoop组合拳MR初窥/">Hadoop 组合拳之一 -- MR初窥</a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2018-12-06
-        </span>
-        
-          <span class="post-category">
-            
-              <a href="/categories/Hadoop/">Hadoop</a>
-            
-              <a href="/categories/Hadoop/数据处理/">数据处理</a>
-            
-              <a href="/categories/Hadoop/数据处理/MapReduce/">MapReduce</a>
-            
-          </span>
-        
-        
-      </div>
-    </header>
-
-    
-    
-
-
-    <div class="post-content">
-      
-        
-        
-          
-        
-
-        
-          <p>历史啊特点啊什么的就不说了，直接开搞！</p>
-          <div class="read-more">
-            <a href="/2018/12/06/hadoop组合拳MR初窥/" class="read-more-link">阅读更多</a>
-          </div>
-        
-      
-    </div>
-
-    
-
-    
-
-  </article>
-
-      
-        
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          <a class="post-link" href="/2018/11/24/在集群上运行Spark/">Spark 集群相关概念</a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2018-11-24
-        </span>
-        
-          <span class="post-category">
-            
-              <a href="/categories/spark/">spark</a>
-            
-              <a href="/categories/spark/数据/">数据</a>
-            
-          </span>
-        
-        
-      </div>
-    </header>
-
-    
-    
-
-
-    <div class="post-content">
-      
-        
-        
-          
-        
-
-        
-          <p>编写 Spark 程序的一大好处是: 如果想要提升计算力和效率，只需要增加机器就可以了。对用户来说，只需要先在本地或者小的集群上先测试，然后不需修改任何代码就可以在生产环境执行。</p>
-          <div class="read-more">
-            <a href="/2018/11/24/在集群上运行Spark/" class="read-more-link">阅读更多</a>
-          </div>
-        
-      
-    </div>
-
-    
-
-    
-
-  </article>
-
-      
-        
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          <a class="post-link" href="/2018/11/18/HBase概述/">HBase概述</a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2018-11-18
-        </span>
-        
-          <span class="post-category">
-            
-              <a href="/categories/数据处理/">数据处理</a>
-            
-              <a href="/categories/数据处理/HBase/">HBase</a>
-            
-              <a href="/categories/数据处理/HBase/数据/">数据</a>
-            
-          </span>
-        
-        
-      </div>
-    </header>
-
-    
-    
-
-
-    <div class="post-content">
-      
-        
-        
-          
-        
-
-        
-          <p>本文简单介绍了 HBase 的一些原理。</p>
-          <div class="read-more">
-            <a href="/2018/11/18/HBase概述/" class="read-more-link">阅读更多</a>
-          </div>
-        
-      
-    </div>
-
-    
-
-    
-
-  </article>
-
-      
-        
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          <a class="post-link" href="/2018/11/13/野猪书读书笔记第七章/">野猪书读书笔记第七章</a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2018-11-13
-        </span>
-        
-        
-      </div>
-    </header>
-
-    
-    
-
-
-    <div class="post-content">
-      
-        
-        
-
-        
-          
-        
-      
-    </div>
-
-    
-
-    
-
-  </article>
-
-      
-        
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          <a class="post-link" href="/2018/11/09/野猪书读书笔记第六章/">野猪书读书笔记第六章</a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2018-11-09
-        </span>
-        
-          <span class="post-category">
-            
-              <a href="/categories/读书笔记/">读书笔记</a>
-            
-              <a href="/categories/读书笔记/设计数据密集型应用/">设计数据密集型应用</a>
-            
-              <a href="/categories/读书笔记/设计数据密集型应用/数据/">数据</a>
-            
-          </span>
-        
-        
-      </div>
-    </header>
-
-    
-    
-
-
-    <div class="post-content">
-      
-        
-        
-          
-        
-
-        
-          <center><img src="/images/designing-data-intensive-applications.png" alt=""></center>
-
-<p><strong>分区(partitioning)</strong></p>
-<p>把一大堆数据分成一群小数据集放在不同的节点。</p>
-<p>好处：<strong>扩展性</strong>，一次查询的负载分散在不同的节点上：每个节点分担一些子查询。</p>
-          <div class="read-more">
-            <a href="/2018/11/09/野猪书读书笔记第六章/" class="read-more-link">阅读更多</a>
-          </div>
-        
-      
-    </div>
-
-    
-
-    
-
-  </article>
-
-      
-        
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          <a class="post-link" href="/2018/11/08/野猪书读书笔记第五章3/">野猪书读书笔记第五章(续3)</a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2018-11-08
-        </span>
-        
-          <span class="post-category">
-            
-              <a href="/categories/读书笔记/">读书笔记</a>
-            
-              <a href="/categories/读书笔记/设计数据密集型应用/">设计数据密集型应用</a>
-            
-              <a href="/categories/读书笔记/设计数据密集型应用/数据/">数据</a>
-            
-          </span>
-        
-        
-      </div>
-    </header>
-
-    
-    
-
-
-    <div class="post-content">
-      
-        
-        
-          
-        
-
-        
-          <center><img src="/images/designing-data-intensive-applications.png" alt=""></center>
-
-<h2 id="并发写检测"><a href="#并发写检测" class="headerlink" title="并发写检测"></a>并发写检测</h2><p>上图:</p>
-<center><img src="/images/concurrent-write-detect.png" alt=""></center>
-          <div class="read-more">
-            <a href="/2018/11/08/野猪书读书笔记第五章3/" class="read-more-link">阅读更多</a>
-          </div>
-        
-      
-    </div>
-
-    
-
-    
-
-  </article>
-
-      
-        
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          <a class="post-link" href="/2018/11/04/野猪书读书笔记第五章2/">野猪书读书笔记第五章(续2)</a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2018-11-04
-        </span>
-        
-          <span class="post-category">
-            
-              <a href="/categories/读书笔记/">读书笔记</a>
-            
-              <a href="/categories/读书笔记/设计数据密集型应用/">设计数据密集型应用</a>
-            
-              <a href="/categories/读书笔记/设计数据密集型应用/数据/">数据</a>
-            
-          </span>
-        
-        
-      </div>
-    </header>
-
-    
-    
-
-
-    <div class="post-content">
-      
-        
-        
-          
-        
-
-        
-          <center><img src="/images/designing-data-intensive-applications.png" alt=""></center>
-
-<p><strong>多主节点备份</strong></p>
-<p>使用单主节点有一个天然的缺陷：当主节点不可用时，就瘫痪了。</p>
-<p>所以有了<em>多主节点</em>的模型：<strong>每个主节点都要将数据变化的过程告诉其他所有节点(包括其他主节点)</strong>。</p>
-          <div class="read-more">
-            <a href="/2018/11/04/野猪书读书笔记第五章2/" class="read-more-link">阅读更多</a>
-          </div>
-        
-      
-    </div>
-
-    
-
-    
-
-  </article>
-
-      
-      
-  <nav class="pagination">
-    
-    
-      <a class="next" href="/page/2/">
-        <span class="next-text">下一页</span>
+      <a class="next" href="/2018/12/09/Hadoop中的Join/">
+        <span class="next-text nav-default">Hadoop 中的 Join</span>
+        <span class="prev-text nav-mobile">下一篇</span>
         <i class="iconfont icon-right"></i>
       </a>
     
   </nav>
 
 
+      </footer>
     
-  </section>
+
+  </article>
+
 
           </div>
           
+  <div class="comments" id="comments">
+    
+      <div id="vcomments"></div>
+    
+  </div>
+
 
         </div>
       </main>
@@ -888,6 +427,29 @@
     </div>
 
     
+  
+  
+<!-- valine Comments -->
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//cdn.jsdelivr.net/gh/xcss/valine@v1.3.3/dist/Valine.min.js"></script>
+<script type="text/javascript">
+    new Valine({
+        el: '#vcomments',
+        notify: false,
+        verify: false,
+        visitor: true,
+        app_id: "xeDhasO1xV7F1SpCG0oRuiol-gzGzoHsz",
+        app_key: "wgFvo2YMOmn0Qcv7YPFxtePy",
+        placeholder: "在此评论......",
+        avatar: 'identicon'
+    });
+</script>
+
+
+  
+
+  
+
 
 
     
