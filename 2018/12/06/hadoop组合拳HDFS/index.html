@@ -258,11 +258,140 @@
 
     
     
+  <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#HDFS-设计"><span class="toc-text">HDFS 设计</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HDFS-概念"><span class="toc-text">HDFS 概念</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Namenodes-和-Datanodes"><span class="toc-text">Namenodes 和 Datanodes</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Block-缓存"><span class="toc-text">Block 缓存</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HDFS-Federation"><span class="toc-text">HDFS Federation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HDFS-高可用"><span class="toc-text">HDFS 高可用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Hadoop-Filesystems"><span class="toc-text">Hadoop Filesystems</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Java-接口"><span class="toc-text">Java 接口</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#用-Hadop-URL-读数据"><span class="toc-text">用 Hadop URL 读数据</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#用-FileSystem-API-读数据"><span class="toc-text">用 FileSystem API 读数据</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#写数据"><span class="toc-text">写数据</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#文件夹"><span class="toc-text">文件夹</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#文件系统查询"><span class="toc-text">文件系统查询</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#删除文件"><span class="toc-text">删除文件</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数据流"><span class="toc-text">数据流</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#读文件剖析"><span class="toc-text">读文件剖析</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#写文件剖析"><span class="toc-text">写文件剖析</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#一致性模型"><span class="toc-text">一致性模型</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#distcp"><span class="toc-text">distcp</span></a></li></ol></li></ol>
+    </div>
+  </div>
+
 
 
     <div class="post-content">
       
-        
+        <p>当数据集数量超过单机能承受的范围时，就需要使用分布式文件系统了。但和其他分布式系统一样，由于有网络编程模型的介入，其复杂程度变得不可估量。</p>
+<p>Hadoop 拥有一套通用的文件系统抽象逻辑，可以接入本地文件系统、Amazon S3、Ceph 等文件系统，但 HDFS 才是 Hadoop 的主要使用的分布式文件系统。</p>
+<a id="more"></a>
+<h2 id="HDFS-设计"><a href="#HDFS-设计" class="headerlink" title="HDFS 设计"></a>HDFS 设计</h2><p>HDFS 的架构都写在了 <a href="http://www.aosabook.org/en/hdfs.html" target="_blank" rel="noopener">这篇文章</a>里。<br>这里简单介绍其设计目的：</p>
+<ul>
+<li><p><strong>超大文件</strong><br>文件大小可以大到 T, P 级别</p>
+</li>
+<li><p><strong>流式数据</strong><br>设计基于 <strong>一次写入，多次读取</strong> 的模式，而且假设每次数据读取都会读取这份数据的绝大部分。因此读取整个数据集需要的时间比读取第一个数据记录花费的时间更重要。</p>
+</li>
+<li><p><strong>商用硬件</strong><br>这个意思是 Hadoop 集群假设你的硬件设备很容易坏，因此从软件层面做容错处理。至少是对用户透明的。</p>
+</li>
+</ul>
+<p>但 HDFS 也不是万能的，下面列出其不适用的场景：</p>
+<ul>
+<li><p><strong>对数据的快速获取</strong><br>HDFS 系统是为传输和存储超大(量)文件而设计的，因此会牺牲时间性能。可以考虑使用 HBase 来做对低延时的服务。</p>
+</li>
+<li><p><strong>大量小文件</strong><br>由于 namenode 把 HDFS 文件系统的所有元信息都保存在 <strong>内存</strong>，因此系统中的文件数量受限于 namenode 的内存大小。</p>
+</li>
+<li><p><strong>单个文件的多写操作</strong><br>目前 HDFS 中的文件都是由单个 <em>writer</em> 以 <strong>append-only</strong> 的方式写入的。</p>
+</li>
+</ul>
+<h2 id="HDFS-概念"><a href="#HDFS-概念" class="headerlink" title="HDFS 概念"></a>HDFS 概念</h2><p>磁盘有 block 的概念，一个 block 是磁盘可以读写的最小单元。文件系统依靠 block 来管理数据。</p>
+<p>HDFS 也有 block 的概念，默认每个 block 128 MB。HDFS 中的文件被分割为 128 M 的 blocks，这些 block 单独存储。如果一个文件小于 block size，它不会独占这个 block，只会占它原来的大小。</p>
+<blockquote>
+<p>HDFS 中 block 这么大的原因是：减少查找数据的时间。随着磁盘的 IO 性能提升， blcok size 会随之增加。</p>
+</blockquote>
+<p>抽象出 <code>block</code> 概念的意义：</p>
+<ul>
+<li>可以存储大于集群中任意节点磁盘容量的文件;</li>
+<li>简化了<strong>存储子系统</strong>：<ul>
+<li>由于 block 是大小固定的，所以可以容易地知道系统还剩多少空间；</li>
+<li>由于 block 不是文件，只是一堆数据，所以<strong>文件元数据</strong>（比如权限）不必随数据一起存储，而可以用另外一个系统管理。</li>
+</ul>
+</li>
+<li>block 的概念很利于制作副本。通常每个 block 会被复制多份(通常是 3 份)到不同的节点上。</li>
+</ul>
+<p>使用 <code>hdfs fsck / -files -blocks</code> 命令来检查系统健康程度。</p>
+<h3 id="Namenodes-和-Datanodes"><a href="#Namenodes-和-Datanodes" class="headerlink" title="Namenodes 和 Datanodes"></a>Namenodes 和 Datanodes</h3><p><em>Namenode</em> (Master) 管理文件系统树和系统中所有文件夹和文件的元数据。这些数据被以两种形式存在 Namenode 的本地磁盘上：<strong>namespace image</strong> 和 <strong>edit log</strong>。</p>
+<p><strong>Datanode</strong> 存储真正的数据，并向外提供数据，也持续向 <em>Namenode</em> 汇报所持有的 <em>blocks</em> 信息。</p>
+<p>由于 <strong>Namenode</strong> 的重要性(如果 Namenode 所在的节点挂了，那么就无法从 datanodes 中还原数据了)，Hadoop 提供了两种机制来保证 Namenode 的高可用：</p>
+<ul>
+<li>备份所有的原信息到另一个系统：当 Namenode 向本地磁盘写数据的同时 <em>同步地，原子地</em> 向远程的某个文件系统写。</li>
+<li>提供一个 <em>secondary namenode</em>，这个节点会持续把 <em>edit log</em> 合并至 <em>namespace image</em>。这个节点通常也会保持同样一份 <em>namespace image</em> 到这个节点的本地。</li>
+</ul>
+<h3 id="Block-缓存"><a href="#Block-缓存" class="headerlink" title="Block 缓存"></a>Block 缓存</h3><p>对于热数据，<em>datanode</em> 会存在堆外内存 <em>block cache</em> 中。</p>
+<h3 id="HDFS-Federation"><a href="#HDFS-Federation" class="headerlink" title="HDFS Federation"></a>HDFS Federation</h3><p>Namenode 内存是限制 HDFS 集群扩展的原因。<br><em>HDFS Federation</em> 允许集群通过增加 <em>Namenode</em> 来扩展。也就是每个 <em>namenode</em> 管理 HDFS 系统中的一部分文件。</p>
+<h3 id="HDFS-高可用"><a href="#HDFS-高可用" class="headerlink" title="HDFS 高可用"></a>HDFS 高可用</h3><p>当 Namdenode 挂掉后，可以通过 primary namenode 重启，但这个过程要经历：加载 namespace image, 读 metadata, 读配置文件等，会花的时间很长。</p>
+<p>Hadoop 2 通过实现 <em>HDFS High Availability(HA)</em>：有一对 namenodes 以 <strong>active-standy</strong> 的配置存在。当主 namenode 挂了后，standby namenode 向外提供 HDFS namenode 服务:</p>
+<ul>
+<li>active, standby namenode 必须随时共享存储和 edit log；</li>
+<li>datanodes 必须同时向两个 namenode 同步信息；</li>
+<li>HDFS 客户端必须要知道这种 <em>崩溃恢复</em> 机制；</li>
+</ul>
+<h2 id="Hadoop-Filesystems"><a href="#Hadoop-Filesystems" class="headerlink" title="Hadoop Filesystems"></a>Hadoop Filesystems</h2><p>Hadoop 对文件系统有一个抽象，而 HDFS 只是其中的一个实现。</p>
+<p><code>org.apache.hadoop.fs.FileSystem</code> 代表客户端接口，具体的实现有下面这些：</p>
+<center><img src="/images/hadoop/hadoop-filesystem-1.png" alt=""></center><br><center><img src="/images/hadoop/hadoop-filesystem-2.png" alt=""></center>
+
+<p>Hadoop 使用 <strong>scheme</strong> 的形式来对应正确的文件系统：</p>
+<pre><code>hadoop fs -ls file:///
+</code></pre><p>表示 列出本地文件系统数据。</p>
+<h3 id="Java-接口"><a href="#Java-接口" class="headerlink" title="Java 接口"></a>Java 接口</h3><h4 id="用-Hadop-URL-读数据"><a href="#用-Hadop-URL-读数据" class="headerlink" title="用 Hadop URL 读数据"></a>用 <code>Hadop URL</code> 读数据</h4><p>用 <code>java.net.URL</code> 结合 <code>org.apache.hadoop.fs.FsUrlStreamHandlerFactory</code> 可以以<em>数据流</em>的形式读出 HDFS 文件。具体怎么操作参见<a href="https://github.com/pengye91/hadoop_book_new/blob/master/ch03/src/main/java/com/xieyuanpeng/hadoop/book/ch03/UrlCat.java" target="_blank" rel="noopener">这个文件</a>。</p>
+<h4 id="用-FileSystem-API-读数据"><a href="#用-FileSystem-API-读数据" class="headerlink" title="用 FileSystem API 读数据"></a>用 <code>FileSystem API</code> 读数据</h4><p>在 <em>HDFS</em> 系统中，用 <code>Hadoop Path</code> 表示一个文件。可以使用 <code>FileSystem.open(new Path())</code> 来</p>
+<p>具体例子可以参见 <a href="https://github.com/pengye91/hadoop_book_new/blob/master/ch03/src/main/java/com/xieyuanpeng/hadoop/book/ch03/FileSystemCat.java" target="_blank" rel="noopener">这个文件</a>。</p>
+<h4 id="写数据"><a href="#写数据" class="headerlink" title="写数据"></a>写数据</h4><p>最简单的写数据的方法是创建一个用 <code>Path</code> 表示的 <code>HDFS 文件</code> 用于被写:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// create</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> FSDataOutputStream <span class="title">create</span><span class="params">(Path f)</span> <span class="keyword">throws</span> IOException</span></span><br></pre></td></tr></table></figure>
+<p>另一个选择是：<code>append</code><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// append</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> FSDataOutputStream <span class="title">append</span><span class="params">(Path f)</span> <span class="keyword">throws</span> IOException</span></span><br></pre></td></tr></table></figure></p>
+<p>append 的限制：<em>同一时间只有一个 Writer append 到这个文件，靠 closed 来实现</em>。</p>
+<p>例子可以参见<a href="https://github.com/pengye91/hadoop_book_new/blob/master/ch03/src/main/java/com/xieyuanpeng/hadoop/book/ch03/FileCopyWithProgress.java" target="_blank" rel="noopener">这个文件</a>。</p>
+<h4 id="文件夹"><a href="#文件夹" class="headerlink" title="文件夹"></a>文件夹</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">mkdirs</span><span class="params">(Path f)</span> <span class="keyword">throws</span> IOExcepion</span></span><br></pre></td></tr></table></figure>
+<p>通常来说不用手动创建 <em>文件夹</em>，因为 <code>create</code> 方法会自动创建不存在的文件夹。</p>
+<h4 id="文件系统查询"><a href="#文件系统查询" class="headerlink" title="文件系统查询"></a>文件系统查询</h4><p><code>FileStatus</code> 类保存了一个文件(夹)的所有状态信息。</p>
+<p>具体可以参见这个 <a href="https://github.com/pengye91/hadoop_book_new/blob/master/ch03/src/test/java/ShowFileStatusTest.java" target="_blank" rel="noopener">测试文件</a>。</p>
+<p>HDFS 接口还提供了 <em>通配符 status</em> 可以使用 正则通配符 来过滤或者查询想要的文件。</p>
+<h4 id="删除文件"><a href="#删除文件" class="headerlink" title="删除文件"></a>删除文件</h4><p>直接使用这个接口<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">delete</span><span class="params">(Path f, <span class="keyword">boolean</span> recursive)</span> <span class="keyword">throws</span> IOException</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="数据流"><a href="#数据流" class="headerlink" title="数据流"></a>数据流</h3><h4 id="读文件剖析"><a href="#读文件剖析" class="headerlink" title="读文件剖析"></a>读文件剖析</h4><center><img src="/images/hadoop/read-hdfs-file.png" alt=""></center>
+
+<ol>
+<li>客户端调用 <code>FileSystem</code> 对象的 <code>open()</code> 方法（对于 HDFS 而言就是 <code>DistributedFileSystem</code>）来试图打开文件；</li>
+<li><code>DFS</code> 通过 <code>RPC</code> 调用向 <code>Namenode</code> 询问 <em>文件的第一个 block</em> 所在的位置；<ul>
+<li><code>namenode</code> 会返回这个 block 所有备份所在的 <code>datanode</code> 的地址；</li>
+<li><code>datanodes</code> 会根据它们和 <code>client</code> 的位置关系排好序（根据 <em>Hadoop 自身的网络拓扑</em>）；</li>
+<li>如果 client 所在的节点本身也是一个 <code>datanode</code>，如果这个 datanode 有备份就直接读本地文件；</li>
+<li><code>DFS</code> 返回一个 <code>DFSInputStream</code>，它会管理 <code>datanode</code> 和 <code>namenode</code> 的 IO；</li>
+</ul>
+</li>
+<li><code>DFSInputStream</code> 保存了文件的第一个 block 所在的位置最近的 <code>datanode</code> 地址，然后连接到这个 <code>datanode</code>，文件以流的形式返回给 <code>DFSInputStream</code>；</li>
+<li><em>client</em> 调用 <code>DFSInputStream</code> 的 <code>read()</code> 方法，数据被返回给 client；反复这个操作直到这个 block 被读完； </li>
+<li><code>DFSInputStream</code> 关闭和 <code>datanode</code> 的连接，然后找下一个 block，反复这个操作；</li>
+<li>当文件所有的 block 都被读完后，关闭 client 到 <code>DFSDataInputStream</code> 的连接。</li>
+</ol>
+<h4 id="写文件剖析"><a href="#写文件剖析" class="headerlink" title="写文件剖析"></a>写文件剖析</h4><center><img src="/images/hadoop/write-hdfs-file.png" alt=""></center>
+
+<ol>
+<li>客户端调用 <code>DFS</code> 的 <code>create()</code> 方法来试图创建一个文件；</li>
+<li><code>DFS</code> 调用一个 RPC 方法试图在 <code>namenode</code> 创建一个文件；<ul>
+<li><code>namenode</code> 做一些检查确保文件可以被创建(包括权限，是否已经存在等);</li>
+<li><code>DFS</code> 给 客户端 返回一个 <code>FSDataOutputStream</code> 用于写入数据；<code>FSDataOutputStream</code> 包含一个 <code>DFSOutputStream</code> 对象，它负责和 namenode 以及 datanode 通信；</li>
+</ul>
+</li>
+<li>客户端写数据时，<code>DFSOutputStream</code> 把文件分割成多个包，然后把这些包放进一个内部队列: <code>data queue</code>;<ul>
+<li>有一个 <code>DataStreamer</code> 去消费这个队列，而且这个 <code>DataStreamer</code> 还负责向 <code>namenode</code> 询问应该将数据放在哪些 <code>datanode</code> 上；</li>
+</ul>
+</li>
+<li>这些 <code>datanodes</code> 组成一个 <code>pipeline</code>，<code>DataStreamer</code> 将数据包先流经第一个 <code>datanode</code> 然后依次到最后一个；</li>
+<li><code>DFSOutputStream</code> 还会维护一个 <code>ack queue</code> 用于表明一个 数据包被成功写入 <code>datanodes</code>，只有当一个 <code>pipeline</code> 中的所有 <code>datanodes</code> 都 <code>ack</code> 了才会将这个数据包从 <code>ack queue</code> 中摘除;</li>
+<li>当 客户端 完成了写数据，调用 <code>close()</code> 方法关闭数据流；</li>
+<li><code>DFS</code> 通知 <code>namenode</code> 写入已经完成；</li>
+</ol>
+<h4 id="一致性模型"><a href="#一致性模型" class="headerlink" title="一致性模型"></a>一致性模型</h4><p>HDFS 为了性能牺牲了一些一致性要求。<br>创建一个新的文件后，在这个 <code>DFS</code> 中，文件时可见的:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Path p = <span class="keyword">new</span> Path(<span class="string">"p"</span>);</span><br><span class="line">fs.create(p);</span><br><span class="line">assertThat(fs.exists(p), is(<span class="keyword">true</span>));</span><br></pre></td></tr></table></figure></p>
+<p>但任何写入这个文件的内容都不被保证是可见的:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Path p = <span class="keyword">new</span> Path(<span class="string">"p"</span>);</span><br><span class="line">OutputStream out = fs.create(p);</span><br><span class="line">out.write(<span class="string">"conten"</span>.getBytes(<span class="string">"UTF-8"</span>));</span><br><span class="line">out.flush();</span><br><span class="line"></span><br><span class="line">assertThat(fs.getFileStatus(p).getLen(), is(<span class="number">0L</span>));</span><br></pre></td></tr></table></figure>
+<p>只有当<strong>当前 block 的下一个 block 的数据</strong>被写入后，当前 block 的数据才能保证可见；</p>
+<p>HDFS 提供了一个方法 <code>hflush()</code> 来保证这个事情:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Path p = <span class="keyword">new</span> Path(<span class="string">"p"</span>);</span><br><span class="line">FSDataOutputStream out = fs.create(p);</span><br><span class="line">out.write(<span class="string">"conten"</span>.getBytes(<span class="string">"UTF-8"</span>));</span><br><span class="line">out.hflush();</span><br><span class="line"></span><br><span class="line">assertThat(fs.getFileStatus(p).getLen(), is((<span class="keyword">long</span>) <span class="string">"content"</span>.length()));</span><br></pre></td></tr></table></figure></p>
+<p>在 out 上调用 <code>close()</code> 和 <code>hflush()</code> 功效一样；</p>
+<p>然而，<code>hflush()</code> 只能保证数据被写入了所有 <code>datanodes</code> 的内存而不是磁盘上；</p>
+<p>为了解决这个问题，HDFS 提供了一个 <code>hsync()</code> 方法来做这个事情；</p>
+<h3 id="distcp"><a href="#distcp" class="headerlink" title="distcp"></a>distcp</h3><p><code>hadoop distcp</code> 最常见的使用场景是在两个 HDFS 集群间移动数据:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hadoop distcp -update -delete -p hdfs://namenode1/foo hdfs://namenode2/foo</span><br></pre></td></tr></table></figure></p>
+<p>如果两个 HDFS 集群的版本不同，可以这样:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hadoop distcp webhdfs://namenode1:50070/foo webhdfs://namenode2:50070/foo</span><br></pre></td></tr></table></figure>
+<p><code>hadoop distcp</code> 命令不仅可以在 HDFS 系统间移动文件，也可以用于在同一个 HDFS 内移动:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hadoop distcp file1 file2</span><br><span class="line">hadoop distcp dir1 dir2</span><br></pre></td></tr></table></figure>
+<p><em>distcp</em> 是用 MapReduce 方法实现的。每个文件都用一个 mapper 拷贝，没有 reducer。</p>
+
       
     </div>
 
