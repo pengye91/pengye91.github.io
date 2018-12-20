@@ -233,6 +233,60 @@
     <header class="post-header">
       <h1 class="post-title">
         
+          <a class="post-link" href="/2018/12/20/hive-bucket/">Hive Buckets</a>
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2018-12-20
+        </span>
+        
+          <span class="post-category">
+            
+              <a href="/categories/Hadoop/">Hadoop</a>
+            
+              <a href="/categories/Hadoop/Hive/">Hive</a>
+            
+          </span>
+        
+        
+      </div>
+    </header>
+
+    
+    
+
+
+    <div class="post-content">
+      
+        
+        
+          
+        
+
+        
+          <p>为了减小一张表里的数据量，<code>Hive</code> 提供了 <code>分区</code> 的功能，基本思路就是<em>把每个分区的数据放在 HDFS 里独立的文件夹中</em>，这样在扫描全表的时候被扫描的数据量就变小了。常见的分区策略是<em>按时间分区</em>。</p>
+<p>但是在一些场景下，即使在分区后，每个分区下面数据量也很大，这时候就可以用 Hive 的 <code>Buckets</code> 功能了。</p>
+          <div class="read-more">
+            <a href="/2018/12/20/hive-bucket/" class="read-more-link">阅读更多</a>
+          </div>
+        
+      
+    </div>
+
+    
+
+    
+
+  </article>
+
+      
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
           <a class="post-link" href="/2018/12/18/scala-option-some-none-pattern/">Scala Option/Some/None 模式</a>
         
       </h1>
@@ -724,65 +778,6 @@
 <center><img src="/images/concurrent-write-detect.png" alt=""></center>
           <div class="read-more">
             <a href="/2018/11/08/野猪书读书笔记第五章3/" class="read-more-link">阅读更多</a>
-          </div>
-        
-      
-    </div>
-
-    
-
-    
-
-  </article>
-
-      
-        
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          <a class="post-link" href="/2018/11/04/野猪书读书笔记第五章2/">野猪书读书笔记第五章(续2)</a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2018-11-04
-        </span>
-        
-          <span class="post-category">
-            
-              <a href="/categories/读书笔记/">读书笔记</a>
-            
-              <a href="/categories/读书笔记/设计数据密集型应用/">设计数据密集型应用</a>
-            
-              <a href="/categories/读书笔记/设计数据密集型应用/数据/">数据</a>
-            
-          </span>
-        
-        
-      </div>
-    </header>
-
-    
-    
-
-
-    <div class="post-content">
-      
-        
-        
-          
-        
-
-        
-          <center><img src="/images/designing-data-intensive-applications.png" alt=""></center>
-
-<p><strong>多主节点备份</strong></p>
-<p>使用单主节点有一个天然的缺陷：当主节点不可用时，就瘫痪了。</p>
-<p>所以有了<em>多主节点</em>的模型：<strong>每个主节点都要将数据变化的过程告诉其他所有节点(包括其他主节点)</strong>。</p>
-          <div class="read-more">
-            <a href="/2018/11/04/野猪书读书笔记第五章2/" class="read-more-link">阅读更多</a>
           </div>
         
       
