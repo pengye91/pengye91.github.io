@@ -233,6 +233,64 @@
     <header class="post-header">
       <h1 class="post-title">
         
+          <a class="post-link" href="/2018/12/27/hbase-architecture/">HBase 架构详述</a>
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2018-12-27
+        </span>
+        
+          <span class="post-category">
+            
+              <a href="/categories/Hadoop/">Hadoop</a>
+            
+              <a href="/categories/Hadoop/HBase/">HBase</a>
+            
+          </span>
+        
+        
+      </div>
+    </header>
+
+    
+    
+
+
+    <div class="post-content">
+      
+        
+        
+          
+        
+
+        
+          <blockquote>
+<p>本文是在翻译自 <a href="https://mapr.com/blog/hbase-and-mapr-db-designed-distribution-scale-and-speed/#.VcKFNflVhBc" target="_blank" rel="noopener">这两篇</a> 很棒的关于 HBase 架构简介文章的基础上写的。</p>
+</blockquote>
+<p><strong>HBase</strong> 是一个运行在 <em>Hadoop</em> 集群中的数据库。</p>
+<p>它不是传统的<em>关系型数据库</em>，所以缺少 ACID 等事务相关特性，但也因此带来了比 RDBMS 更强的<em>扩展性</em>；</p>
+<p>同时，HBase 中保存的数据也不必像 RDBMS 一样必须满足 schema 的限制，因此很适合存储<em>非结构化</em>或者<em>半结构化</em>的数据。</p>
+          <div class="read-more">
+            <a href="/2018/12/27/hbase-architecture/" class="read-more-link">阅读更多</a>
+          </div>
+        
+      
+    </div>
+
+    
+
+    
+
+  </article>
+
+      
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
           <a class="post-link" href="/2018/12/20/hive-bucket/">Hive Buckets</a>
         
       </h1>
@@ -720,64 +778,6 @@
 <p>好处：<strong>扩展性</strong>，一次查询的负载分散在不同的节点上：每个节点分担一些子查询。</p>
           <div class="read-more">
             <a href="/2018/11/09/野猪书读书笔记第六章/" class="read-more-link">阅读更多</a>
-          </div>
-        
-      
-    </div>
-
-    
-
-    
-
-  </article>
-
-      
-        
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          <a class="post-link" href="/2018/11/08/野猪书读书笔记第五章3/">野猪书读书笔记第五章(续3)</a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2018-11-08
-        </span>
-        
-          <span class="post-category">
-            
-              <a href="/categories/读书笔记/">读书笔记</a>
-            
-              <a href="/categories/读书笔记/设计数据密集型应用/">设计数据密集型应用</a>
-            
-              <a href="/categories/读书笔记/设计数据密集型应用/数据/">数据</a>
-            
-          </span>
-        
-        
-      </div>
-    </header>
-
-    
-    
-
-
-    <div class="post-content">
-      
-        
-        
-          
-        
-
-        
-          <center><img src="/images/designing-data-intensive-applications.png" alt=""></center>
-
-<h2 id="并发写检测"><a href="#并发写检测" class="headerlink" title="并发写检测"></a>并发写检测</h2><p>上图:</p>
-<center><img src="/images/concurrent-write-detect.png" alt=""></center>
-          <div class="read-more">
-            <a href="/2018/11/08/野猪书读书笔记第五章3/" class="read-more-link">阅读更多</a>
           </div>
         
       
