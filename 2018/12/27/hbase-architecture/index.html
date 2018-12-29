@@ -22,7 +22,7 @@
 
 
 
-  <meta name="keywords" content="Hadoop, HBase, architecture, Lingering Fragments" />
+  <meta name="keywords" content="HBase, Hadoop, architecture, Lingering Fragments" />
 
 
 
@@ -402,7 +402,7 @@
 <li><em>根索引</em>指向<em>中间索引</em>；</li>
 </ul>
 <p>每个 <code>HFile</code> 都有一个 <code>trailer</code>：<code>trailer</code> 被写在 <code>HFile</code> 文件的末尾，并会指向 <code>HFile</code> 的 Meta Blocks。<code>Trailer</code> 还包含了 <code>bloomfilters</code> 和时间范围等信息。<code>布隆过滤器</code>可以帮助跳过那些<strong>不包含某个 RowKey 的 HFile</strong>，时间范围信息也是同样的作用。</p>
-<center><img src="/images/hadoop/hbase/hbase-hfile-structure.png" alt=""></center>
+<center><img src="/images/hadoop/hbase/hbase-hfile.png" alt=""></center>
 
 <h3 id="HFile-索引"><a href="#HFile-索引" class="headerlink" title="HFile 索引"></a>HFile 索引</h3><p>索引在 HFile 被加载时就被存入内存中，准确的说是 <code>BlockCache</code> 中，这可以保证每一次读文件只需一个磁盘寻址；</p>
 <center><img src="/images/hadoop/hbase/hbase-hfile-index.png" alt=""></center>
@@ -484,9 +484,9 @@
         
           <div class="post-tags">
             
-              <a href="/tags/Hadoop/">Hadoop</a>
-            
               <a href="/tags/HBase/">HBase</a>
+            
+              <a href="/tags/Hadoop/">Hadoop</a>
             
               <a href="/tags/architecture/">architecture</a>
             
