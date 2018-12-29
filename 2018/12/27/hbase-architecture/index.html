@@ -259,7 +259,7 @@
   <div class="post-toc" id="post-toc">
     <h2 class="post-toc-title">文章目录</h2>
     <div class="post-toc-content">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#HBase-设计"><span class="toc-text">HBase 设计</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HBase-数据模型"><span class="toc-text">HBase 数据模型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HBase-架构组件"><span class="toc-text">HBase 架构组件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Regions"><span class="toc-text">Regions</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HBase-HMaster"><span class="toc-text">HBase HMaster</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ZooKeeper-协调器"><span class="toc-text">ZooKeeper: 协调器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#协作"><span class="toc-text">协作</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HBase-第一次读写"><span class="toc-text">HBase 第一次读写</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HBase-Meta-表"><span class="toc-text">HBase Meta 表</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Region-Server-组件"><span class="toc-text">Region Server 组件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HBase-写操作步骤"><span class="toc-text">HBase 写操作步骤</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HBase-HFile"><span class="toc-text">HBase HFile</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#HBase-HFile-结构"><span class="toc-text">HBase HFile 结构</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#HFile-索引"><span class="toc-text">HFile 索引</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HBase-读合并"><span class="toc-text">HBase 读合并</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#HBase-Minor-Compaction"><span class="toc-text">HBase Minor Compaction</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HBase-Major-Compaction"><span class="toc-text">HBase Major Compaction</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Region-连续的行数据"><span class="toc-text">Region == 连续的行数据</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Region-分割"><span class="toc-text">Region 分割</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HDFS-数据备份"><span class="toc-text">HDFS 数据备份</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#HBase-崩溃恢复"><span class="toc-text">HBase 崩溃恢复</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HBase-数据恢复"><span class="toc-text">HBase 数据恢复</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#一点小总结"><span class="toc-text">一点小总结</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#HBase-设计"><span class="toc-text">HBase 设计</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#HBase-数据模型"><span class="toc-text">HBase 数据模型</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#HBase-架构组件"><span class="toc-text">HBase 架构组件</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Regions"><span class="toc-text">Regions</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HBase-HMaster"><span class="toc-text">HBase HMaster</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ZooKeeper-协调器"><span class="toc-text">ZooKeeper: 协调器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#协作"><span class="toc-text">协作</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#HBase-第一次读写"><span class="toc-text">HBase 第一次读写</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#HBase-Meta-表"><span class="toc-text">HBase Meta 表</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Region-Server-组件"><span class="toc-text">Region Server 组件</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#HBase-写操作步骤"><span class="toc-text">HBase 写操作步骤</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#HBase-HFile"><span class="toc-text">HBase HFile</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#HBase-HFile-结构"><span class="toc-text">HBase HFile 结构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#HFile-索引"><span class="toc-text">HFile 索引</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#HBase-读合并"><span class="toc-text">HBase 读合并</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#HBase-Minor-Compaction"><span class="toc-text">HBase Minor Compaction</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HBase-Major-Compaction"><span class="toc-text">HBase Major Compaction</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Region-连续的行数据"><span class="toc-text">Region == 连续的行数据</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Region-分割"><span class="toc-text">Region 分割</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#HDFS-数据备份"><span class="toc-text">HDFS 数据备份</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#HBase-崩溃恢复"><span class="toc-text">HBase 崩溃恢复</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HBase-数据恢复"><span class="toc-text">HBase 数据恢复</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#一点小总结"><span class="toc-text">一点小总结</span></a></li></ol>
     </div>
   </div>
 
@@ -274,7 +274,7 @@
 <p>它不是传统的<em>关系型数据库</em>，所以缺少 ACID 等事务相关特性，但也因此带来了比 RDBMS 更强的<em>扩展性</em>；</p>
 <p>同时，HBase 中保存的数据也不必像 RDBMS 一样必须满足 schema 的限制，因此很适合存储<em>非结构化</em>或者<em>半结构化</em>的数据。</p>
 <a id="more"></a>
-<h2 id="HBase-设计"><a href="#HBase-设计" class="headerlink" title="HBase 设计"></a>HBase 设计</h2><p>HBase 的易扩展性来自于其 — <strong>被一起访问的数据也存在一起</strong> — 的设计模式：根据 <strong>键</strong> 将数据聚合，并且将不同的数据集存在集群中不同的节点上。在获取数据的时候，从同一个节点上获取数据集，效率很高。</p>
+<h1 id="HBase-设计"><a href="#HBase-设计" class="headerlink" title="HBase 设计"></a>HBase 设计</h1><p>HBase 的易扩展性来自于其 — <strong>被一起访问的数据也存在一起</strong> — 的设计模式：根据 <strong>键</strong> 将数据聚合，并且将不同的数据集存在集群中不同的节点上。在获取数据的时候，从同一个节点上获取数据集，效率很高。</p>
 <p>HBase 被称为 <em>面向列簇</em> 的数据库，但同时也是 <em>面向行</em> 的: <em>每一行都由键索引，根据这个键可以查询每行存储的数据</em>。每个<em>列簇</em>都保存了一些类似的数据，可以把每一行数据理解成<em>所列簇中的所有数据的集合</em>，如下图所示。</p>
 <center><img src="/images/hadoop/hbase/hbase-column-oriented-db.png" alt=""></center>
 
@@ -282,7 +282,7 @@
 <center><img src="/images/hadoop/hbase/hbase-distributed-db.png" alt=""></center>
 
 
-<h2 id="HBase-数据模型"><a href="#HBase-数据模型" class="headerlink" title="HBase 数据模型"></a>HBase 数据模型</h2><p>在 HBase 中，数据都以 <em>RowKey</em> 来确认位置并<strong>按序</strong>存储。<em>排序</em>在 HBase 设计中非常重要。</p>
+<h1 id="HBase-数据模型"><a href="#HBase-数据模型" class="headerlink" title="HBase 数据模型"></a>HBase 数据模型</h1><p>在 HBase 中，数据都以 <em>RowKey</em> 来确认位置并<strong>按序</strong>存储。<em>排序</em>在 HBase 设计中非常重要。</p>
 <center><img src="/images/hadoop/hbase/hbase-row-key.png" alt=""></center>
 
 <p>每张表根据 <em>RowKey 范围</em> 被分割为由多行数据集组成的序列集，被称为 <em>Regions</em>。这些 <em>Regions</em> 被存储在集群中的不同节点中，这些节点被称为 <em>RegionServer</em>。这种模式可以通过增加 <em>RegionServer</em> 的数量来有效扩展读写性能。</p>
@@ -302,7 +302,7 @@
 <center><img src="/images/hadoop/hbase/hbase-versioned-data.png" alt=""></center>
 
 
-<h2 id="HBase-架构组件"><a href="#HBase-架构组件" class="headerlink" title="HBase 架构组件"></a>HBase 架构组件</h2><p>HBase 集群由三种类型的组件组成:</p>
+<h1 id="HBase-架构组件"><a href="#HBase-架构组件" class="headerlink" title="HBase 架构组件"></a>HBase 架构组件</h1><p>HBase 集群由三种类型的组件组成:</p>
 <ul>
 <li>Region Servers: 管理数据的读写；<br>在访问数据时，客户端直接和 Region Server 交互；</li>
 <li>HBase Master: 管理 Region 分配，执行 DDL 操作；</li>
@@ -312,12 +312,12 @@
 <p>HDFS 的 NameNode 负责管理数据的元信息。</p>
 <center><img src="/images/hadoop/hbase/hbase-architectural-components.png" alt=""></center>
 
-<h3 id="Regions"><a href="#Regions" class="headerlink" title="Regions"></a>Regions</h3><p>如上文所说，HBase 表中的数据根据 RowKey 范围水平分割进多个 <code>Region</code>。</p>
+<h2 id="Regions"><a href="#Regions" class="headerlink" title="Regions"></a>Regions</h2><p>如上文所说，HBase 表中的数据根据 RowKey 范围水平分割进多个 <code>Region</code>。</p>
 <p><strong>一个 <code>Region</code> 包含了表中从 Region 起始 Key 到结束 Key 的所有行数据</strong>。</p>
 <p>Regions 被分配到集群中的 <code>RegionServer</code> 里，数据的读写都由 RegionServer 负责。</p>
 <center><img src="/images/hadoop/hbase/hbase-regions-1.png" alt=""></center>
 
-<h3 id="HBase-HMaster"><a href="#HBase-HMaster" class="headerlink" title="HBase HMaster"></a>HBase HMaster</h3><p>HBase HMaster 负责集群中 Region 的分配，表的 DDL 操作：</p>
+<h2 id="HBase-HMaster"><a href="#HBase-HMaster" class="headerlink" title="HBase HMaster"></a>HBase HMaster</h2><p>HBase HMaster 负责集群中 Region 的分配，表的 DDL 操作：</p>
 <ul>
 <li><p>协调 Region Servers</p>
 <ul>
@@ -333,11 +333,11 @@
 </ul>
 <center><img src="/images/hadoop/hbase/hbase-hmaster.png" alt=""></center>
 
-<h3 id="ZooKeeper-协调器"><a href="#ZooKeeper-协调器" class="headerlink" title="ZooKeeper: 协调器"></a>ZooKeeper: 协调器</h3><p>HBase 使用 ZooKeeper 作为分布式协调服务，用于维护集群中服务器状态。</p>
+<h2 id="ZooKeeper-协调器"><a href="#ZooKeeper-协调器" class="headerlink" title="ZooKeeper: 协调器"></a>ZooKeeper: 协调器</h2><p>HBase 使用 ZooKeeper 作为分布式协调服务，用于维护集群中服务器状态。</p>
 <p>ZooKeeper 用于维护机器的死活，并且在机器挂的时候发出通知。ZooKeeper 使用共识算法来保证集群中的共享状态。</p>
 <center><img src="/images/hadoop/hbase/hbase-zookeeper.png" alt=""></center>
 
-<h3 id="协作"><a href="#协作" class="headerlink" title="协作"></a>协作</h3><p>ZooKeeper 用于协调分布式系统中成员的共享状态信息。RegionServer 和 活的 HMaster 通过一段 <strong>会话</strong> 和 ZK 连接。ZK 通过 <strong>心跳</strong> 给活跃的会话创建<strong>暂时节点</strong>。</p>
+<h2 id="协作"><a href="#协作" class="headerlink" title="协作"></a>协作</h2><p>ZooKeeper 用于协调分布式系统中成员的共享状态信息。RegionServer 和 活的 HMaster 通过一段 <strong>会话</strong> 和 ZK 连接。ZK 通过 <strong>心跳</strong> 给活跃的会话创建<strong>暂时节点</strong>。</p>
 <center><img src="/images/hadoop/hbase/hbase-work-together.png" alt=""></center>
 
 <p>每个 Region Server 都会创建一个 <strong>暂时节点</strong>，HMaster 会监测这些节点来发现可用的 <code>RegionServer</code>，同时也监测失败的节点。</p>
@@ -347,7 +347,7 @@
 <li>HMaster 会监听 Region Server 的失败消息，一旦收到消息，就开始启动 恢复程序;</li>
 <li>备用 HMaster 监听真正 HMaster 的失败消息，一旦收到，就启动新的选举算法。</li>
 </ul>
-<h2 id="HBase-第一次读写"><a href="#HBase-第一次读写" class="headerlink" title="HBase 第一次读写"></a>HBase 第一次读写</h2><p>当有客户端第一次向 HBase 读或写时：</p>
+<h1 id="HBase-第一次读写"><a href="#HBase-第一次读写" class="headerlink" title="HBase 第一次读写"></a>HBase 第一次读写</h1><p>当有客户端第一次向 HBase 读或写时：</p>
 <ol>
 <li>客户端从 ZK 得到保存 META 表的 RS 的地址；</li>
 <li>客户端访问这个 RS 上的 META 表，得到想要查询的 RowKey 所在的 RS 地址；随后，客户端将 META 表地址缓存起来；</li>
@@ -356,7 +356,7 @@
 </ol>
 <center><img src="/images/hadoop/hbase/hbase-first-read-write.png" alt=""></center>
 
-<h2 id="HBase-Meta-表"><a href="#HBase-Meta-表" class="headerlink" title="HBase Meta 表"></a>HBase Meta 表</h2><ul>
+<h1 id="HBase-Meta-表"><a href="#HBase-Meta-表" class="headerlink" title="HBase Meta 表"></a>HBase Meta 表</h1><ul>
 <li>META 表保存着系统中所有 regions 信息；</li>
 <li>META 表类似 B 树；</li>
 <li>META 表的结构如下：<ul>
@@ -367,7 +367,7 @@
 </ul>
 <center><img src="/images/hadoop/hbase/hbase-meta-table.png" alt=""></center>
 
-<h2 id="Region-Server-组件"><a href="#Region-Server-组件" class="headerlink" title="Region Server 组件"></a>Region Server 组件</h2><p>每个运行在 DataNode 上的 RegionServer 都有这些组件:</p>
+<h1 id="Region-Server-组件"><a href="#Region-Server-组件" class="headerlink" title="Region Server 组件"></a>Region Server 组件</h1><p>每个运行在 DataNode 上的 RegionServer 都有这些组件:</p>
 <ul>
 <li>WAL: <code>Write-Ahead-Log</code> 是一份用于存储还未被持久化的数据的文件，它主要用于失败恢复；</li>
 <li>BlockCache: 是一种<strong>读缓存</strong>。用于在内存中缓存经常被读的数据。Least Recently Used (LRU) 数据在存满时会被失效；</li>
@@ -381,7 +381,7 @@
 </ul>
 <center><img src="/images/hadoop/hbase/hbase-rs-components.png" alt=""></center>
 
-<h2 id="HBase-写操作步骤"><a href="#HBase-写操作步骤" class="headerlink" title="HBase 写操作步骤"></a>HBase 写操作步骤</h2><p>当 HBase 收到一个 <code>Put</code> 请求时：</p>
+<h1 id="HBase-写操作步骤"><a href="#HBase-写操作步骤" class="headerlink" title="HBase 写操作步骤"></a>HBase 写操作步骤</h1><p>当 HBase 收到一个 <code>Put</code> 请求时：</p>
 <ol>
 <li>首先写数据到 <code>WAL</code> 中：数据修改会被<strong>追加</strong>到 WAL 文件的末尾；<center><img src="/images/hadoop/hbase/hbase-put-wal.png" alt=""></center></li>
 <li>数据被放在 <code>MemStore</code> 中，然后给客户端返回一个 <code>PUT ack</code>；<center><img src="/images/hadoop/hbase/hbase-put-memstore.png" alt=""></center></li>
@@ -390,10 +390,10 @@
 
 </li>
 </ol>
-<h2 id="HBase-HFile"><a href="#HBase-HFile" class="headerlink" title="HBase HFile"></a>HBase HFile</h2><p>数据从 <code>MemStore</code> 写入 <code>HFile</code> 的过程是一个 <code>序列写</code> 操作，<em>序列写</em>操作非常快，因为避免了磁头寻址的过程；</p>
+<h1 id="HBase-HFile"><a href="#HBase-HFile" class="headerlink" title="HBase HFile"></a>HBase HFile</h1><p>数据从 <code>MemStore</code> 写入 <code>HFile</code> 的过程是一个 <code>序列写</code> 操作，<em>序列写</em>操作非常快，因为避免了磁头寻址的过程；</p>
 <center><img src="/images/hadoop/hbase/hbase-hfile.png" alt=""></center>
 
-<h3 id="HBase-HFile-结构"><a href="#HBase-HFile-结构" class="headerlink" title="HBase HFile 结构"></a>HBase HFile 结构</h3><p><code>HFile</code> 包含了一个<em>多层索引</em>，索引可以让 HBase 在不遍历整个 HFile 的情况下得到数据，多层索引就像一颗 <em>B+树</em>:</p>
+<h2 id="HBase-HFile-结构"><a href="#HBase-HFile-结构" class="headerlink" title="HBase HFile 结构"></a>HBase HFile 结构</h2><p><code>HFile</code> 包含了一个<em>多层索引</em>，索引可以让 HBase 在不遍历整个 HFile 的情况下得到数据，多层索引就像一颗 <em>B+树</em>:</p>
 <ul>
 <li>键值对以升序状态存储；</li>
 <li>索引指向 <em>64KB</em> 的 <em>数据块</em>，数据块中存着数据；</li>
@@ -404,10 +404,10 @@
 <p>每个 <code>HFile</code> 都有一个 <code>trailer</code>：<code>trailer</code> 被写在 <code>HFile</code> 文件的末尾，并会指向 <code>HFile</code> 的 Meta Blocks。<code>Trailer</code> 还包含了 <code>bloomfilters</code> 和时间范围等信息。<code>布隆过滤器</code>可以帮助跳过那些<strong>不包含某个 RowKey 的 HFile</strong>，时间范围信息也是同样的作用。</p>
 <center><img src="/images/hadoop/hbase/hbase-hfile-stucture.png" alt=""></center>
 
-<h4 id="HFile-索引"><a href="#HFile-索引" class="headerlink" title="HFile 索引"></a>HFile 索引</h4><p>索引在 HFile 被加载时就被存入内存中，准确的说是 <code>BlockCache</code> 中，这可以保证每一次读文件只需一个磁盘寻址；</p>
+<h3 id="HFile-索引"><a href="#HFile-索引" class="headerlink" title="HFile 索引"></a>HFile 索引</h3><p>索引在 HFile 被加载时就被存入内存中，准确的说是 <code>BlockCache</code> 中，这可以保证每一次读文件只需一个磁盘寻址；</p>
 <center><img src="/images/hadoop/hbase/hbase-hfile-index.png" alt=""></center>
 
-<h2 id="HBase-读合并"><a href="#HBase-读合并" class="headerlink" title="HBase 读合并"></a>HBase 读合并</h2><p>客户端在 Get 或者 Scan 时，步骤如下:</p>
+<h1 id="HBase-读合并"><a href="#HBase-读合并" class="headerlink" title="HBase 读合并"></a>HBase 读合并</h1><p>客户端在 Get 或者 Scan 时，步骤如下:</p>
 <ol>
 <li>在 Block Cache 中找。BlockCache 是读缓存。</li>
 <li>在 MemStore 中找。MemStore 中包含最新的写数据。</li>
@@ -418,34 +418,34 @@
 <p>由于每个 <code>MemStore</code> 会有多个 <code>HFiles</code>，这就意味着对于一个读请求，会检查多个 HFiles，而这会影响查询性能。这种影响被称为<strong>读放大</strong>。</p>
 <center><img src="/images/hadoop/hbase/hbase-read-amplification.png" alt=""></center>
 
-<h3 id="HBase-Minor-Compaction"><a href="#HBase-Minor-Compaction" class="headerlink" title="HBase Minor Compaction"></a>HBase Minor Compaction</h3><p>为了解决上面的问题，HBase 会自动将一些 HFiles 通过合并排序合并为一个大的 HFiles，这个过程被称为 <strong>Minor Compaction</strong>。</p>
+<h2 id="HBase-Minor-Compaction"><a href="#HBase-Minor-Compaction" class="headerlink" title="HBase Minor Compaction"></a>HBase Minor Compaction</h2><p>为了解决上面的问题，HBase 会自动将一些 HFiles 通过合并排序合并为一个大的 HFiles，这个过程被称为 <strong>Minor Compaction</strong>。</p>
 <center><img src="/images/hadoop/hbase/hbase-read-amplification.png" alt=""></center>
 
-<h3 id="HBase-Major-Compaction"><a href="#HBase-Major-Compaction" class="headerlink" title="HBase Major Compaction"></a>HBase Major Compaction</h3><p>HBase Major Compaction 会<strong>将所有的 HFiles 写进一个超大的HFile</strong>，在这个过程中，会将 <code>deletes</code> 和 <em>过期</em> 的数据丢掉。这可以提升读性能，但会带来大量的 磁盘 IO 和网络 IO，这种影响称为 <strong>写放大</strong>。</p>
+<h2 id="HBase-Major-Compaction"><a href="#HBase-Major-Compaction" class="headerlink" title="HBase Major Compaction"></a>HBase Major Compaction</h2><p>HBase Major Compaction 会<strong>将所有的 HFiles 写进一个超大的HFile</strong>，在这个过程中，会将 <code>deletes</code> 和 <em>过期</em> 的数据丢掉。这可以提升读性能，但会带来大量的 磁盘 IO 和网络 IO，这种影响称为 <strong>写放大</strong>。</p>
 <center><img src="/images/hadoop/hbase/hbase-write-amplification.png" alt=""></center>
 
 
-<h2 id="Region-连续的行数据"><a href="#Region-连续的行数据" class="headerlink" title="Region == 连续的行数据"></a>Region == 连续的行数据</h2><p>回顾一下：</p>
+<h1 id="Region-连续的行数据"><a href="#Region-连续的行数据" class="headerlink" title="Region == 连续的行数据"></a>Region == 连续的行数据</h1><p>回顾一下：</p>
 <ul>
 <li>每张表被水平分割成一个或者多个 <em>Region</em>。每个 <em>Region</em> 都包含了连续的有序的一组行数据；</li>
 <li>每个 Region 都直接向 client 提供读写服务；</li>
 </ul>
-<h3 id="Region-分割"><a href="#Region-分割" class="headerlink" title="Region 分割"></a>Region 分割</h3><p>最开始的时候每张表有一个 <code>Region</code>，当一个 <code>Region</code> 的数据量超过设定值后，会分割成两个<strong>子 region</strong>。这两个代表了原始 Region 一半的 <strong>子 Region</strong> 在同一个 RegionServer 里并行运着，然后这次分割被上报给 <code>HMaster</code>。</p>
+<h2 id="Region-分割"><a href="#Region-分割" class="headerlink" title="Region 分割"></a>Region 分割</h2><p>最开始的时候每张表有一个 <code>Region</code>，当一个 <code>Region</code> 的数据量超过设定值后，会分割成两个<strong>子 region</strong>。这两个代表了原始 Region 一半的 <strong>子 Region</strong> 在同一个 RegionServer 里并行运着，然后这次分割被上报给 <code>HMaster</code>。</p>
 <p>另外，为了负载均衡的考虑，HMaster 可能会将新生成的 region 移到其他 RegionServer 上。这时，在 Region 上的读写都不再是本地读写了，而需要通过网络 IO，直到 Major Compaction 发生。</p>
 <center><img src="/images/hadoop/hbase/hbase-region-split.png" alt=""></center><br><center><img src="/images/hadoop/hbase/hbase-load-balancing.png" alt=""></center>
 
-<h2 id="HDFS-数据备份"><a href="#HDFS-数据备份" class="headerlink" title="HDFS 数据备份"></a>HDFS 数据备份</h2><p>由于 HFile 都存放在 HDFS 中，所以所有被持久化到硬盘的 HFiles 都依赖 HDFS 的文件副本。</p>
+<h1 id="HDFS-数据备份"><a href="#HDFS-数据备份" class="headerlink" title="HDFS 数据备份"></a>HDFS 数据备份</h1><p>由于 HFile 都存放在 HDFS 中，所以所有被持久化到硬盘的 HFiles 都依赖 HDFS 的文件副本。</p>
 <center><img src="/images/hadoop/hbase/hbase-data-replica-1.png" alt=""></center>
 
 <p>而那些没有被持久化的数据都依赖于 WAL。</p>
-<h3 id="HBase-崩溃恢复"><a href="#HBase-崩溃恢复" class="headerlink" title="HBase 崩溃恢复"></a>HBase 崩溃恢复</h3><p>当有一个 RegionServer 失败时，ZK 会监测到心跳包丢失并决定说这个节点挂掉了，然后 HMaster 就知道了。<br>这时 HMaster 会决定好新的多个 RS 并将这个失败的 RS 上的 WAL 文件分割成多分然后将它们放到新的 RS 上，然后每个新的 RS 会回放这些 WAL 文件以重构 <code>memstore</code>。</p>
+<h2 id="HBase-崩溃恢复"><a href="#HBase-崩溃恢复" class="headerlink" title="HBase 崩溃恢复"></a>HBase 崩溃恢复</h2><p>当有一个 RegionServer 失败时，ZK 会监测到心跳包丢失并决定说这个节点挂掉了，然后 HMaster 就知道了。<br>这时 HMaster 会决定好新的多个 RS 并将这个失败的 RS 上的 WAL 文件分割成多分然后将它们放到新的 RS 上，然后每个新的 RS 会回放这些 WAL 文件以重构 <code>memstore</code>。</p>
 <center><img src="/images/hadoop/hbase/hbase-data-replica-2.png" alt=""></center>
 
-<h3 id="HBase-数据恢复"><a href="#HBase-数据恢复" class="headerlink" title="HBase 数据恢复"></a>HBase 数据恢复</h3><p>WAL 文件包含了一系列的更新操作，而每个更新操作都代表了一个 <code>put</code> 或者 <code>delete</code> 操作。</p>
+<h2 id="HBase-数据恢复"><a href="#HBase-数据恢复" class="headerlink" title="HBase 数据恢复"></a>HBase 数据恢复</h2><p>WAL 文件包含了一系列的更新操作，而每个更新操作都代表了一个 <code>put</code> 或者 <code>delete</code> 操作。</p>
 <p>通过读 WAL 文件，可以实现数据恢复：读 WAL 然后 把数据向 Memstore 添加并排序。最后的最后，MemStore 中的数据会被写到磁盘的 HFile 中。</p>
 <center><img src="/images/hadoop/hbase/hbase-data-recovery.png" alt=""></center>
 
-<h2 id="一点小总结"><a href="#一点小总结" class="headerlink" title="一点小总结"></a>一点小总结</h2><p>HBase 架构有这些优点:</p>
+<h1 id="一点小总结"><a href="#一点小总结" class="headerlink" title="一点小总结"></a>一点小总结</h1><p>HBase 架构有这些优点:</p>
 <ul>
 <li><strong>强一致模型</strong><br>当数据被写后，所有客户端都能读到更新后的数据。</li>
 <li><strong>自动扩展</strong><ul>
