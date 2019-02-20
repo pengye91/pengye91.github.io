@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+
+  <meta name="description" content="Flink 学习笔记之二 DataStream API"/>
+
+
+
+
+  <meta name="keywords" content="数据处理, 读书笔记, Flink, Lingering Fragments" />
+
+
+
+
+
+
+
+
+
+
+  <link rel="alternate" href="/default" title="Lingering Fragments">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.10.1" />
+
+
+
+<link rel="canonical" href="https://pengye91.github.io/2019/02/05/flink-learning-2/"/>
+
+
+
+  <link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/lib/nprogress/nprogress.min.css" />
+
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.10.1" />
+
+
+
+  
+
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-127442719-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-127442719-1');
+</script>
+
+
+  <script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+
+
+
+
+
+<script>
+  window.config = {"title":"Lingering Fragments","subtitle":"一些想法和总结","description":null,"author":"xyp","language":"zh-CN","timezone":"Asia/Shanghai","url":"https://pengye91.github.io","root":"/","permalink":":year/:month/:day/:title/","permalink_defaults":null,"source_dir":"source","public_dir":"public","tag_dir":"tags","archive_dir":"archives","category_dir":"categories","code_dir":"downloads/code","i18n_dir":":lang","skip_render":null,"new_post_name":":title.md","default_layout":"post","titlecase":false,"external_link":true,"filename_case":0,"render_drafts":false,"post_asset_folder":false,"relative_link":false,"future":true,"highlight":{"enable":true,"auto_detect":false,"line_number":true,"tab_replace":null,"first_line_number":"always1"},"default_category":"uncategorized","category_map":null,"tag_map":null,"date_format":"YYYY-MM-DD","time_format":"HH:mm:ss","per_page":10,"pagination_dir":"page","theme":"even","deploy":{"type":"git","repo":"https://github.com/pengye91/pengye91.github.io.git","branch":"master"},"ignore":[],"keywords":null,"index_generator":{"per_page":10,"order_by":"-date","path":""},"sitemap":{"path":"sitemap.xml"},"baidusitemap":{"path":"baidusitemap.xml"},"archive_generator":{"per_page":10,"yearly":true,"monthly":true,"daily":false},"category_generator":{"per_page":10},"tag_generator":{"per_page":10},"marked":{"gfm":true,"pedantic":false,"sanitize":false,"tables":true,"breaks":true,"smartLists":true,"smartypants":true,"modifyAnchors":"","autolink":true},"server":{"port":4000,"log":false,"compress":false,"header":true},"since":2018,"favicon":"/favicon.ico","rss":"default","menu":{"Home":"/","Archives":"/archives/","Tags":"/tags","Categories":"/categories","About":"/about"},"color":"cobalt blue","mode":"default","toc":true,"fancybox":true,"pjax":true,"copyright":{"enable":false,"license":"<a rel=\"license\" href=\"http://creativecommons.org/licenses/by-nc/4.0/\" target=\"_blank\">知识共享署名-非商业性使用 4.0 国际许可协议</a>"},"reward":{"enable":false,"qrCode":{"wechat":null,"alipay":null}},"social":{"email":"pengye91@gmail.com","stack-overflow":null,"twitter":null,"facebook":null,"linkedin":null,"google":null,"github":"https://github.com/pengye91","weibo":null,"zhihu":null,"douban":null,"pocket":null,"tumblr":null,"instagram":null},"leancloud":{"app_id":null,"app_key":null},"baidu_analytics":null,"baidu_verification":null,"google_analytics":"UA-127442719-1","google_verification":null,"disqus_shortname":null,"valine":{"appid":"xeDhasO1xV7F1SpCG0oRuiol-gzGzoHsz","appkey":"wgFvo2YMOmn0Qcv7YPFxtePy","notify":false,"verify":false,"avatar":"identicon","visitor":true,"placeholder":"在此评论......"},"changyan":{"appid":null,"appkey":null},"livere_datauid":null,"version":"2.10.1"};
+</script>
+
+    <title> Flink 学习笔记之二 DataStream API - Lingering Fragments </title>
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">Lingering Fragments</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    
+      <a href="/">
+        <li class="mobile-menu-item">
+          
+          
+            首页
+          
+        </li>
+      </a>
+    
+      <a href="/archives/">
+        <li class="mobile-menu-item">
+          
+          
+            归档
+          
+        </li>
+      </a>
+    
+      <a href="/tags">
+        <li class="mobile-menu-item">
+          
+          
+            标签
+          
+        </li>
+      </a>
+    
+      <a href="/categories">
+        <li class="mobile-menu-item">
+          
+          
+            分类
+          
+        </li>
+      </a>
+    
+      <a href="/about">
+        <li class="mobile-menu-item">
+          
+          
+            关于
+          
+        </li>
+      </a>
+    
+  </ul>
+</nav>
+
+    <div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">Lingering Fragments</a>
+</div>
+
+<nav class="site-navbar">
+  
+    <ul id="menu" class="menu">
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/">
+            
+            
+              首页
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            
+            
+              归档
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/tags">
+            
+            
+              标签
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/categories">
+            
+            
+              分类
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/about">
+            
+            
+              关于
+            
+          </a>
+        </li>
+      
+    </ul>
+  
+</nav>
+
+      </header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content">
+            
+  
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          Flink 学习笔记之二 DataStream API
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2019-02-05
+        </span>
+        
+          <span class="post-category">
+            
+              <a href="/categories/Flink/">Flink</a>
+            
+              <a href="/categories/Flink/读书笔记/">读书笔记</a>
+            
+              <a href="/categories/Flink/读书笔记/数据处理/">数据处理</a>
+            
+          </span>
+        
+        
+      </div>
+    </header>
+
+    
+    
+  <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#系统架构"><span class="toc-text">系统架构</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#任务执行"><span class="toc-text">任务执行</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#高可用"><span class="toc-text">高可用</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#数据传输"><span class="toc-text">数据传输</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#高吞吐和低延迟"><span class="toc-text">高吞吐和低延迟</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#反压-back-pressure"><span class="toc-text">反压(back pressure)</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#事件时间处理"><span class="toc-text">事件时间处理</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#时间戳"><span class="toc-text">时间戳</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#水位"><span class="toc-text">水位</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#水位和事件时间"><span class="toc-text">水位和事件时间</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#状态管理"><span class="toc-text">状态管理</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#State-Backends"><span class="toc-text">State Backends</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#有状态的算子的扩展"><span class="toc-text">有状态的算子的扩展</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Checkpoints-Savepoints-State-Recovery"><span class="toc-text">Checkpoints, Savepoints, State Recovery</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Consistent-Checkpoints"><span class="toc-text">Consistent Checkpoints</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#从-Consistent-Checkpoints-恢复"><span class="toc-text">从 Consistent Checkpoints 恢复</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Flink-的轻量-checkpointing-算法"><span class="toc-text">Flink 的轻量 checkpointing 算法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Flink-的优化"><span class="toc-text">Flink 的优化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Savepoints"><span class="toc-text">Savepoints</span></a></li></ol></li></ol>
+    </div>
+  </div>
+
+
+
+    <div class="post-content">
+      
+        <h1 id="系统架构"><a href="#系统架构" class="headerlink" title="系统架构"></a>系统架构</h1><p>一套可运行的 Flink 环境由 4 个部分组成：</p>
+<ol>
+<li><strong>JobManager</strong></li>
+<li><strong>ResourceManager</strong></li>
+<li><strong>TaskManager</strong></li>
+<li><strong>Dispatcher</strong></li>
+</ol>
+<p>这 4 个组件都运行在 JVM 中。</p>
+<center><img src="/images/flink/1549027998387.png" alt="Alt text"></center>
+
+<p>组件间的交互如上图所示。</p>
+<a id="more"></a>
+<p>各部分的职责是这样的：</p>
+<ul>
+<li><p><strong>JobManager</strong><br>  <code>JobManager</code> 是控制每个应用运行的<strong>主进程</strong>，<code>JobManager</code>接收应用程序用于运行。<br>  一个应用程序包括一个 <code>JobGraph</code>，一个<code>logical dataflow graph</code>以及一个包含所有需要的类，库和其他资源的 <code>JAR</code> 包。<br>  <code>JobManager</code> 将 <code>JobGraph</code> 转换为物理执行计划 <code>ExecutionGraph</code>，这个执行计划中包含被并行执行的任务。<br>  <code>JobManager</code> 向 <code>ResourceManager</code> 请求运行资源(即 <code>TaskManager slots</code>)来运行任务，一旦收到足够多的 <code>TaskManager Slost</code>，就将任务分发给 <code>TaskManagers</code> 来执行任务。<br>  在任务运行过程中，<code>JobManager</code> 负责所有需要中央协调的操作，比如 <code>checkpoints</code> 操作。</p>
+</li>
+<li><p><strong>ResourceManager</strong><br>  <em>Flink</em> 提供了多种(YARN, Mesos, K8S 等)基于不同资源提供者的 <code>ResourceManager</code> 的实现。<br>  <code>ResourceManager</code> 负责管理 <code>TaskManager Slot</code> —- Flink 的处理资源单位。<br>  除了负责向 <code>providers</code> 申请资源，<code>ResourceManager</code> 还负责释放空闲的资源。</p>
+</li>
+<li><p><strong>TaskManager</strong><br>  这是 Flink 的 Worker 进程。<br>  通常来说，一个 Flink 应用中有多个 TaskManager 在运行着。<br>  一个 <strong>TaskManager</strong> 提供固定数量的 slots，slots 的数量限制了一个 <strong>TaskManager</strong> 可运行的任务的数量。<br>  <strong>TaskManager</strong> 启动后向 <strong>ResourceManager</strong> 注册 slots，然后 <code>ResourceManager</code> 会指导它向 <code>JobManager</code> 提供一个或多个 slots。<br>  <code>JobManager</code> 随后分配任务给这些 slots 来运行。在运行过程中，不同 <code>TaskManager</code> 之间可以交换数据。</p>
+</li>
+<li><p><strong>Dispatcher</strong><br>  <code>Dispatcher</code> 是在所有 Job 之上的概念，它提供了一个可以提交应用运行的 REST 接口。<br>  一旦接收到了一个应用程序，就启动一个 <code>JobManager</code> 并把应用程序交给她开始运行。<br>  <code>Dispatcher</code> 还提供了一个 Web Dashboard 提供 Job 的运行信息。</p>
+</li>
+</ul>
+<h2 id="任务执行"><a href="#任务执行" class="headerlink" title="任务执行"></a>任务执行</h2><p>一个 <code>TaskManager</code> 可以同时运行多个任务。这些任务可以是属于同一个算子(数据并行)，也可以属于不同算子(任务并行)，甚至属于不同的应用(Job 并行)。</p>
+<p>一个 <code>TaskManager</code> 提供固定数量的处理 Slot 用以控制并发的任务数。每个 Slot 负责执行一个任务。</p>
+<center><img src="/images/flink/1549030807178.png" alt="Alt text"></center>
+
+<p>关系如上图所示。</p>
+<p>在 <code>JobGraph</code> 中，有 5 个算子。A 和 C 是数据源，E 是 Sink。C 和 E 有两个并行任务，其他都有 4 个。</p>
+<p>由于最大的并发度是 4 ，所以至少需要 4 个 slot。</p>
+<p>将任务调度到 Slots 的过程还需要考虑数据交换过程中的网络传输问题，以尽量少地网络 IO 为标准。</p>
+<p>每个 <code>TaskManager</code> 代表一个 JVM 进程，每个运行的任务代表一个 线程。</p>
+<p>由于线程的隔离性没有进程高，所以有可能会一个有问题的 任务 导致整个 <code>TaskManager</code> 进程挂掉以至于其中所有的任务挂掉，所以，一个 <code>TaskManager</code> 最好值运行一个 应用的任务。</p>
+<h2 id="高可用"><a href="#高可用" class="headerlink" title="高可用"></a>高可用</h2><p>Flink 的高可用依赖于 ZooKeeper。</p>
+<p>Flink 使用 ZK 来做 <strong>leader 选举</strong>、高可用以及数据存储。</p>
+<p>在高可用模式下，<strong>JobManager</strong> 会将 <strong>JobGraph</strong> 和应用程序所需的所有数据和资源(包括 JAR 包) 写到一个远程存储系统中(比如 HDFS)。另外，<strong>JobManager</strong> 会写一个 <strong>pointer</strong> 到 ZK 的数据存储中。在整个应用程序的运行过程中，<strong>JobManager</strong> 会接收到单个任务的<strong>checkpoints</strong> 的<strong>state handles</strong> 即存储位置，一旦所有任务成功将状态写入到远程存储中，<strong>JobManager</strong> 就会将 state handles 写入到远程存储中并且向 ZK 写入 pointer。</p>
+<center><img src="/images/flink/1549111903292.png" alt="Alt text"></center>
+
+<p>当一个 <strong>JobManager</strong> 挂掉后，所有相关的 task 都自动被取消，一个新的 <strong>JobManager</strong> 会经过如下步骤接手：</p>
+<ol>
+<li>向 ZK 请求 <strong>JobGraph</strong> 和相关所有资源存储的位置，以及最后一次 checkpoint 的 state handles 的地址。</li>
+<li>向 <strong>ResourceManager</strong> 请求 slots 用以继续执行应用程序。</li>
+<li>重启应用并重新设置所有 task 的状态到上一次 checkpoint 状态。</li>
+</ol>
+<h1 id="数据传输"><a href="#数据传输" class="headerlink" title="数据传输"></a>数据传输</h1><p>数据传输由 <strong>TaskManager</strong> 负责。</p>
+<p>数据在发送和接收前会先缓存为一批。这是高吞吐的前提。这也说明了 Flink 的处理模型是基于微批处理的。</p>
+<p>每个 <strong>TaskManager</strong> 都有一个网络 buffer 池，默认大小为 32KB。</p>
+<ul>
+<li>假设一个任务要给 n 个其他的任务发送数据，那么这个任务需要 n 个发送缓冲区；</li>
+<li>相对应的，如果一个任务需要从 m 个其他任务接收数据，那么这个任务需要 m 个接收缓冲区。</li>
+</ul>
+<p>如图所示：</p>
+<center><img src="/images/flink/1549113574004.png" alt="Alt text"></center>
+
+<p>要发送给另一个 <strong>TaskManager</strong> 的缓存会在同一个网络连接上多路复用。</p>
+<p>另外，如果数据交换发生在同一个 <strong>TaskManager</strong> 的不同 slots 之间，sender 任务将数据序列化为 <strong>byte buffer</strong> 后将缓存放进一个队列中，接收者任务从这个队列中抓出数据并反序列化。因此没有网络 IO。<br>由于序列化操作非常消耗计算资源，因此，Flink 可以在一定程度下将多个算子当做一个任务。同一个任务中的算子通过给内嵌函数传值来交流，这样可以避免序列化。</p>
+<h2 id="高吞吐和低延迟"><a href="#高吞吐和低延迟" class="headerlink" title="高吞吐和低延迟"></a>高吞吐和低延迟</h2><p>数据缓冲虽然可以提升带宽利用率，但在流式处理的语境下，会带来一定程度的延迟。</p>
+<p>Flink 提供了一个 timeout 来尽量避免缓冲带来的延迟问题: 无论缓冲区有没有填满，只要到 timeout 了，就发送数据。</p>
+<h2 id="反压-back-pressure"><a href="#反压-back-pressure" class="headerlink" title="反压(back pressure)"></a>反压(back pressure)</h2><p>当一个任务的处理速率小于数据输入的速率时，stream 处理器应该限制应用程序从数据源摄入数据的速率，这种限流的场景可以轻易地被监测到，通常的解决办法是增加计算资源并增加瓶颈算子的并发度。</p>
+<p>上述流控制技术被称之为 <strong>反压</strong>。</p>
+<p>Flink 的反压描述如图所示：</p>
+<center><img src="/images/flink/1549115353274.png" alt="Alt text"></center>
+
+<ol>
+<li>当接收的 <strong>TaskManager</strong> 处理不过来太多输入数据时，先将接受到的数据放到缓冲队列。</li>
+<li>到某个时候，接收 <strong>TaskManager</strong> 的缓冲池耗尽再也接收不了传输来的数据时，发送 <strong>TaskManager</strong> 开始缓冲要被传输的数据，直到缓冲池被耗尽；</li>
+<li>最后，发送 <strong>TaskManager</strong> 也不能发送数据了，这时这个任务就被 Block 了，总体来看，这个应用就会被 block.</li>
+</ol>
+<h1 id="事件时间处理"><a href="#事件时间处理" class="headerlink" title="事件时间处理"></a>事件时间处理</h1><p>Flink 提供了直观易用的常见 <em>事件时间</em> 处理接口，同时也提供了更高级的处理接口。要理解 Flink 的事件时间处理机制有两个概念需要详细介绍：</p>
+<h2 id="时间戳"><a href="#时间戳" class="headerlink" title="时间戳"></a>时间戳</h2><p>Flink 事件时间应用处理的每份记录都必须有一个<strong>时间戳</strong>。这个时间戳的具体含义可以自定，只要大致上它的顺序的递增的。</p>
+<h2 id="水位"><a href="#水位" class="headerlink" title="水位"></a>水位</h2><p><strong>水位线</strong> 用于描述每个任务当前的事件时间。<br>基于时间的算子会根据这个时间来触发相应的计算和处理。</p>
+<p>Flink 将<strong>水位</strong>当作特殊的保存了一个时间戳的数据记录：</p>
+<center><img src="/images/flink/1549116804471.png" alt="Alt text"></center>
+
+<p>水位线有两个基本的属性:</p>
+<ol>
+<li>必须单调递增；</li>
+<li>必须和记录时间戳相关。一个标志为 t 的水位表示它之后的所有记录的时间戳都必须 &gt; t。</li>
+</ol>
+<p>水位线用于通知任务没有其他更早的事件了，可以触发计算了。但是，如果处理之后又遇到了更早的事件，被称之为 <strong>late records</strong>。后面会详述。</p>
+<h2 id="水位和事件时间"><a href="#水位和事件时间" class="headerlink" title="水位和事件时间"></a>水位和事件时间</h2><p>Flink 中的每个任务都有一个内置的时间服务用于维护 timers。一个 timer 在<strong>用于在将来某个时间做出某种计算</strong>。</p>
+<p>当一个任务接收到一个水位时:</p>
+<ol>
+<li>根据水位线时间戳更新内部 <strong>事件时间</strong> 时钟。</li>
+<li>任务时间服务可以找出所有小于这个水位时间的 timer，任务将在这些过期的 timer 上调用一个回调函数用于触发已经发生的事件。</li>
+<li>任务触发这个有更新时间戳的水位。</li>
+</ol>
+<p>Flink 通过分区并使用不同的任务来处理分区的方式并行地处理一个数据流。</p>
+<p><strong>一个分区就是有时间戳的数据记录和水位的一组数据流。</strong></p>
+<p>一个任务会从不同分区接收到数据记录和水位同时也会向其他分区发送记录和分区：</p>
+<center><img src="/images/flink/1549371962922.png" alt="Alt text"></center>
+
+<p>一个 Flink DataStream 应用可以通过下面几种方式分配 时间戳 并生成 水位:</p>
+<ul>
+<li><code>SourceFunction</code></li>
+<li><code>AssignerWithPeriodicWatermarks</code></li>
+<li><code>AssignerWithPunctuatedWatermarks</code></li>
+</ul>
+<h1 id="状态管理"><a href="#状态管理" class="headerlink" title="状态管理"></a>状态管理</h1><p>总的来说，<strong>一个任务维护的所有数据和用于计算出这些结果的原始数据都属于这个任务的状态</strong>。</p>
+<p>可以将状态理解为<strong>一个任务的局部变量</strong>。</p>
+<center><img src="/images/flink/1549373771686.png" alt="Alt text"></center>
+
+<p>在 Flink 中，状态始终是和某个算子想关联的。为了让 Flink 运行时知道某个算子的状态，算子需要注册它的状态。</p>
+<p>有两种状态:</p>
+<ul>
+<li><p>Operator State<br>  作用域在一个任务内：所有在这个人物里处理的数据记录都访问的是这个状态，同时，其他任务的算子不能访问这个状态。</p>
+  <center><img src="/images/flink/1549375237048.png" alt="Alt text"></center>
+</li>
+<li><p>Keyed State<br>  <center><img src="/images/flink/1549375858681.png" alt="Alt text"></center><br>  可以将 keyed state 理解为一个 map。某个算子的所有并行的任务的 key。</p>
+</li>
+</ul>
+<h2 id="State-Backends"><a href="#State-Backends" class="headerlink" title="State Backends"></a>State Backends</h2><p>Flink 提供两种:</p>
+<ul>
+<li>JVM Heap</li>
+<li>RocksDB</li>
+</ul>
+<h2 id="有状态的算子的扩展"><a href="#有状态的算子的扩展" class="headerlink" title="有状态的算子的扩展"></a>有状态的算子的扩展</h2><p>当输入数据量变化时，需要动态调整一个算子的并发数。</p>
+<p>要挑战一个有状态算子的并发度是比较有挑战的，因为它们的状态需要重新分区并分配给更多或者更少的任务。</p>
+<center><img src="/images/flink/1549377378696.png" alt="Alt text"></center>
+
+<center><img src="/images/flink/1549377384647.png" alt="Alt text"></center>
+
+<center><img src="/images/flink/1549377399125.png" alt="Alt text"></center>
+
+<center><img src="/images/flink/1549377409878.png" alt="Alt text"></center>
+
+<h1 id="Checkpoints-Savepoints-State-Recovery"><a href="#Checkpoints-Savepoints-State-Recovery" class="headerlink" title="Checkpoints, Savepoints, State Recovery"></a>Checkpoints, Savepoints, State Recovery</h1><p>作为分布式系统，Flink 同样需要处理失败恢复。</p>
+<h2 id="Consistent-Checkpoints"><a href="#Consistent-Checkpoints" class="headerlink" title="Consistent Checkpoints"></a>Consistent Checkpoints</h2><p>一个 Flink 流应用的 <code>consistent checkpoint</code>:</p>
+<ol>
+<li>暂停摄取所有的输入数据；</li>
+<li>等待所有还在被处理的数据已经完全被处理完毕；</li>
+<li>复制每个任务的状态到一个远程的持久化的存储系统，当所有任务都完成这个步骤后，一个 checkpoint 就算完成了；</li>
+<li>恢复摄取数据。</li>
+</ol>
+<center><img src="/images/flink/1549377830528.png" alt="Alt text"></center>
+
+<h2 id="从-Consistent-Checkpoints-恢复"><a href="#从-Consistent-Checkpoints-恢复" class="headerlink" title="从 Consistent Checkpoints 恢复"></a>从 Consistent Checkpoints 恢复</h2><p>当系统某个组件挂掉后，Flink 会使用最新的 checkpoint 来恢复应用的状态并重启整个过程。</p>
+<center><img src="/images/flink/1549378024762.png" alt="Alt text"></center>
+
+<p>步骤如下：</p>
+<ol>
+<li>重启失败的任务；</li>
+<li>根据最新的 checkpoint 重置应用的<strong>所有状态</strong>：给每个任务重设状态值；</li>
+<li>重新运行所有任务。</li>
+</ol>
+<p>这种机制提供了失败恢复时状态的 exactly-once 一致性。</p>
+<p>只有当<strong>所有的输入数据流以可重设消费的机制运行(比如 Kafka)时</strong>，Flink 才能保证状态恢复的 Exactly-once 一致性。</p>
+<h2 id="Flink-的轻量-checkpointing-算法"><a href="#Flink-的轻量-checkpointing-算法" class="headerlink" title="Flink 的轻量 checkpointing 算法"></a>Flink 的轻量 checkpointing 算法</h2><p>由于上述的恢复过程需要<strong>stop-the-world</strong>的过程，所以时延会很高。</p>
+<p>Flink 使用的是分布式快照算法: <strong>Chandy-Lamport 算法</strong>。这个算法不用暂停整个应用，而是将每个任务的 checkpoint 过程解耦，当一些任务在持久化状态的时候其他任务仍然在工作。</p>
+<p>这个算法的基础是一种特殊的数据记录：<strong>checkpoint barrier</strong>。和 watermark 类似，checkpoint barrier 是数据源算子注入到数据流记录中的。</p>
+<p>每个 checkpoint barrier 都携带一个 checkpoint ID 来标识这个 barrier 属于哪一个 checkpoint。</p>
+<p>下面举例说明这个算法：</p>
+<p>这个应用从两个数据源消费递增的数字数据流。输出被分区为奇偶数，每个分区被一个计算接收到数字的和的任务处理。然后输出到各自的 sink。</p>
+<p>如下图所示：</p>
+<center><img src="/images/flink/1549433465271.png" alt="Alt text"></center>
+
+<ol>
+<li><p>checkpoint 初始化：JobManager 发送一个有新的 checkpoint ID 的消息给每个数据源任务。如下图所示：</p>
+ <center><img src="/images/flink/1549433562722.png" alt="Alt text"></center>
+</li>
+<li><p>当数据源任务接收到消息后：</p>
+<ul>
+<li>暂停发送数据</li>
+<li>触发一次 checkpoint，将在 state backend 中的本地状态上传至远程存储</li>
+<li>并且将这次 checkpoint barrier 广播到所有和这个人物相关联的下游分区任务</li>
+<li>当 checkpoint 完成时，state backend 会通知任务，随后任务会将 checkpoint 告知 JobManager</li>
+<li>当所有的 barrier 都发送完毕后，源任务继续它的任务操作。<center><img src="/images/flink/1549434045635.png" alt="Alt text"></center>
+</li>
+</ul>
+</li>
+<li><p>当一个(所有)分区从某一个上游任务中接收到一个新的 checkpoint 时:</p>
+<ul>
+<li>它会等待这个 checkpoint 的所有的(来自其他任务) barrier</li>
+<li>在等待的同时，它会继续处理来自那些还未发送 barrier 的分区的数据。</li>
+<li>而来自那些已经发送过 barrier 的分区的数据只能放在缓冲区域中，不能被立即处理。<br>如图所示：<center><img src="/images/flink/1549436947001.png" alt="Alt text"></center>
+</li>
+</ul>
+</li>
+<li><p>当所有 barrier 都被收到后：</p>
+<ul>
+<li>这个任务在 state backend 中初始化一个相应的 checkpoint</li>
+<li>将这个 checkpoint barrier 广播到所有下游任务<br>如图所示：<center><img src="/images/flink/1549437126704.png" alt="Alt text"></center></li>
+<li>这个任务开始处理缓冲区中的数据，当缓冲中的所有数据都被处理完毕后，任务开始正常处理输入数据。<br>如下图所示：<center><img src="/images/flink/1549437373797.png" alt="Alt text"></center>
+</li>
+</ul>
+</li>
+<li><p>最终，checkpoint barrier 会到达 sink 任务。当 sink 任务接收到一个 barrier 后：</p>
+<ul>
+<li>barrier 对齐</li>
+<li>将本地状态上传到远程存储系统</li>
+<li>通知 JobManager 自己收到了这个 barrier。</li>
+</ul>
+</li>
+<li><p>当 JobManager 收到所有任务的这个 checkpoint 的收据后，JobManager 会标识这个 checkpoint 已经全部完成。如图所示：</p>
+ <center><img src="/images/flink/1549437782094.png" alt="Alt text"></center>
+
+</li>
+</ol>
+<h2 id="Flink-的优化"><a href="#Flink-的优化" class="headerlink" title="Flink 的优化"></a>Flink 的优化</h2><p>对上述算法，Flink 有<strong>两个优化</strong>:</p>
+<ol>
+<li><p>在任务上传状态也就是 checkpointing 的过程中，这个任务的处理被 blocked 了，这回增加整个应用的时延。<br> Flink 的做法是将状态上传的过程和职责交给 state backends：</p>
+<ul>
+<li>比如 RocksDB 就支持异步和增量地上传状态：异步表示会减小时延，增量表示会减小状态数据传输量；</li>
+</ul>
+</li>
+<li><p>在<strong>barrier 对齐</strong>过程中，由于数据缓冲区的存在，时延也会增加。<br> Flink 的做法是：可以处理所有到来的数据，而不是等待并将数据放在缓冲区。这样的后果是：<strong>当前 checkpoint 可能包含下一个 checkpoint 才有的数据，在失败恢复过程中，就成了 <em>at-least-once</em> 而不是 <em>exactly-once</em></strong> 一致性保证。</p>
+</li>
+</ol>
+<h2 id="Savepoints"><a href="#Savepoints" class="headerlink" title="Savepoints"></a>Savepoints</h2><p>状态的一致性快照除了在失败恢复的过程提供支持外，还有更多其他的作用: <strong>savepoints</strong></p>
+<p>总的来说，savepoints 就是包含了更多附加元信息的 checkpoints，并且其生成算法和 checkpoints 一样。Flink 不会自动生成 savepoints，用户可以手动出发生成。</p>
+<p>从一个 savepoint 启动一个应用可以：</p>
+<ul>
+<li>从 savepoint 启动一个不同的，但是兼容的应用</li>
+<li>启动一个相同的但是有不同并行度的应用，也就是说可以<strong>扩展</strong></li>
+<li>在不同的集群上启动相同的应用：比如将应用迁移到一个新的 Flink 版本上，将应用迁移到不同的 DC。</li>
+</ul>
+<p>（To Be Continued…）</p>
+
+      
+    </div>
+
+    
+      
+      
+
+
+
+      
+      
+    
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/数据处理/">数据处理</a>
+            
+              <a href="/tags/读书笔记/">读书笔记</a>
+            
+              <a href="/tags/Flink/">Flink</a>
+            
+          </div>
+        
+        
+        
+  <nav class="post-nav">
+    
+    
+      <a class="next" href="/2019/02/05/flink-learning-3/">
+        <span class="next-text nav-default">Flink 学习笔记之三 DataStream API</span>
+        <span class="prev-text nav-mobile">下一篇</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+
+      </footer>
+    
+
+  </article>
+
+
+          </div>
+          
+  <div class="comments" id="comments">
+    
+      <div id="vcomments"></div>
+    
+  </div>
+
+
+        </div>
+      </main>
+
+      <footer id="footer" class="footer">
+
+  <div class="social-links">
+    
+      
+        
+          <a href="mailto:pengye91@gmail.com" class="iconfont icon-email" title="email"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        
+          <a href="https://github.com/pengye91" class="iconfont icon-github" title="github"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+
+    
+      
+      <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    
+  </div>
+
+
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://hexo.io/">Hexo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">
+    
+    &copy; 
+     
+      2018 - 
+    
+    2019
+
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">xyp</span>
+  </span>
+</div>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+
+    
+  
+  
+<!-- valine Comments -->
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//cdn.jsdelivr.net/gh/xcss/valine@v1.3.3/dist/Valine.min.js"></script>
+<script type="text/javascript">
+    new Valine({
+        el: '#vcomments',
+        notify: false,
+        verify: false,
+        visitor: true,
+        app_id: "xeDhasO1xV7F1SpCG0oRuiol-gzGzoHsz",
+        app_key: "wgFvo2YMOmn0Qcv7YPFxtePy",
+        placeholder: "在此评论......",
+        avatar: 'identicon'
+    });
+</script>
+
+
+  
+
+  
+
+
+
+    
+  
+
+
+
+  
+  
+
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/pjax/jquery.pjax.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/nprogress/nprogress.min.js"></script>
+  
+
+
+    <script type="text/javascript" src="/js/src/even.js?v=2.10.1"></script>
+
+  </body>
+</html>
