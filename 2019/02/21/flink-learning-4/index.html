@@ -17,8 +17,12 @@
 
 
 
+  <meta name="description" content="Flink 学习笔记之三 DataStream API"/>
 
 
+
+
+  <meta name="keywords" content="数据处理, 读书笔记, Flink, Lingering Fragments" />
 
 
 
@@ -38,7 +42,7 @@
 
 
 
-<link rel="canonical" href="https://pengye91.github.io/"/>
+<link rel="canonical" href="https://pengye91.github.io/2019/02/21/flink-learning-4/"/>
 
 
 
@@ -95,7 +99,7 @@
   window.config = {"title":"Lingering Fragments","subtitle":"一些想法和总结","description":null,"author":"xyp","language":"zh-CN","timezone":"Asia/Shanghai","url":"https://pengye91.github.io","root":"/","permalink":":year/:month/:day/:title/","permalink_defaults":null,"source_dir":"source","public_dir":"public","tag_dir":"tags","archive_dir":"archives","category_dir":"categories","code_dir":"downloads/code","i18n_dir":":lang","skip_render":null,"new_post_name":":title.md","default_layout":"post","titlecase":false,"external_link":true,"filename_case":0,"render_drafts":false,"post_asset_folder":false,"relative_link":false,"future":true,"highlight":{"enable":true,"auto_detect":false,"line_number":true,"tab_replace":null,"first_line_number":"always1"},"default_category":"uncategorized","category_map":null,"tag_map":null,"date_format":"YYYY-MM-DD","time_format":"HH:mm:ss","per_page":10,"pagination_dir":"page","theme":"even","deploy":{"type":"git","repo":"https://github.com/pengye91/pengye91.github.io.git","branch":"master"},"ignore":[],"keywords":null,"index_generator":{"per_page":10,"order_by":"-date","path":""},"sitemap":{"path":"sitemap.xml"},"baidusitemap":{"path":"baidusitemap.xml"},"archive_generator":{"per_page":10,"yearly":true,"monthly":true,"daily":false},"category_generator":{"per_page":10},"tag_generator":{"per_page":10},"marked":{"gfm":true,"pedantic":false,"sanitize":false,"tables":true,"breaks":true,"smartLists":true,"smartypants":true,"modifyAnchors":"","autolink":true},"server":{"port":4000,"log":false,"compress":false,"header":true},"since":2018,"favicon":"/favicon.ico","rss":"default","menu":{"Home":"/","Archives":"/archives/","Tags":"/tags","Categories":"/categories","About":"/about"},"color":"cobalt blue","mode":"default","toc":true,"fancybox":true,"pjax":true,"copyright":{"enable":false,"license":"<a rel=\"license\" href=\"http://creativecommons.org/licenses/by-nc/4.0/\" target=\"_blank\">知识共享署名-非商业性使用 4.0 国际许可协议</a>"},"reward":{"enable":false,"qrCode":{"wechat":null,"alipay":null}},"social":{"email":"pengye91@gmail.com","stack-overflow":null,"twitter":null,"facebook":null,"linkedin":null,"google":null,"github":"https://github.com/pengye91","weibo":null,"zhihu":null,"douban":null,"pocket":null,"tumblr":null,"instagram":null},"leancloud":{"app_id":null,"app_key":null},"baidu_analytics":null,"baidu_verification":null,"google_analytics":"UA-127442719-1","google_verification":null,"disqus_shortname":null,"valine":{"appid":"xeDhasO1xV7F1SpCG0oRuiol-gzGzoHsz","appkey":"wgFvo2YMOmn0Qcv7YPFxtePy","notify":false,"verify":false,"avatar":"identicon","visitor":true,"placeholder":"在此评论......"},"changyan":{"appid":null,"appkey":null},"livere_datauid":null,"version":"2.10.1"};
 </script>
 
-    <title> Lingering Fragments -  </title>
+    <title> Flink 学习笔记之三 DataStream API - Lingering Fragments </title>
   </head>
 
   <body><div id="mobile-navbar" class="mobile-navbar">
@@ -225,15 +229,11 @@
           <div id="content" class="content">
             
   
-  <section id="posts" class="posts">
-    
-      
-        
   <article class="post">
     <header class="post-header">
       <h1 class="post-title">
         
-          <a class="post-link" href="/2019/02/21/flink-learning-4/">Flink 学习笔记之三 DataStream API</a>
+          Flink 学习笔记之三 DataStream API
         
       </h1>
 
@@ -258,15 +258,18 @@
 
     
     
+  <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#设置处理时间"><span class="toc-text">设置处理时间</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Event-Time-应用中的时间戳和水位"><span class="toc-text">Event-Time 应用中的时间戳和水位</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#AssignerWithPeriodicWatermarks"><span class="toc-text">AssignerWithPeriodicWatermarks</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#AssignerWithPunctuatedWatermarks"><span class="toc-text">AssignerWithPunctuatedWatermarks</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#水位，延时，准确性"><span class="toc-text">水位，延时，准确性</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Process-Function"><span class="toc-text">Process Function</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#TimerService-和-Timers"><span class="toc-text">TimerService 和 Timers</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#触发到边输出"><span class="toc-text">触发到边输出</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CoProcessFunction"><span class="toc-text">CoProcessFunction</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#窗口算子"><span class="toc-text">窗口算子</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#定义窗口算子"><span class="toc-text">定义窗口算子</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#内置的-Window-Assigners"><span class="toc-text">内置的 Window Assigners</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Tumbling-Windows"><span class="toc-text">Tumbling Windows</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Sliding-Windows"><span class="toc-text">Sliding Windows</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Session-Windows"><span class="toc-text">Session Windows</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#将函数作用在窗口上"><span class="toc-text">将函数作用在窗口上</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#ReduceFunction"><span class="toc-text">ReduceFunction</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#AggregateFunction"><span class="toc-text">AggregateFunction</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ProcessWindowFunction"><span class="toc-text">ProcessWindowFunction</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#增量聚合-和-ProcessWindowFunction"><span class="toc-text">增量聚合 和 ProcessWindowFunction</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#自定义窗口算子"><span class="toc-text">自定义窗口算子</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#窗口的生命周期"><span class="toc-text">窗口的生命周期</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#窗口分配器"><span class="toc-text">窗口分配器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Triggers"><span class="toc-text">Triggers</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Evictors"><span class="toc-text">Evictors</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#根据时间-Join-数据流"><span class="toc-text">根据时间 Join 数据流</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Interval-Join"><span class="toc-text">Interval Join</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Window-Join"><span class="toc-text">Window Join</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#处理迟到的数据"><span class="toc-text">处理迟到的数据</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#丢弃迟到的数据"><span class="toc-text">丢弃迟到的数据</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#重定向迟到的数据"><span class="toc-text">重定向迟到的数据</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#包含迟到的数据更新结果"><span class="toc-text">包含迟到的数据更新结果</span></a></li></ol></li></ol>
+    </div>
+  </div>
+
 
 
     <div class="post-content">
       
-        
-        
-
-        
-          <h1 id="设置处理时间"><a href="#设置处理时间" class="headerlink" title="设置处理时间"></a>设置处理时间</h1><p>在流处理系统中，<strong>时间</strong>是一个非常重要的概念。Flink 可以设置下面三种事件时间。</p>
+        <h1 id="设置处理时间"><a href="#设置处理时间" class="headerlink" title="设置处理时间"></a>设置处理时间</h1><p>在流处理系统中，<strong>时间</strong>是一个非常重要的概念。Flink 可以设置下面三种事件时间。</p>
 <ul>
 <li><code>ProcessingTime</code><br>  <code>ProcessingTime</code> 意味着算子使用<strong>数据被处理时所在机器的系统时间</strong>。<ul>
 <li>优点：延时低，因为算子不用等待按顺序来的数据</li>
@@ -508,579 +511,60 @@
 <p>Flink 给窗口算子提供了一个允许的迟到时间: <code>allowedLateness</code>：</p>
 <figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> readings: <span class="type">DataStream</span>[<span class="type">SensorReading</span>] = ???</span><br><span class="line"></span><br><span class="line"><span class="keyword">val</span> countPer10Secs: <span class="type">DataStream</span>[(<span class="type">String</span>, <span class="type">Long</span>, <span class="type">Int</span>, <span class="type">String</span>)] = readings</span><br><span class="line">  .keyBy(_.id)</span><br><span class="line">  .timeWindow(<span class="type">Time</span>.seconds(<span class="number">10</span>))</span><br><span class="line">  <span class="comment">// process late readings for 5 additional seconds</span></span><br><span class="line">  .allowedLateness(<span class="type">Time</span>.seconds(<span class="number">5</span>))</span><br><span class="line">  <span class="comment">// count readings and update results if late readings arrive</span></span><br><span class="line">  .process(<span class="keyword">new</span> <span class="type">UpdatingWindowCountFunction</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// =================== //</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/** A counting WindowProcessFunction that distinguishes between </span></span><br><span class="line"><span class="comment">  * first results and updates. */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">UpdatingWindowCountFunction</span></span></span><br><span class="line"><span class="class">    <span class="keyword">extends</span> <span class="title">ProcessWindowFunction</span>[<span class="type">SensorReading</span>, (<span class="type">String</span>, <span class="type">Long</span>, <span class="type">Int</span>, <span class="type">String</span>), <span class="type">String</span>, <span class="type">TimeWindow</span>] </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">override</span> <span class="function"><span class="keyword">def</span> <span class="title">process</span></span>(</span><br><span class="line">      id: <span class="type">String</span>,</span><br><span class="line">      ctx: <span class="type">Context</span>,</span><br><span class="line">      elements: <span class="type">Iterable</span>[<span class="type">SensorReading</span>],</span><br><span class="line">      out: <span class="type">Collector</span>[(<span class="type">String</span>, <span class="type">Long</span>, <span class="type">Int</span>, <span class="type">String</span>)]): <span class="type">Unit</span> = &#123;</span><br><span class="line">:</span><br><span class="line">    <span class="comment">// count the number of readings</span></span><br><span class="line">    <span class="keyword">val</span> cnt = elements.count(_ =&gt; <span class="literal">true</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// state to check if this is the first evaluation of the window or not.</span></span><br><span class="line">    <span class="keyword">val</span> isUpdate = ctx.windowState.getState(</span><br><span class="line">      <span class="keyword">new</span> <span class="type">ValueStateDescriptor</span>[<span class="type">Boolean</span>](<span class="string">"isUpdate"</span>, <span class="type">Types</span>.of[<span class="type">Boolean</span>]))</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (!isUpdate.value()) &#123;</span><br><span class="line">      <span class="comment">// first evaluation, emit first result</span></span><br><span class="line">      out.collect((id, ctx.window.getEnd, cnt, <span class="string">"first"</span>))</span><br><span class="line">      isUpdate.update(<span class="literal">true</span>)</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="comment">// not the first evaluation, emit an update</span></span><br><span class="line">      out.collect((id, ctx.window.getEnd, cnt, <span class="string">"update"</span>))</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-        
       
     </div>
 
     
+      
+      
 
-    
 
-  </article>
 
       
-        
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          <a class="post-link" href="/2019/02/06/scala-fp-1/">Scala 函数式编程 一</a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2019-02-06
-        </span>
-        
-          <span class="post-category">
-            
-              <a href="/categories/Scala/">Scala</a>
-            
-              <a href="/categories/Scala/读书笔记/">读书笔记</a>
-            
-              <a href="/categories/Scala/读书笔记/函数式编程/">函数式编程</a>
-            
-          </span>
-        
-        
-      </div>
-    </header>
-
-    
-    
-
-
-    <div class="post-content">
       
-        
-        
-          
-        
+    
 
+    
+      <footer class="post-footer">
         
-          <blockquote>
-<p>本系列文章基于阅读<a href="https://www.amazon.cn/dp/B01DWKIT9I" target="_blank" rel="noopener">《Scala 函数式编程》</a>的笔记和心得。</p>
-</blockquote>
-<h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><p>函数式编程(FP) 基于一个前提：</p>
-<p><strong>只用纯函数来构造程序。</strong></p>
-<p>换句话说，函数没有<em>副作用</em>。<em>副作用</em>包括但不限于:</p>
-<ul>
-<li>修改一个变量</li>
-<li>直接修改数据结构</li>
-<li>设置一个对象的成员</li>
-<li>抛出一个异常或者错误</li>
-<li>打印到终端或读取用户的输入</li>
-<li>读取或写入一个文件</li>
-<li>在屏幕上绘画</li>
-</ul>
-<p><strong>函数式编程限制的是<em>怎样</em>写程序，而非<em>表达</em>什么样的程序。</strong></p>
-          <div class="read-more">
-            <a href="/2019/02/06/scala-fp-1/" class="read-more-link">阅读更多</a>
+          <div class="post-tags">
+            
+              <a href="/tags/数据处理/">数据处理</a>
+            
+              <a href="/tags/读书笔记/">读书笔记</a>
+            
+              <a href="/tags/Flink/">Flink</a>
+            
           </div>
         
-      
-    </div>
-
-    
-
-    
-
-  </article>
-
-      
-        
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          <a class="post-link" href="/2019/02/05/flink-learning-3/">Flink 学习笔记之三 DataStream API</a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2019-02-05
-        </span>
-        
-          <span class="post-category">
-            
-              <a href="/categories/Flink/">Flink</a>
-            
-              <a href="/categories/Flink/读书笔记/">读书笔记</a>
-            
-              <a href="/categories/Flink/读书笔记/数据处理/">数据处理</a>
-            
-          </span>
         
         
-      </div>
-    </header>
-
+  <nav class="post-nav">
     
     
-
-
-    <div class="post-content">
-      
-        
-        
-          
-        
-
-        
-          <h1 id="前提"><a href="#前提" class="headerlink" title="前提"></a>前提</h1><p>先上一段例子代码:</p>
-          <div class="read-more">
-            <a href="/2019/02/05/flink-learning-3/" class="read-more-link">阅读更多</a>
-          </div>
-        
-      
-    </div>
-
-    
-
-    
-
-  </article>
-
-      
-        
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          <a class="post-link" href="/2019/02/02/flink-learning-2/">Flink 学习笔记之二 DataStream API</a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2019-02-02
-        </span>
-        
-          <span class="post-category">
-            
-              <a href="/categories/Flink/">Flink</a>
-            
-              <a href="/categories/Flink/读书笔记/">读书笔记</a>
-            
-              <a href="/categories/Flink/读书笔记/数据处理/">数据处理</a>
-            
-          </span>
-        
-        
-      </div>
-    </header>
-
-    
-    
-
-
-    <div class="post-content">
-      
-        
-        
-          
-        
-
-        
-          <h1 id="系统架构"><a href="#系统架构" class="headerlink" title="系统架构"></a>系统架构</h1><p>一套可运行的 Flink 环境由 4 个部分组成：</p>
-<ol>
-<li><strong>JobManager</strong></li>
-<li><strong>ResourceManager</strong></li>
-<li><strong>TaskManager</strong></li>
-<li><strong>Dispatcher</strong></li>
-</ol>
-<p>这 4 个组件都运行在 JVM 中。</p>
-<center><img src="/images/flink/1549027998387.png" alt="Alt text"></center>
-
-<p>组件间的交互如上图所示。</p>
-          <div class="read-more">
-            <a href="/2019/02/02/flink-learning-2/" class="read-more-link">阅读更多</a>
-          </div>
-        
-      
-    </div>
-
-    
-
-    
-
-  </article>
-
-      
-        
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          <a class="post-link" href="/2018/12/27/hbase-architecture/">HBase 架构详述</a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2018-12-27
-        </span>
-        
-          <span class="post-category">
-            
-              <a href="/categories/Hadoop/">Hadoop</a>
-            
-              <a href="/categories/Hadoop/HBase/">HBase</a>
-            
-          </span>
-        
-        
-      </div>
-    </header>
-
-    
-    
-
-
-    <div class="post-content">
-      
-        
-        
-          
-        
-
-        
-          <blockquote>
-<p>本文是在翻译自 <a href="https://mapr.com/blog/hbase-and-mapr-db-designed-distribution-scale-and-speed/#.VcKFNflVhBc" target="_blank" rel="noopener">这两篇</a> 很棒的关于 HBase 架构简介文章的基础上写的。</p>
-</blockquote>
-<p><strong>HBase</strong> 是一个运行在 <em>Hadoop</em> 集群中的数据库。</p>
-<p>它不是传统的<em>关系型数据库</em>，所以缺少 ACID 等事务相关特性，但也因此带来了比 RDBMS 更强的<em>扩展性</em>；</p>
-<p>同时，HBase 中保存的数据也不必像 RDBMS 一样必须满足 schema 的限制，因此很适合存储<em>非结构化</em>或者<em>半结构化</em>的数据。</p>
-          <div class="read-more">
-            <a href="/2018/12/27/hbase-architecture/" class="read-more-link">阅读更多</a>
-          </div>
-        
-      
-    </div>
-
-    
-
-    
-
-  </article>
-
-      
-        
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          <a class="post-link" href="/2018/12/20/hive-bucket/">Hive Buckets</a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2018-12-20
-        </span>
-        
-          <span class="post-category">
-            
-              <a href="/categories/Hadoop/">Hadoop</a>
-            
-              <a href="/categories/Hadoop/Hive/">Hive</a>
-            
-          </span>
-        
-        
-      </div>
-    </header>
-
-    
-    
-
-
-    <div class="post-content">
-      
-        
-        
-          
-        
-
-        
-          <p>为了减小一张表里的数据量，<code>Hive</code> 提供了 <code>分区</code> 的功能，基本思路就是<em>把每个分区的数据放在 HDFS 里独立的文件夹中</em>，这样在扫描全表的时候被扫描的数据量就变小了。常见的分区策略是<em>按时间分区</em>。</p>
-<p>但是在一些场景下，即使在分区后，每个分区下面数据量也很大，这时候就可以用 Hive 的 <code>Buckets</code> 功能了。</p>
-          <div class="read-more">
-            <a href="/2018/12/20/hive-bucket/" class="read-more-link">阅读更多</a>
-          </div>
-        
-      
-    </div>
-
-    
-
-    
-
-  </article>
-
-      
-        
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          <a class="post-link" href="/2018/12/18/scala-option-some-none-pattern/">Scala Option/Some/None 模式</a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2018-12-18
-        </span>
-        
-          <span class="post-category">
-            
-              <a href="/categories/Scala/">Scala</a>
-            
-          </span>
-        
-        
-      </div>
-    </header>
-
-    
-    
-
-
-    <div class="post-content">
-      
-        
-        
-
-        
-          <h2 id="方法返回一个-Option"><a href="#方法返回一个-Option" class="headerlink" title="方法返回一个 Option"></a>方法返回一个 <code>Option</code></h2><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">toInt</span></span>(s: <span class="type">String</span>): <span class="type">Option</span>[<span class="type">Int</span>] = &#123;</span><br><span class="line">   <span class="keyword">try</span> &#123;</span><br><span class="line">       <span class="type">Some</span>(<span class="type">Integer</span>.parseInt(s.trim))</span><br><span class="line">   &#125; <span class="keyword">catch</span> &#123;</span><br><span class="line">       <span class="keyword">case</span> e: <span class="type">Exception</span> =&gt; <span class="type">None</span></span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="从-Option-中拿出一个值"><a href="#从-Option-中拿出一个值" class="headerlink" title="从 Option 中拿出一个值"></a>从 <code>Option</code> 中拿出一个值</h2><p>有三种方法：</p>
-<h3 id="使用-getOrElse"><a href="#使用-getOrElse" class="headerlink" title="使用 getOrElse"></a>使用 <code>getOrElse</code></h3><p>将 None 的默认值放在 <code>getOrElse</code> 方法里。</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; <span class="keyword">val</span> x = toInt(<span class="string">"1"</span>).getOrElse(<span class="number">0</span>)</span><br><span class="line">x: <span class="type">Int</span> = <span class="number">1</span></span><br></pre></td></tr></table></figure>
-<h3 id="使用-foreach"><a href="#使用-foreach" class="headerlink" title="使用 foreach"></a>使用 <code>foreach</code></h3><p>由于 <code>Option</code> 是 0 个或者 1 个元素的集合，所以也可以用 <code>foreach</code> 方法来获取值：</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; toInt(<span class="string">"1"</span>).foreach(i =&gt; println)</span><br><span class="line"><span class="number">1</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li>使用 <code>match</code> 模式匹配</li>
-</ul>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; toInt(<span class="string">"1"</span>) <span class="keyword">match</span> &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="type">Some</span>(i) =&gt; println(i)</span><br><span class="line">    <span class="keyword">case</span> <span class="type">None</span> =&gt; println(<span class="string">"Not work"</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="number">1</span></span><br></pre></td></tr></table></figure>
-<h2 id="使用-Try-Success-Failure-模式"><a href="#使用-Try-Success-Failure-模式" class="headerlink" title="使用 Try/Success/Failure 模式"></a>使用 Try/Success/Failure 模式</h2><p>Scala 2.10 中有了 <code>scala.util.Try</code> 方法，功能和使用方法和 <code>Option</code> 类似，但是允许在失败时返回具体的失败信息。</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> scala.util.&#123;<span class="type">Try</span>, <span class="type">Success</span>, <span class="type">Failure</span>&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">divide</span></span>(x: <span class="type">Int</span>, y:<span class="type">Int</span>): <span class="type">Try</span>[<span class="type">Int</span>] = &#123;</span><br><span class="line">    <span class="type">Try</span>(x/y)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>只要 y 不是 0，上述方法会返回一个 <code>Success</code> 对象；如果 y 是 0，<code>ArithmeticException</code> 错误会发生，但是被 <code>Try</code> 方法捕获了，所以会返回一个 <code>Failure</code> 对象。</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; divide(<span class="number">1</span>,<span class="number">1</span>)</span><br><span class="line">res10: <span class="type">Try</span>[<span class="type">Int</span>] = <span class="type">Success</span>(<span class="number">1</span>)</span><br><span class="line">scala&gt; divide(<span class="number">1</span>,<span class="number">0</span>)</span><br><span class="line">res11: <span class="type">Try</span>[<span class="type">Int</span>] = <span class="type">Failure</span>(java.lang.<span class="type">ArithmeticException</span>: / by zero)</span><br></pre></td></tr></table></figure>
-<p>和 <code>Option</code> 模式类似，也可以使用 <code>getOrElse</code>, <code>foreach</code>, <code>match</code> 三种方式获取成功的值或者失败的错误；</p>
-<p><code>Try</code> 模式还可以将链式的操作中的错误都捕获:</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">multiply</span></span>(x: <span class="type">String</span>, y: <span class="type">String</span>): <span class="type">Int</span> = &#123;</span><br><span class="line">    <span class="keyword">val</span> z = <span class="keyword">for</span> &#123;</span><br><span class="line">        a &lt;- <span class="type">Try</span>(x.toInt)</span><br><span class="line">        b &lt;- <span class="type">Try</span>(y.toInt)</span><br><span class="line">    &#125; <span class="keyword">yield</span> a * b</span><br><span class="line">    </span><br><span class="line">    z.getOrElse(<span class="number">0</span>) * <span class="number">2</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; multiply(<span class="string">"1"</span>, <span class="string">"2"</span>)</span><br><span class="line">res0: <span class="type">Int</span> = <span class="number">4</span></span><br><span class="line">scala&gt; multiply(<span class="string">"1"</span>, <span class="string">"xixi"</span>)</span><br><span class="line">res1: <span class="type">Int</span> = <span class="number">0</span></span><br></pre></td></tr></table></figure>
-<p><code>Try</code> 类还内置了很多实用的方法可以调用：</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">WithFilter</span>         flatMap            getOrElse          productArity       recoverWith</span><br><span class="line">canEqual           flatten            isFailure          productElement     toEither</span><br><span class="line">collect            fold               isSuccess          productIterator    toOption</span><br><span class="line">failed             foreach            map                productPrefix      transform</span><br><span class="line">filter             get                orElse             recover            withFilter</span><br></pre></td></tr></table></figure>
-<p>可以研究一下。</p>
-<h2 id="使用-Either-Left-Right-模式"><a href="#使用-Either-Left-Right-模式" class="headerlink" title="使用 Either/Left/Right 模式"></a>使用 <code>Either/Left/Right</code> 模式</h2><p>在 2.10 以前，Scala 使用功能和 <code>Try/Success/Failure</code> 类似的 <code>Either/Left/Right</code> 模式来做错误处理，其中，<code>Right</code> 对应 <code>Success</code>，<code>Left</code> 对应 <code>Failure</code>。</p>
-<h2 id="一点讨论"><a href="#一点讨论" class="headerlink" title="一点讨论"></a>一点讨论</h2><p><code>Option</code> 模式好用，唯一的缺点是不会返回错误的信息，另外，不要直接调用 <code>Option</code> 的 <code>get</code> 方法。</p>
-<p>如果可能的话，直接使用 <code>Try/Success/Failure</code> 模式吧。</p>
-<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p>[1] <a href="https://alvinalexander.com/scala/best-practice-option-some-none-pattern-scala-idioms" target="_blank" rel="noopener">https://alvinalexander.com/scala/best-practice-option-some-none-pattern-scala-idioms</a></p>
-
-        
-      
-    </div>
-
-    
-
-    
-
-  </article>
-
-      
-        
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          <a class="post-link" href="/2018/12/09/Hadoop中的Join/">Hadoop 中的 Join</a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2018-12-09
-        </span>
-        
-          <span class="post-category">
-            
-              <a href="/categories/数据处理/">数据处理</a>
-            
-              <a href="/categories/数据处理/Hadoop/">Hadoop</a>
-            
-              <a href="/categories/数据处理/Hadoop/MapReduce/">MapReduce</a>
-            
-          </span>
-        
-        
-      </div>
-    </header>
-
-    
-    
-
-
-    <div class="post-content">
-      
-        
-        
-          
-        
-
-        
-          <p>在 Hadoop 生态体系里，对数据集的 <strong>Join</strong> 操作可能是最重要的操作之一了。因此了解 Hadoop 中的 Join 的实现原理从下面几个方面来考虑是很有必要的：</p>
-<ul>
-<li>在实际场景中该使用哪种 Join 策略；</li>
-<li>Join 过程中遇到问题该如何 debug;</li>
-<li>更好地使用 Hive;</li>
-<li>在需要更细粒度的操作时可以手撸代码。</li>
-</ul>
-          <div class="read-more">
-            <a href="/2018/12/09/Hadoop中的Join/" class="read-more-link">阅读更多</a>
-          </div>
-        
-      
-    </div>
-
-    
-
-    
-
-  </article>
-
-      
-        
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          <a class="post-link" href="/2018/12/06/hadoop组合拳HDFS/">hadoop组合拳HDFS</a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2018-12-06
-        </span>
-        
-          <span class="post-category">
-            
-              <a href="/categories/Hadoop/">Hadoop</a>
-            
-              <a href="/categories/Hadoop/数据处理/">数据处理</a>
-            
-              <a href="/categories/Hadoop/数据处理/MapReduce/">MapReduce</a>
-            
-          </span>
-        
-        
-      </div>
-    </header>
-
-    
-    
-
-
-    <div class="post-content">
-      
-        
-        
-          
-        
-
-        
-          <p>当数据集数量超过单机能承受的范围时，就需要使用分布式文件系统了。但和其他分布式系统一样，由于有网络编程模型的介入，其复杂程度变得不可估量。</p>
-<p>Hadoop 拥有一套通用的文件系统抽象逻辑，可以接入本地文件系统、Amazon S3、Ceph 等文件系统，但 HDFS 才是 Hadoop 的主要使用的分布式文件系统。</p>
-          <div class="read-more">
-            <a href="/2018/12/06/hadoop组合拳HDFS/" class="read-more-link">阅读更多</a>
-          </div>
-        
-      
-    </div>
-
-    
-
-    
-
-  </article>
-
-      
-        
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          <a class="post-link" href="/2018/12/06/hadoop组合拳MR初窥/">Hadoop 组合拳之一 -- MR初窥</a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2018-12-06
-        </span>
-        
-          <span class="post-category">
-            
-              <a href="/categories/Hadoop/">Hadoop</a>
-            
-              <a href="/categories/Hadoop/数据处理/">数据处理</a>
-            
-              <a href="/categories/Hadoop/数据处理/MapReduce/">MapReduce</a>
-            
-          </span>
-        
-        
-      </div>
-    </header>
-
-    
-    
-
-
-    <div class="post-content">
-      
-        
-        
-          
-        
-
-        
-          <p>历史啊特点啊什么的就不说了，直接开搞！</p>
-          <div class="read-more">
-            <a href="/2018/12/06/hadoop组合拳MR初窥/" class="read-more-link">阅读更多</a>
-          </div>
-        
-      
-    </div>
-
-    
-
-    
-
-  </article>
-
-      
-      
-  <nav class="pagination">
-    
-    
-      <a class="next" href="/page/2/">
-        <span class="next-text">下一页</span>
+      <a class="next" href="/2019/02/06/scala-fp-1/">
+        <span class="next-text nav-default">Scala 函数式编程 一</span>
+        <span class="prev-text nav-mobile">下一篇</span>
         <i class="iconfont icon-right"></i>
       </a>
     
   </nav>
 
 
+      </footer>
     
-  </section>
+
+  </article>
+
 
           </div>
           
+  <div class="comments" id="comments">
+    
+      <div id="vcomments"></div>
+    
+  </div>
+
 
         </div>
       </main>
@@ -1165,6 +649,29 @@
     </div>
 
     
+  
+  
+<!-- valine Comments -->
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//cdn.jsdelivr.net/gh/xcss/valine@v1.3.3/dist/Valine.min.js"></script>
+<script type="text/javascript">
+    new Valine({
+        el: '#vcomments',
+        notify: false,
+        verify: false,
+        visitor: true,
+        app_id: "xeDhasO1xV7F1SpCG0oRuiol-gzGzoHsz",
+        app_key: "wgFvo2YMOmn0Qcv7YPFxtePy",
+        placeholder: "在此评论......",
+        avatar: 'identicon'
+    });
+</script>
+
+
+  
+
+  
+
 
 
     
