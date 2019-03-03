@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+
+  <meta name="description" content="Scala Map vs. FlatMap"/>
+
+
+
+
+  <meta name="keywords" content="编程语言, Scala, Lingering Fragments" />
+
+
+
+
+
+
+
+
+
+
+  <link rel="alternate" href="/default" title="Lingering Fragments">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.10.1" />
+
+
+
+<link rel="canonical" href="https://pengye91.github.io/2019/03/03/scala-map-flatmap/"/>
+
+
+
+  <link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/lib/nprogress/nprogress.min.css" />
+
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.10.1" />
+
+
+
+  
+
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-127442719-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-127442719-1');
+</script>
+
+
+  <script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+
+
+
+
+
+<script>
+  window.config = {"title":"Lingering Fragments","subtitle":"一些想法和总结","description":null,"author":"xyp","language":"zh-CN","timezone":"Asia/Shanghai","url":"https://pengye91.github.io","root":"/","permalink":":year/:month/:day/:title/","permalink_defaults":null,"source_dir":"source","public_dir":"public","tag_dir":"tags","archive_dir":"archives","category_dir":"categories","code_dir":"downloads/code","i18n_dir":":lang","skip_render":null,"new_post_name":":title.md","default_layout":"post","titlecase":false,"external_link":true,"filename_case":0,"render_drafts":false,"post_asset_folder":false,"relative_link":false,"future":true,"highlight":{"enable":true,"auto_detect":false,"line_number":true,"tab_replace":null,"first_line_number":"always1"},"default_category":"uncategorized","category_map":null,"tag_map":null,"date_format":"YYYY-MM-DD","time_format":"HH:mm:ss","per_page":10,"pagination_dir":"page","theme":"even","deploy":{"type":"git","repo":"https://github.com/pengye91/pengye91.github.io.git","branch":"master"},"ignore":[],"keywords":null,"index_generator":{"per_page":10,"order_by":"-date","path":""},"sitemap":{"path":"sitemap.xml"},"baidusitemap":{"path":"baidusitemap.xml"},"archive_generator":{"per_page":10,"yearly":true,"monthly":true,"daily":false},"category_generator":{"per_page":10},"tag_generator":{"per_page":10},"marked":{"gfm":true,"pedantic":false,"sanitize":false,"tables":true,"breaks":true,"smartLists":true,"smartypants":true,"modifyAnchors":"","autolink":true},"server":{"port":4000,"log":false,"compress":false,"header":true},"since":2018,"favicon":"/favicon.ico","rss":"default","menu":{"Home":"/","Archives":"/archives/","Tags":"/tags","Categories":"/categories","About":"/about"},"color":"cobalt blue","mode":"default","toc":true,"fancybox":true,"pjax":true,"copyright":{"enable":false,"license":"<a rel=\"license\" href=\"http://creativecommons.org/licenses/by-nc/4.0/\" target=\"_blank\">知识共享署名-非商业性使用 4.0 国际许可协议</a>"},"reward":{"enable":false,"qrCode":{"wechat":null,"alipay":null}},"social":{"email":"pengye91@gmail.com","stack-overflow":null,"twitter":null,"facebook":null,"linkedin":null,"google":null,"github":"https://github.com/pengye91","weibo":null,"zhihu":null,"douban":null,"pocket":null,"tumblr":null,"instagram":null},"leancloud":{"app_id":null,"app_key":null},"baidu_analytics":null,"baidu_verification":null,"google_analytics":"UA-127442719-1","google_verification":null,"disqus_shortname":null,"valine":{"appid":"xeDhasO1xV7F1SpCG0oRuiol-gzGzoHsz","appkey":"wgFvo2YMOmn0Qcv7YPFxtePy","notify":false,"verify":false,"avatar":"identicon","visitor":true,"placeholder":"在此评论......"},"changyan":{"appid":null,"appkey":null},"livere_datauid":null,"version":"2.10.1"};
+</script>
+
+    <title> Scala Map vs. FlatMap - Lingering Fragments </title>
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">Lingering Fragments</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    
+      <a href="/">
+        <li class="mobile-menu-item">
+          
+          
+            首页
+          
+        </li>
+      </a>
+    
+      <a href="/archives/">
+        <li class="mobile-menu-item">
+          
+          
+            归档
+          
+        </li>
+      </a>
+    
+      <a href="/tags">
+        <li class="mobile-menu-item">
+          
+          
+            标签
+          
+        </li>
+      </a>
+    
+      <a href="/categories">
+        <li class="mobile-menu-item">
+          
+          
+            分类
+          
+        </li>
+      </a>
+    
+      <a href="/about">
+        <li class="mobile-menu-item">
+          
+          
+            关于
+          
+        </li>
+      </a>
+    
+  </ul>
+</nav>
+
+    <div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">Lingering Fragments</a>
+</div>
+
+<nav class="site-navbar">
+  
+    <ul id="menu" class="menu">
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/">
+            
+            
+              首页
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            
+            
+              归档
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/tags">
+            
+            
+              标签
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/categories">
+            
+            
+              分类
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/about">
+            
+            
+              关于
+            
+          </a>
+        </li>
+      
+    </ul>
+  
+</nav>
+
+      </header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content">
+            
+  
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          Scala Map vs. FlatMap
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2019-03-03
+        </span>
+        
+          <span class="post-category">
+            
+              <a href="/categories/Scala/">Scala</a>
+            
+              <a href="/categories/Scala/编程语言/">编程语言</a>
+            
+          </span>
+        
+        
+      </div>
+    </header>
+
+    
+    
+  <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Collections"><span class="toc-text">Collections</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#序列"><span class="toc-text">序列</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Map-类型"><span class="toc-text">Map 类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#String-类型"><span class="toc-text">String 类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#flatMap"><span class="toc-text">flatMap</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Option"><span class="toc-text">Option</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Future"><span class="toc-text">Future</span></a></li></ol>
+    </div>
+  </div>
+
+
+
+    <div class="post-content">
+      
+        <p>在处理 Scala 的数据结构时，<code>map</code> 和 <code>flatMap</code> 是经常被调用的两个集合类的方法。</p>
+<p><code>map</code> 方法经常被作用于 <code>collections</code>，并且是 <code>Traversable</code> 特质的一个成员。</p>
+<blockquote>
+<p>关于 <code>Traversable</code> 和 <code>Iterable</code> 的区别，可以参照<a href="https://stackoverflow.com/questions/7425370/scala-what-is-the-difference-between-traversable-and-iterable-traits-in-scala-c" target="_blank" rel="noopener">这个回答</a>。</p>
+</blockquote>
+<p><code>map</code> 方法基本功能为: <strong>遍历整个<em>集合</em>的每个元素，将这个集合转换为一个新的集合。</strong><br><code>flatMap</code> 方法的功能为: <strong>先在整个集合上调用 <code>map</code> 方法，然后再在结果集合上调用 <code>flatten</code> 方法。</strong></p>
+<p>本文试图从三个使用场景上分析 <code>map</code> 和 <code>flatMap</code> 方法的用法:</p>
+<ul>
+<li><code>Collections</code></li>
+<li><code>Options</code></li>
+<li><code>Futures</code></li>
+</ul>
+<a id="more"></a>
+<h1 id="Collections"><a href="#Collections" class="headerlink" title="Collections"></a><code>Collections</code></h1><p>这是 <code>map</code> 最常见的使用场景：</p>
+<p><em>遍历一个集合类型，在其中每个元素上执行一个操作，并将操作结果添加到一个新的集合中。</em></p>
+<h2 id="序列"><a href="#序列" class="headerlink" title="序列"></a>序列</h2><p>例如，将一个列表中所有元素都加倍：</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; <span class="type">List</span>(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>).map &#123; x =&gt; x * <span class="number">2</span> &#125;</span><br><span class="line"><span class="type">List</span>[<span class="type">Int</span>] = <span class="type">List</span>(<span class="number">2</span>, <span class="number">4</span>, <span class="number">6</span>)</span><br></pre></td></tr></table></figure>
+<p>或者使用<em>下划线</em><code>_</code>快捷方法：</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; <span class="type">List</span>(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>).map &#123; _ * <span class="number">2</span> &#125;</span><br><span class="line"><span class="type">List</span>[<span class="type">Int</span>] = <span class="type">List</span>(<span class="number">2</span>, <span class="number">4</span>, <span class="number">6</span>)</span><br></pre></td></tr></table></figure>
+<p>其他集合类型的使用方法类似：</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; <span class="type">Array</span>(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>).map(_*<span class="number">2</span>)</span><br><span class="line"><span class="type">Array</span>[<span class="type">Int</span>] = <span class="type">Array</span>(<span class="number">2</span>, <span class="number">4</span>, <span class="number">6</span>)</span><br><span class="line">scala&gt; <span class="type">Set</span>(<span class="number">1</span>,<span class="number">2</span>,<span class="number">2</span>,<span class="number">3</span>).map(_*<span class="number">2</span>)</span><br><span class="line"><span class="type">Set</span>[<span class="type">Int</span>] = <span class="type">Set</span>(<span class="number">2</span>, <span class="number">4</span>, <span class="number">6</span>)</span><br><span class="line">scala&gt; (<span class="number">0</span> until <span class="number">5</span>).map(_*<span class="number">2</span>)</span><br><span class="line"><span class="type">IndexedSeq</span>[<span class="type">Int</span>] = <span class="type">Vector</span>(<span class="number">0</span>, <span class="number">2</span>, <span class="number">4</span>, <span class="number">6</span>, <span class="number">8</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="Map-类型"><a href="#Map-类型" class="headerlink" title="Map 类型"></a><code>Map</code> 类型</h2><p>注意，<code>Map</code> 类型也有 <code>map</code> 方法，不同的是，<code>map</code> 方法会将每个 <code>key-value</code> 键值对转换成一个 <code>tuple</code> ，然后将 <code>map</code> 方法中的操作作用于这个 <code>tuple</code>:</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; <span class="type">Map</span>(<span class="string">"key1"</span> -&gt; <span class="number">1</span>, <span class="string">"key2"</span> -&gt; <span class="number">2</span>).map &#123; keyValue:(<span class="type">String</span>,<span class="type">Int</span>) =&gt;</span><br><span class="line">         keyValue <span class="keyword">match</span> &#123; <span class="keyword">case</span> (key, value) =&gt; (key, value*<span class="number">2</span>) &#125;</span><br><span class="line">       &#125;</span><br><span class="line"><span class="type">Map</span>[<span class="type">String</span>,<span class="type">Int</span>] = <span class="type">Map</span>(key1 -&gt; <span class="number">2</span>, key2 -&gt; <span class="number">4</span>)</span><br></pre></td></tr></table></figure>
+<p>由于上述的匿名函数只是将输入元素传递给一个模式匹配器，Scala 允许我们只传递一个带有 <code>tuple 提取器</code> 的 <code>case 声明</code>：</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; <span class="type">Map</span>(<span class="string">"key1"</span> -&gt; <span class="number">1</span>, <span class="string">"key2"</span> -&gt; <span class="number">2</span>).map &#123;</span><br><span class="line">         <span class="keyword">case</span> (key, value) =&gt; (key, value*<span class="number">2</span>)</span><br><span class="line">       &#125;</span><br><span class="line"><span class="type">Map</span>[<span class="type">String</span>,<span class="type">Int</span>] = <span class="type">Map</span>(key1 -&gt; <span class="number">2</span>, key2 -&gt; <span class="number">4</span>)</span><br></pre></td></tr></table></figure>
+<p>除了被转换成 <code>Map</code> 类型，也可以转换成其他类型:</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; <span class="type">Map</span>(<span class="string">"key1"</span> -&gt; <span class="number">1</span>, <span class="string">"key2"</span> -&gt; <span class="number">2</span>).map &#123;</span><br><span class="line">         <span class="keyword">case</span> (key, value) =&gt; value * <span class="number">2</span></span><br><span class="line">       &#125;</span><br><span class="line"><span class="type">Iterable</span>[<span class="type">Int</span>] = <span class="type">List</span>(<span class="number">2</span>, <span class="number">4</span>)</span><br><span class="line">scala&gt; <span class="type">Map</span>(<span class="string">"key1"</span> -&gt; <span class="number">1</span>, <span class="string">"key2"</span> -&gt; <span class="number">2</span>).map &#123;</span><br><span class="line">         <span class="keyword">case</span> (key, value) =&gt; value * <span class="number">2</span></span><br><span class="line">       &#125;.toSet</span><br><span class="line"><span class="type">Set</span>[<span class="type">Int</span>] = <span class="type">Set</span>(<span class="number">2</span>, <span class="number">4</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="String-类型"><a href="#String-类型" class="headerlink" title="String 类型"></a><code>String</code> 类型</h2><p>由于 <code>String</code> 类型可以被当做 <code>Char</code> 类型的集合，所以也可以在其上使用 <code>map</code> 方法：</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; <span class="string">"Hello"</span>.map &#123; _.toUpper &#125;</span><br><span class="line"><span class="type">String</span> = <span class="type">HELLO</span></span><br></pre></td></tr></table></figure>
+<h2 id="flatMap"><a href="#flatMap" class="headerlink" title="flatMap"></a><code>flatMap</code></h2><p><strong>Scala 集合类型还支持 <code>flatten</code> 方法，该该方法通常用于消除不想要的集合嵌套。</strong></p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; <span class="type">List</span>(<span class="type">List</span>(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>),<span class="type">List</span>(<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>)).flatten</span><br><span class="line"><span class="type">List</span>[<span class="type">Int</span>] = <span class="type">List</span>(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>)</span><br></pre></td></tr></table></figure>
+<p><code>flatMap</code> 方法的作用就是: <strong>先在集合类型上使用 <code>map</code> 方法，然后立即在其结果上调用 <code>flatten</code> 方法。</strong></p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; <span class="type">List</span>(<span class="number">1</span>,<span class="number">4</span>,<span class="number">9</span>).flatMap &#123; x =&gt; <span class="type">List</span>(x,x+<span class="number">1</span>) &#125;</span><br><span class="line"><span class="type">List</span>[<span class="type">Int</span>] = <span class="type">List</span>(<span class="number">1</span>, <span class="number">2</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">9</span>, <span class="number">10</span>)</span><br><span class="line">scala&gt; <span class="type">List</span>(<span class="number">1</span>,<span class="number">4</span>,<span class="number">9</span>).flatMap &#123; x =&gt; <span class="keyword">if</span> (x &gt; <span class="number">5</span>) <span class="type">List</span>() <span class="keyword">else</span> <span class="type">List</span>(x) &#125;</span><br><span class="line"><span class="type">List</span>[<span class="type">Int</span>] = <span class="type">List</span>(<span class="number">1</span>, <span class="number">4</span>)</span><br></pre></td></tr></table></figure>
+<p><code>map</code> 和 <code>flatMap</code> 方法真正的用武之地在 <code>Option</code> 和 <code>Future</code> 类型上。</p>
+<h1 id="Option"><a href="#Option" class="headerlink" title="Option"></a><code>Option</code></h1><p>虽然 Scala 的 <code>Option</code> 不是集合类型，但也是支持 <code>map</code> 和 <code>flatMap</code> 方法的。</p>
+<ul>
+<li><p>当作用在 <code>Some</code> 类型时，<code>map</code> 方法会作用在真实值上：<br>  例如，<code>Some(1)</code> 会作用在 <code>1</code> 上。</p>
+</li>
+<li><p>而作用在 <code>None</code> 上时，会直接返回一个 <code>None</code>。</p>
+</li>
+</ul>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; <span class="keyword">val</span> fee = <span class="number">1.25</span></span><br><span class="line">scala&gt; <span class="keyword">val</span> cost = <span class="type">Some</span>(<span class="number">4.50</span>)</span><br><span class="line">scala&gt; <span class="keyword">val</span> finalCost = cost.map(_+fee)</span><br><span class="line">finalCost: <span class="type">Option</span>[<span class="type">Double</span>] = <span class="type">Some</span>(<span class="number">5.75</span>)</span><br></pre></td></tr></table></figure>
+<p>而如果 <code>cost</code> 没有值:</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; <span class="keyword">val</span> cost:<span class="type">Option</span>[<span class="type">Double</span>] = <span class="type">None</span></span><br><span class="line">scala&gt; <span class="keyword">val</span> finalCost = cost.map(_+fee)</span><br><span class="line">finalCost: <span class="type">Option</span>[<span class="type">Double</span>] = <span class="type">None</span></span><br></pre></td></tr></table></figure>
+<p>在 <code>Option</code> 场景下，<code>flatten</code> 方法会消除嵌套 <code>Option</code>:</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; <span class="type">Some</span>(<span class="type">Some</span>(<span class="number">1</span>)).flatten</span><br><span class="line"><span class="type">Option</span>[<span class="type">Int</span>] = <span class="type">Some</span>(<span class="number">1</span>)</span><br><span class="line">scala&gt; <span class="type">Some</span>(<span class="type">None</span>).flatten</span><br><span class="line"><span class="type">Option</span>[<span class="type">Nothing</span>] = <span class="type">None</span></span><br><span class="line">scala&gt; <span class="type">None</span>.flatten</span><br><span class="line"><span class="type">Option</span>[<span class="type">Nothing</span>] = <span class="type">None</span></span><br></pre></td></tr></table></figure>
+<p>当 <code>Option</code> 和集合类型结合在一起时，<code>flatten</code> 和 <code>flatMap</code> 允许我们操控并将复杂的结果变得更加可控：</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; <span class="type">List</span>(<span class="type">Some</span>(<span class="number">1</span>),<span class="type">Some</span>(<span class="number">2</span>),<span class="type">None</span>,<span class="type">Some</span>(<span class="number">4</span>),<span class="type">None</span>).flatten</span><br><span class="line"><span class="type">List</span>[<span class="type">Int</span>] = <span class="type">List</span>(<span class="number">1</span>, <span class="number">2</span>, <span class="number">4</span>)</span><br></pre></td></tr></table></figure>
+<h1 id="Future"><a href="#Future" class="headerlink" title="Future"></a><code>Future</code></h1><p><code>Future</code> 是 Scala 中实现并发的标准方法。通常情况下，我们通过使用<code>回调函数</code>来决定当一个 <code>Future</code> 完成时该怎么做。</p>
+<p>和其他语言一样，<code>回调地狱</code> 在这种场景下也存在。</p>
+<p>而 Scala 的 <code>map</code> 和 <code>flatMap</code> 可以在一定程度上缓解这个问题。</p>
+<p>举个简单的例子:</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> scala.concurrent.<span class="type">Future</span></span><br><span class="line"><span class="keyword">import</span> scala.concurrent.<span class="type">ExecutionContext</span>.<span class="type">Implicits</span>._</span><br><span class="line"></span><br><span class="line">scala&gt; <span class="function"><span class="keyword">def</span> <span class="title">addTwo</span></span>(n:<span class="type">Int</span>):<span class="type">Future</span>[<span class="type">Int</span>] = <span class="type">Future</span> &#123; n + <span class="number">2</span> &#125;</span><br><span class="line">addTwo: (n: <span class="type">Int</span>)scala.concurrent.<span class="type">Future</span>[<span class="type">Int</span>]</span><br></pre></td></tr></table></figure>
+<p>当有另一个方法需要使用上述的 <code>addTwo</code> 方法返回的 <code>Future</code> 中的值时，可以使用 <code>map</code> 作为<em>链式机制</em>:</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; <span class="function"><span class="keyword">def</span> <span class="title">addTwoAndDouble</span></span>(n:<span class="type">Int</span>):<span class="type">Future</span>[<span class="type">Int</span>] =</span><br><span class="line">         addTwo(n).map &#123; x:<span class="type">Int</span> =&gt; x*<span class="number">2</span> &#125;</span><br><span class="line">addTwoAndDouble: (n: <span class="type">Int</span>)scala.concurrent.<span class="type">Future</span>[<span class="type">Int</span>]</span><br><span class="line">scala&gt; addTwoAndDouble(<span class="number">4</span>).onComplete(x =&gt; println(x))</span><br><span class="line"><span class="type">Success</span>(<span class="number">12</span>)</span><br></pre></td></tr></table></figure>
+<p>当有嵌套 <code>Future</code> 情况出现时，可以使用 <code>flatMap</code> 消除嵌套：</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; <span class="function"><span class="keyword">def</span> <span class="title">addTwoAddTwo</span></span>(n:<span class="type">Int</span>):<span class="type">Future</span>[<span class="type">Int</span>] =</span><br><span class="line">         addTwo(n).flatMap &#123; n2 =&gt; addTwo(n2) &#125;</span><br><span class="line">addTwoAddTwo: (n: <span class="type">Int</span>)scala.concurrent.<span class="type">Future</span>[<span class="type">Int</span>]</span><br><span class="line"></span><br><span class="line">scala&gt; addTwoAddTwo(<span class="number">2</span>).onComplete(x =&gt; println(x))</span><br><span class="line"><span class="type">Success</span>(<span class="number">6</span>)</span><br></pre></td></tr></table></figure>
+<p>简单来说:</p>
+<ul>
+<li>当面对单个 <code>Future</code> 值时，使用 <code>map</code> 方法；</li>
+<li>当面对嵌套 <code>Future</code> 值时，使用 <code>flatMap</code> 方法来消除嵌套。</li>
+</ul>
+
+      
+    </div>
+
+    
+      
+      
+
+
+
+      
+      
+    
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/编程语言/">编程语言</a>
+            
+              <a href="/tags/Scala/">Scala</a>
+            
+          </div>
+        
+        
+        
+  <nav class="post-nav">
+    
+    
+      <a class="next" href="/2019/02/27/flink-learning-5/">
+        <span class="next-text nav-default">Flink 学习笔记之五 状态操作符和用户函数</span>
+        <span class="prev-text nav-mobile">下一篇</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+
+      </footer>
+    
+
+  </article>
+
+
+          </div>
+          
+  <div class="comments" id="comments">
+    
+      <div id="vcomments"></div>
+    
+  </div>
+
+
+        </div>
+      </main>
+
+      <footer id="footer" class="footer">
+
+  <div class="social-links">
+    
+      
+        
+          <a href="mailto:pengye91@gmail.com" class="iconfont icon-email" title="email"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        
+          <a href="https://github.com/pengye91" class="iconfont icon-github" title="github"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+
+    
+      
+      <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    
+  </div>
+
+
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://hexo.io/">Hexo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">
+    
+    &copy; 
+     
+      2018 - 
+    
+    2019
+
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">xyp</span>
+  </span>
+</div>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+
+    
+  
+  
+<!-- valine Comments -->
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//cdn.jsdelivr.net/gh/xcss/valine@v1.3.3/dist/Valine.min.js"></script>
+<script type="text/javascript">
+    new Valine({
+        el: '#vcomments',
+        notify: false,
+        verify: false,
+        visitor: true,
+        app_id: "xeDhasO1xV7F1SpCG0oRuiol-gzGzoHsz",
+        app_key: "wgFvo2YMOmn0Qcv7YPFxtePy",
+        placeholder: "在此评论......",
+        avatar: 'identicon'
+    });
+</script>
+
+
+  
+
+  
+
+
+
+    
+  
+
+
+
+  
+  
+
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/pjax/jquery.pjax.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/nprogress/nprogress.min.js"></script>
+  
+
+
+    <script type="text/javascript" src="/js/src/even.js?v=2.10.1"></script>
+
+  </body>
+</html>

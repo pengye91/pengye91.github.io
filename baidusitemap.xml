@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://pengye91.github.io/2019/03/03/scala-map-flatmap/</loc>
+    <lastmod>2019-03-03T15:45:31.693Z</lastmod>
+  </url>  <url>
     <loc>https://pengye91.github.io/2019/02/27/flink-learning-5/</loc>
     <lastmod>2019-02-27T15:32:16.405Z</lastmod>
   </url>  <url>
