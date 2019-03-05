@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+
+  <meta name="description" content="Flink 学习笔记之三 外部读写"/>
+
+
+
+
+  <meta name="keywords" content="数据处理, 读书笔记, Flink, Lingering Fragments" />
+
+
+
+
+
+
+
+
+
+
+  <link rel="alternate" href="/default" title="Lingering Fragments">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.10.1" />
+
+
+
+<link rel="canonical" href="https://pengye91.github.io/2019/03/05/flink-learning-6/"/>
+
+
+
+  <link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/lib/nprogress/nprogress.min.css" />
+
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.10.1" />
+
+
+
+  
+
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-127442719-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-127442719-1');
+</script>
+
+
+  <script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+
+
+
+
+
+<script>
+  window.config = {"title":"Lingering Fragments","subtitle":"一些想法和总结","description":null,"author":"xyp","language":"zh-CN","timezone":"Asia/Shanghai","url":"https://pengye91.github.io","root":"/","permalink":":year/:month/:day/:title/","permalink_defaults":null,"source_dir":"source","public_dir":"public","tag_dir":"tags","archive_dir":"archives","category_dir":"categories","code_dir":"downloads/code","i18n_dir":":lang","skip_render":null,"new_post_name":":title.md","default_layout":"post","titlecase":false,"external_link":true,"filename_case":0,"render_drafts":false,"post_asset_folder":false,"relative_link":false,"future":true,"highlight":{"enable":true,"auto_detect":false,"line_number":true,"tab_replace":null,"first_line_number":"always1"},"default_category":"uncategorized","category_map":null,"tag_map":null,"date_format":"YYYY-MM-DD","time_format":"HH:mm:ss","per_page":10,"pagination_dir":"page","theme":"even","deploy":{"type":"git","repo":"https://github.com/pengye91/pengye91.github.io.git","branch":"master"},"ignore":[],"keywords":null,"index_generator":{"per_page":10,"order_by":"-date","path":""},"sitemap":{"path":"sitemap.xml"},"baidusitemap":{"path":"baidusitemap.xml"},"archive_generator":{"per_page":10,"yearly":true,"monthly":true,"daily":false},"category_generator":{"per_page":10},"tag_generator":{"per_page":10},"marked":{"gfm":true,"pedantic":false,"sanitize":false,"tables":true,"breaks":true,"smartLists":true,"smartypants":true,"modifyAnchors":"","autolink":true},"server":{"port":4000,"log":false,"compress":false,"header":true},"since":2018,"favicon":"/favicon.ico","rss":"default","menu":{"Home":"/","Archives":"/archives/","Tags":"/tags","Categories":"/categories","About":"/about"},"color":"cobalt blue","mode":"default","toc":true,"fancybox":true,"pjax":true,"copyright":{"enable":false,"license":"<a rel=\"license\" href=\"http://creativecommons.org/licenses/by-nc/4.0/\" target=\"_blank\">知识共享署名-非商业性使用 4.0 国际许可协议</a>"},"reward":{"enable":false,"qrCode":{"wechat":null,"alipay":null}},"social":{"email":"pengye91@gmail.com","stack-overflow":null,"twitter":null,"facebook":null,"linkedin":null,"google":null,"github":"https://github.com/pengye91","weibo":null,"zhihu":null,"douban":null,"pocket":null,"tumblr":null,"instagram":null},"leancloud":{"app_id":null,"app_key":null},"baidu_analytics":null,"baidu_verification":null,"google_analytics":"UA-127442719-1","google_verification":null,"disqus_shortname":null,"valine":{"appid":"xeDhasO1xV7F1SpCG0oRuiol-gzGzoHsz","appkey":"wgFvo2YMOmn0Qcv7YPFxtePy","notify":false,"verify":false,"avatar":"identicon","visitor":true,"placeholder":"在此评论......"},"changyan":{"appid":null,"appkey":null},"livere_datauid":null,"version":"2.10.1"};
+</script>
+
+    <title> Flink 学习笔记之三 外部读写 - Lingering Fragments </title>
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">Lingering Fragments</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    
+      <a href="/">
+        <li class="mobile-menu-item">
+          
+          
+            首页
+          
+        </li>
+      </a>
+    
+      <a href="/archives/">
+        <li class="mobile-menu-item">
+          
+          
+            归档
+          
+        </li>
+      </a>
+    
+      <a href="/tags">
+        <li class="mobile-menu-item">
+          
+          
+            标签
+          
+        </li>
+      </a>
+    
+      <a href="/categories">
+        <li class="mobile-menu-item">
+          
+          
+            分类
+          
+        </li>
+      </a>
+    
+      <a href="/about">
+        <li class="mobile-menu-item">
+          
+          
+            关于
+          
+        </li>
+      </a>
+    
+  </ul>
+</nav>
+
+    <div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">Lingering Fragments</a>
+</div>
+
+<nav class="site-navbar">
+  
+    <ul id="menu" class="menu">
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/">
+            
+            
+              首页
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            
+            
+              归档
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/tags">
+            
+            
+              标签
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/categories">
+            
+            
+              分类
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/about">
+            
+            
+              关于
+            
+          </a>
+        </li>
+      
+    </ul>
+  
+</nav>
+
+      </header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content">
+            
+  
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          Flink 学习笔记之三 外部读写
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2019-03-05
+        </span>
+        
+          <span class="post-category">
+            
+              <a href="/categories/Flink/">Flink</a>
+            
+              <a href="/categories/Flink/读书笔记/">读书笔记</a>
+            
+              <a href="/categories/Flink/读书笔记/数据处理/">数据处理</a>
+            
+          </span>
+        
+        
+      </div>
+    </header>
+
+    
+    
+  <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#应用一致性保证"><span class="toc-text">应用一致性保证</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#幂等写"><span class="toc-text">幂等写</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#事务写"><span class="toc-text">事务写</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#内置的连接器"><span class="toc-text">内置的连接器</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Kafka-Source"><span class="toc-text">Kafka Source</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Kafka-Sink-Connector"><span class="toc-text">Kafka Sink Connector</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#文件系统-Source-Connector"><span class="toc-text">文件系统 Source Connector</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#FileInputFormat"><span class="toc-text">FileInputFormat</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#文件系统-Sink-Connector"><span class="toc-text">文件系统 Sink Connector</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#自定义-Source-Function"><span class="toc-text">自定义 Source Function</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#可重置的-Source-Function"><span class="toc-text">可重置的 Source Function</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Source-Functions-Timestamps-Watermarks"><span class="toc-text">Source Functions, Timestamps, Watermarks</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#自定义-Sink-Function"><span class="toc-text">自定义 Sink Function</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#幂等-Sink-Connector"><span class="toc-text">幂等 Sink Connector</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#事务-Sink-Connector"><span class="toc-text">事务 Sink Connector</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#异步接入外部系统"><span class="toc-text">异步接入外部系统</span></a></li></ol>
+    </div>
+  </div>
+
+
+
+    <div class="post-content">
+      
+        <p>Flink 没有自己的源系统和数据存储系统，所以都要依赖外部系统。</p>
+<a id="more"></a>
+<h1 id="应用一致性保证"><a href="#应用一致性保证" class="headerlink" title="应用一致性保证"></a>应用一致性保证</h1><p>当应用失败时，Flink 可以从 Checkpoint 中恢复所有的状态。</p>
+<p>但为了实现数据一致性保证，这远远不够。因此需要在 <code>source</code> 和 <code>sink</code> 端也介入 checkpoint 和 恢复机制。</p>
+<p><img src="images/flink/1551509187430.png" alt="Alt text"></p>
+<p>为了提供应用的 <code>exactly-once</code> 状态一致性保证，每个 <code>source</code> 都需要有 <code>checkpoint</code> 机制来保存上次读的位置：</p>
+<ul>
+<li>提供保存已读 <code>offset</code> 功能的文件系统；</li>
+<li>Kafka source;</li>
+</ul>
+<p>而如果 <code>source</code> 不提供保存已读位置的功能，则 Flink 只能提供 <strong><code>at-most-once</code></strong> 保证。</p>
+<p><strong>但是</strong>，</p>
+<p>即使 <code>source</code> 和 Flink 都提供了保存已读功能，已经触发过的状态也有可能重复触发。</p>
+<p>为了提供真正的 <strong>端对端</strong> 的 <code>exactly-once</code> 保证，还需要特殊的 <code>sink connector</code>，有两种技术可以实现这种功能：</p>
+<ul>
+<li><strong>幂等写操作</strong></li>
+<li><strong>事务写操作</strong></li>
+</ul>
+<h2 id="幂等写"><a href="#幂等写" class="headerlink" title="幂等写"></a>幂等写</h2><p><strong>一个幂等操作可以被执行多次而不影响结果。</strong><br>比如，向一个 HashMap 重复插入同一个 KV 对就是幂等操作。 而<strong>追加操作</strong>就不是。</p>
+<h2 id="事务写"><a href="#事务写" class="headerlink" title="事务写"></a>事务写</h2><p><strong>只将在上一个 checkpoint 成功之前的结果数据写入外部存储。</strong></p>
+<p>Flink 提供了两种机制来实现<em>事务 Sink Connector</em>：</p>
+<ul>
+<li>Write-Ahead-Log(WAL)<br>  WAL Sink 将所有数据写到 StateBackend 中，一旦接收到 checkpoint 已经完成的通知后，向外部 Sink 触发写入；<br>  WAL Sink 可以适用于所有的 Sink 系统。</li>
+<li><strong>两阶段提交 (Two-Phase-Commit)</strong><br>  2PC 要求 Sink 系统能够提供 <em>事务</em> 支持。<br>  对每次 checkpoint，sink 会开启一个 <em>事务</em>，然后将所有接收到的数据追加到事务中：<ul>
+<li><strong>先写入，但是不提交</strong>；</li>
+<li>等收到 Checkpoint 成功的通知后，再提交，并将写入的结果<strong>物化</strong>。</li>
+</ul>
+</li>
+</ul>
+<h1 id="内置的连接器"><a href="#内置的连接器" class="headerlink" title="内置的连接器"></a>内置的连接器</h1><h2 id="Kafka-Source"><a href="#Kafka-Source" class="headerlink" title="Kafka Source"></a>Kafka Source</h2><p>Flink 的 Kafka 连接器并行地从一个 Kafka topic 摄入数据。</p>
+<p><em>源 Operator</em> 的每个并行实例从 Kafka 的分区读取数据: <em>每个实例从多个或者零个Kafka分区中读取。</em></p>
+<ul>
+<li>每个 <em>源 Operator</em> 会跟踪它的 Kafka 分区的当前<em>已读 Offset</em>并<strong>将这个 Offset 数据保存在 checkpoint 数据中</strong>。</li>
+<li>当从失败任务中恢复时，<em>已读 Offset</em> 被恢复，然后 <em>源 Operator</em> 从这个 <em>Offset</em> 继续从 Kafka Topic 读数据。</li>
+</ul>
+<p><img src="/images/flink/1551514756636.png" alt="Alt text"></p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> properties = <span class="keyword">new</span> <span class="type">Properties</span>()</span><br><span class="line">properties.setProperty(<span class="string">"bootstrap.servers"</span>, <span class="string">"localhost:9092"</span>)</span><br><span class="line">properties.setProperty(<span class="string">"group.id"</span>, <span class="string">"test"</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">val</span> stream: <span class="type">DataStream</span>[<span class="type">String</span>] = env.addSource(</span><br><span class="line"> <span class="keyword">new</span> <span class="type">FlinkKafkaConsumer011</span>[<span class="type">String</span>](</span><br><span class="line">   <span class="string">"topic"</span>,</span><br><span class="line">   <span class="keyword">new</span> <span class="type">SimpleStringSchema</span>(),</span><br><span class="line">   properties))</span><br></pre></td></tr></table></figure>
+<p>三个参数：</p>
+<ol>
+<li>Topic 名称，可以使一个，也可以是多个，当是多个的时候，Flink 会将所有 topic 的数据都混在一起；</li>
+<li><code>DeserializationSchema</code> 或者 <code>KeyedDeserializationSchema</code>；<br> Kafka 消息会以原始的 <code>Byte</code> 形式保存，所以需要被序列化成 <code>Java</code> 或者 <code>Scala</code> 对象；</li>
+<li><code>Properties</code> 对象。用于 Kafka 客户端的连接配置。</li>
+</ol>
+<h2 id="Kafka-Sink-Connector"><a href="#Kafka-Sink-Connector" class="headerlink" title="Kafka Sink Connector"></a>Kafka Sink Connector</h2><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> stream: <span class="type">DataStream</span>[<span class="type">String</span>] = ...</span><br><span class="line"></span><br><span class="line"><span class="keyword">val</span> myProducer = <span class="keyword">new</span> <span class="type">FlinkKafkaProducer011</span>[<span class="type">String</span>](</span><br><span class="line">       <span class="string">"localhost:9092"</span>,         <span class="comment">// broker list</span></span><br><span class="line">       <span class="string">"topic"</span>,                  <span class="comment">// target topic</span></span><br><span class="line">       <span class="keyword">new</span> <span class="type">SimpleStringSchema</span>)   <span class="comment">// serialization schema</span></span><br><span class="line"></span><br><span class="line">stream.addSink(myProducer)</span><br></pre></td></tr></table></figure>
+<p>在一致性上，依赖于 Kafka 的版本：</p>
+<ul>
+<li><code>Kafka 0.8.x</code><br>  不提供任何保证：数据可能被写入 0 次，1 次或者多次。</li>
+<li><code>Kafka 0.9.x</code> 和 <code>Kafka 0.10.x</code><br>  可以提供 <em>at-least-once</em> 保证，条件如下:<ul>
+<li><code>checkpoint</code> 机制开启，并且所有的数据源都是可重置的；</li>
+<li>当写入不成功时，Sink Connector 会报错，然后应用挂掉并恢复；</li>
+<li>Sink Connector 会等待 Kafka 的 ACK，知道完成 Checkpoint。</li>
+</ul>
+</li>
+<li><code>Kafka 0.11.x</code><br>  提供了 <strong>事务写</strong> 功能。当 <code>FlinkKafkaProducer011</code> 构造器中提供的 <code>Semantic</code> 参数：<ul>
+<li><code>Semantic.NONE</code>: 不提供任何保证；</li>
+<li><code>Semantic.AT_LEAST_ONCE</code>: 保证数据不丢，但可能会重复写入。<strong>这是默认参数</strong>;</li>
+<li><code>Semantic.EXACTLY_ONCE</code>: 保证只读一次。</li>
+</ul>
+</li>
+</ul>
+<h2 id="文件系统-Source-Connector"><a href="#文件系统-Source-Connector" class="headerlink" title="文件系统 Source Connector"></a>文件系统 Source Connector</h2><p>Flink 可以从文件系统中读取数据流并且实现 <em>可重置</em> 功能。</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> lineReader = <span class="keyword">new</span> <span class="type">TextInputFormat</span>(<span class="literal">null</span>) </span><br><span class="line"></span><br><span class="line"><span class="keyword">val</span> lineStream: <span class="type">DataStream</span>[<span class="type">String</span>] = env.readFile[<span class="type">String</span>](</span><br><span class="line">  lineReader,                 <span class="comment">// The FileInputFormat</span></span><br><span class="line">  <span class="string">"hdfs:///path/to/my/data"</span>,  <span class="comment">// The path to read</span></span><br><span class="line">  <span class="type">FileProcessingMode</span></span><br><span class="line">    .<span class="type">PROCESS_CONTINUOUSLY</span>,    <span class="comment">// The processing mode</span></span><br><span class="line">  <span class="number">30000</span>L)                     <span class="comment">// The monitoring interval in ms</span></span><br></pre></td></tr></table></figure>
+<p>参数：</p>
+<ul>
+<li><code>FileInputFormat</code><br>  负责读文件的内容；</li>
+<li>文件路径，可以是单个文件，也可以是文件夹；</li>
+<li>读文件模式：<ul>
+<li><code>PROCESS_ONCE</code>：只读这个文件路径一次;</li>
+<li><code>PROCESS_CONTINUOUSLY</code>：以固定频率扫描文件路径，如果有新文件，就持续读。<br>  在这种模式下，常见做法是，将要读的文件持续的写入一个临时文件夹，等文件写完后，将文件转移到真正监控的 <code>Path</code>。</li>
+</ul>
+</li>
+<li>上述读模式如果是 <code>PROCESS_CONTINUOUSLY</code>，固定的频率。</li>
+</ul>
+<h2 id="FileInputFormat"><a href="#FileInputFormat" class="headerlink" title="FileInputFormat"></a><code>FileInputFormat</code></h2><p><code>FileInputFormat</code> 分两步从文件系统读文件：</p>
+<ol>
+<li>扫描对应路径的文件，然后为所有匹配的文件生成 <code>input splits</code>；<br> 每个 <code>input split</code> 都是文件的一部分：包含<em>开始 offset</em> 和长度；<br> <em>splits</em> 可以被分布到多个 <code>reader</code> 任务以并行地读取文件内容。</li>
+<li>接收 <code>split</code>，读取文件内容，返回全部结果。</li>
+</ol>
+<p>为了实现 <em>Exactly-Once</em> 保证，<code>FileInputFormat</code> 还需要实现 <code>CheckpointableInputFormat</code> 接口，否则，由于每次需要从头重读<code>split</code>文件内容，所以只能提供 <code>At-Least-Once</code> 保证。</p>
+<h2 id="文件系统-Sink-Connector"><a href="#文件系统-Sink-Connector" class="headerlink" title="文件系统 Sink Connector"></a>文件系统 <code>Sink Connector</code></h2><p>Flink 的文件系统 <code>sink connector</code> 被称作 <code>BucketingSink</code>，可以提供端到端的 <code>exactly-once</code> 保证，只要能保证下述条件:</p>
+<ul>
+<li>source operator 是可重置的；</li>
+<li>启用了 <code>Exactly-Once</code> 的 checkpoints；</li>
+</ul>
+<p>一个简单的例子：</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> input: <span class="type">DataStream</span>[<span class="type">String</span>] = …</span><br><span class="line"><span class="keyword">val</span> fileSink = <span class="keyword">new</span> <span class="type">BucketingSink</span>[<span class="type">String</span>](<span class="string">"/base/path"</span>)</span><br><span class="line"></span><br><span class="line">input.addSink(fileSink)</span><br></pre></td></tr></table></figure>
+<p>一个 <code>bucket</code> 是由 <code>Bucketer</code> 选择的，<code>Bucketer</code> 会决定数据记录存在哪个文件夹下面：</p>
+<ul>
+<li><code>Bucketer</code> 可以由 <code>BucketingSink.setBucketer()</code> 方法设置</li>
+<li>默认为 <code>DateTimeBucketer</code>，用于生成基于<code>processing-time</code>的小时级别的 <code>Bucketer</code>。</li>
+<li>路径为 <code>[base-path]/[bucket-path]/[part-prefix]-[task-no]-[task-file-count]</code>：<code>/johndoe/demo/2018-07-22--17/part-4-8</code></li>
+<li><code>bucketer</code> 会生成一个新的 part-file，基于两个条件：<ul>
+<li>当前文件大小大于<code>BucketingSink.setBucketSize()</code>设置的阈值，默认为 <code>384M</code>;</li>
+<li>如果在固定时间内没有新的数据进入<code>Bucketer</code>，由 <code>BucketingSink.setInactiveBucketThreshold()</code> 设置，默认为：<code>1 分钟</code>;</li>
+</ul>
+</li>
+</ul>
+<p>数据通过一个 <code>Writer</code> 被写入 <code>part-file</code>：</p>
+<ul>
+<li>默认的 writer 是 <code>StringWriter</code>，通过调用数据的 <code>toString()</code> 方法将数据写入文件，并用 <em>换行符</em> 分隔；</li>
+<li>可以通过调用 <code>BucketingSink.setWriter()</code> 方法设置其他的 <code>Writer</code>: 比如 <code>SequenceFileWriter</code>；</li>
+</ul>
+<p><code>BucketingSink</code> 提供了 <code>exactly-once</code> 保证，方法是将写入数据的过程分解为多个阶段:</p>
+<ul>
+<li><code>in-progress</code><br>  当一个 <code>sink</code> 向文件写入数据的过程中时，文件为 <code>in-progress</code> 状态;</li>
+<li><code>pending</code><br>  当超过大小限制，或者活跃时间限制时，状态变为 <code>pending</code>;</li>
+<li><code>finished</code><br>  当下一个 <code>checkpoint</code> 成功后，变为 <code>finished</code> 状态。</li>
+</ul>
+<h1 id="自定义-Source-Function"><a href="#自定义-Source-Function" class="headerlink" title="自定义 Source Function"></a>自定义 Source Function</h1><p>两个接口：</p>
+<ul>
+<li><code>SourceFunction</code> 和 <code>RichSourceFunction</code> 用于定义非并行的 <code>source-connector</code></li>
+<li><code>ParallelSourceFunction</code> 和 <code>RichParallelSourceFunction</code> 用于定义并行的任务。</li>
+</ul>
+<p>两个方法以供覆盖:</p>
+<ul>
+<li><code>void run(SourceContext&lt;T&gt; ctx)</code><br>  真正接收数据并摄入系统的方法。<br>  <code>run()</code> 方法只会被调用一次，并在一个无限循环中不停地接收数据。<strong>并且在一个单独的线程中运行</strong>。<br>  任务可以被<code>显示地</code>取消：如果是有限流。</li>
+<li><code>void cancel()</code><br>  当应用被取消或者关闭时，<code>cancel()</code> 方法会被调用：<strong>以执行 graceful shutdown</strong>，当 cancel() 被调用时，另一个线程中的 <code>run()</code> 方法会被立即终止。</li>
+</ul>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CountSource</span> <span class="keyword">extends</span> <span class="title">SourceFunction</span>[<span class="type">Long</span>] </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> isRunning: <span class="type">Boolean</span> = <span class="literal">true</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">override</span> <span class="function"><span class="keyword">def</span> <span class="title">run</span></span>(ctx: <span class="type">SourceFunction</span>.<span class="type">SourceContext</span>[<span class="type">Long</span>]) = &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> cnt: <span class="type">Long</span> = <span class="number">-1</span></span><br><span class="line">    <span class="keyword">while</span> (isRunning &amp;&amp; cnt &lt; <span class="type">Long</span>.<span class="type">MaxValue</span>) &#123;</span><br><span class="line">      cnt += <span class="number">1</span></span><br><span class="line">      ctx.collect(cnt)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">override</span> <span class="function"><span class="keyword">def</span> <span class="title">cancel</span></span>() = isRunning = <span class="literal">false</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="可重置的-Source-Function"><a href="#可重置的-Source-Function" class="headerlink" title="可重置的 Source Function"></a>可重置的 <code>Source Function</code></h2><p>如果想让 <code>source function</code> 支持回放功能，就必须要接入 Flink 的 <code>checkpointing</code> 机制，并且在 checkpoint 成功后必须将当前的已读 offset 持久化。因此，需要实现 <code>CheckpointedFunction</code> 接口。</p>
+<p>更重要的是，要保证 <code>SourceFunction.run()</code> 方法不会在 <code>CheckpointedFunction.snapshotState()</code> 方法被调用前提前读 <code>offset</code> 并发送数据：</p>
+<p>通过将 <code>run()</code> 方法中的读取 offset 和触发数据的代码放在一把<strong>锁</strong>中，这把锁可以通过 <code>ctx.getCheckpointLock</code> 获得：</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ResettableCountSource</span></span></span><br><span class="line"><span class="class">    <span class="keyword">extends</span> <span class="title">SourceFunction</span>[<span class="type">Long</span>] <span class="keyword">with</span> <span class="title">CheckpointedFunction</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">var</span> isRunning: <span class="type">Boolean</span> = <span class="literal">true</span></span><br><span class="line">  <span class="keyword">var</span> cnt: <span class="type">Long</span> = _</span><br><span class="line">  <span class="keyword">var</span> offsetState: <span class="type">ListState</span>[<span class="type">Long</span>] = _</span><br><span class="line"></span><br><span class="line">  <span class="keyword">override</span> <span class="function"><span class="keyword">def</span> <span class="title">run</span></span>(ctx: <span class="type">SourceFunction</span>.<span class="type">SourceContext</span>[<span class="type">Long</span>]) = &#123;</span><br><span class="line">    <span class="keyword">while</span> (isRunning &amp;&amp; cnt &lt; <span class="type">Long</span>.<span class="type">MaxValue</span>) &#123;</span><br><span class="line">      <span class="comment">// synchronize data emission and checkpoints</span></span><br><span class="line">      ctx.getCheckpointLock.synchronized &#123;</span><br><span class="line">        cnt += <span class="number">1</span></span><br><span class="line">        ctx.collect(cnt)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">override</span> <span class="function"><span class="keyword">def</span> <span class="title">cancel</span></span>() = isRunning = <span class="literal">false</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">override</span> <span class="function"><span class="keyword">def</span> <span class="title">snapshotState</span></span>(snapshotCtx: <span class="type">FunctionSnapshotContext</span>): <span class="type">Unit</span> = &#123;</span><br><span class="line">    <span class="comment">// remove previous cnt</span></span><br><span class="line">    offsetState.clear()</span><br><span class="line">    <span class="comment">// add current cnt</span></span><br><span class="line">    offsetState.add(cnt)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">override</span> <span class="function"><span class="keyword">def</span> <span class="title">initializeState</span></span>(</span><br><span class="line">      initCtx: <span class="type">FunctionInitializationContext</span>): <span class="type">Unit</span> = &#123;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">val</span> desc = <span class="keyword">new</span> <span class="type">ListStateDescriptor</span>[<span class="type">Long</span>](<span class="string">"offset"</span>, classOf[<span class="type">Long</span>])</span><br><span class="line">    offsetState = initCtx.getOperatorStateStore.getListState(desc)</span><br><span class="line">    <span class="comment">// initialize cnt variable</span></span><br><span class="line">    <span class="keyword">val</span> it = offsetState.get()</span><br><span class="line">    cnt = <span class="keyword">if</span> (<span class="literal">null</span> == it || !it.iterator().hasNext) &#123;</span><br><span class="line">      <span class="number">-1</span>L</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      it.iterator().next()</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Source-Functions-Timestamps-Watermarks"><a href="#Source-Functions-Timestamps-Watermarks" class="headerlink" title="Source Functions, Timestamps, Watermarks"></a>Source Functions, Timestamps, Watermarks</h2><p><code>Source Function</code> 通过 <code>SourceContext</code> 来分配时间戳并触发<em>水位</em>：</p>
+<ul>
+<li><code>def collectWithTimestamp(T record, long timestamp): Unit</code></li>
+<li><code>def emitWatermark(Watermark watermark): Unit</code></li>
+</ul>
+<p>两个问题：</p>
+<ol>
+<li>数据源如果有分区的概念(比如 Kafka 的 topic 分区)，而 <code>Source Function</code> 的并行度小于分区数量，则会发生一个 <code>Source Function</code> 实例处理多个分区的情况：这会造成分区间数据的事件发生时间乱序的情况。<br> Flink 通过取所有分区的最小 <code>Watermark</code> 作为整个数据源的水位 来解决这个问题。</li>
+<li>如果某个 <code>Source Function</code> 的实例暂时闲置，会造成这个实例不触发数据的情况。而这会造成整个应用停止更新 <code>Watermark</code> 从而拖住整个应用。<br> Flink 提供了一个 <code>SourceContext.markAsTemporarilyIdle()</code> 方法来将一个没有接收到数据的实例置为闲置状态，从而使 Flink 的水位线机制忽略这个实例。</li>
+</ol>
+<h1 id="自定义-Sink-Function"><a href="#自定义-Sink-Function" class="headerlink" title="自定义 Sink Function"></a>自定义 <code>Sink Function</code></h1><p>通过实现 <code>SinkFunction</code> 或者 <code>RichSinkFunction</code> 接口来实现自定义 <code>Sink Function</code>:</p>
+<ul>
+<li><code>void invoke(IN value, Context ctx)</code><br>  <code>ctx</code> 提供了对 <code>processing time</code>, <code>event time</code>, <code>水位</code> 等元信息的获取功能。</li>
+</ul>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> readings: <span class="type">DataStream</span>[<span class="type">SensorReading</span>] = ???</span><br><span class="line"></span><br><span class="line"><span class="comment">// write the sensor readings to a socket</span></span><br><span class="line">readings.addSink(<span class="keyword">new</span> <span class="type">SimpleSocketSink</span>(<span class="string">"localhost"</span>, <span class="number">9191</span>))</span><br><span class="line">  <span class="comment">// set parallelism to 1 because only one thread can write to a socket</span></span><br><span class="line">  .setParallelism(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// -----</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SimpleSocketSink</span>(<span class="params">val host: <span class="type">String</span>, val port: <span class="type">Int</span></span>)</span></span><br><span class="line"><span class="class">    <span class="keyword">extends</span> <span class="title">RichSinkFunction</span>[<span class="type">SensorReading</span>] </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">var</span> socket: <span class="type">Socket</span> = _</span><br><span class="line">  <span class="keyword">var</span> writer: <span class="type">PrintStream</span> = _</span><br><span class="line"></span><br><span class="line">  <span class="keyword">override</span> <span class="function"><span class="keyword">def</span> <span class="title">open</span></span>(config: <span class="type">Configuration</span>): <span class="type">Unit</span> = &#123;</span><br><span class="line">    <span class="comment">// open socket and writer</span></span><br><span class="line">    socket = <span class="keyword">new</span> <span class="type">Socket</span>(<span class="type">InetAddress</span>.getByName(host), port)</span><br><span class="line">    writer = <span class="keyword">new</span> <span class="type">PrintStream</span>(socket.getOutputStream)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">override</span> <span class="function"><span class="keyword">def</span> <span class="title">invoke</span></span>(</span><br><span class="line">      value: <span class="type">SensorReading</span>,</span><br><span class="line">      ctx: <span class="type">SinkFunction</span>.<span class="type">Context</span>[_]): <span class="type">Unit</span> = &#123;</span><br><span class="line">    <span class="comment">// write sensor reading to socket</span></span><br><span class="line">    writer.println(value.toString)</span><br><span class="line">    writer.flush()</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">override</span> <span class="function"><span class="keyword">def</span> <span class="title">close</span></span>(): <span class="type">Unit</span> = &#123;</span><br><span class="line">    <span class="comment">// close writer and socket</span></span><br><span class="line">    writer.close()</span><br><span class="line">    socket.close()</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>为了提供端对端 <code>exactly-once</code> 的一致性保证，<code>SinkFunction</code> 应该要么实现幂等或者事务的 <code>sink connector</code>。</p>
+<h2 id="幂等-Sink-Connector"><a href="#幂等-Sink-Connector" class="headerlink" title="幂等 Sink Connector"></a>幂等 Sink Connector</h2><p>在大多数情况下，只要满足下面两个条件，<code>SinkFunction</code> 接口就足够实现幂等 <code>sink connector</code>:</p>
+<ol>
+<li>结果数据需要一个<strong>确定的（组合）Key</strong>，幂等的更新操作可以在这个 Key 上进行；</li>
+<li>外部系统必须能支持在一个 <code>Key</code> 上的更新操作，比如一个关系型数据库或者一个 Key-Value 存储系统。</li>
+</ol>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> readings: <span class="type">DataStream</span>[<span class="type">SensorReading</span>] = ???</span><br><span class="line"></span><br><span class="line"><span class="comment">// write the sensor readings to a Derby table</span></span><br><span class="line">readings.addSink(<span class="keyword">new</span> <span class="type">DerbyUpsertSink</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// -----</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">DerbyUpsertSink</span> <span class="keyword">extends</span> <span class="title">RichSinkFunction</span>[<span class="type">SensorReading</span>] </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> conn: <span class="type">Connection</span> = _</span><br><span class="line">  <span class="keyword">var</span> insertStmt: <span class="type">PreparedStatement</span> = _</span><br><span class="line">  <span class="keyword">var</span> updateStmt: <span class="type">PreparedStatement</span> = _</span><br><span class="line"></span><br><span class="line">  <span class="keyword">override</span> <span class="function"><span class="keyword">def</span> <span class="title">open</span></span>(parameters: <span class="type">Configuration</span>): <span class="type">Unit</span> = &#123;</span><br><span class="line">    <span class="comment">// connect to embedded in-memory Derby</span></span><br><span class="line">    conn = <span class="type">DriverManager</span>.getConnection(</span><br><span class="line">       <span class="string">"jdbc:derby:memory:flinkExample"</span>,</span><br><span class="line">       <span class="keyword">new</span> <span class="type">Properties</span>())</span><br><span class="line">    <span class="comment">// prepare insert and update statements</span></span><br><span class="line">    insertStmt = conn.prepareStatement(</span><br><span class="line">      <span class="string">"INSERT INTO Temperatures (sensor, temp) VALUES (?, ?)"</span>)</span><br><span class="line">    updateStmt = conn.prepareStatement(</span><br><span class="line">      <span class="string">"UPDATE Temperatures SET temp = ? WHERE sensor = ?"</span>)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">override</span> <span class="function"><span class="keyword">def</span> <span class="title">invoke</span></span>(r: <span class="type">SensorReading</span>, context: <span class="type">Context</span>[_]): <span class="type">Unit</span> = &#123;</span><br><span class="line">    <span class="comment">// set parameters for update statement and execute it</span></span><br><span class="line">    updateStmt.setDouble(<span class="number">1</span>, r.temperature)</span><br><span class="line">    updateStmt.setString(<span class="number">2</span>, r.id)</span><br><span class="line">    updateStmt.execute()</span><br><span class="line">    <span class="comment">// execute insert statement if update statement did not update any row</span></span><br><span class="line">    <span class="keyword">if</span> (updateStmt.getUpdateCount == <span class="number">0</span>) &#123;</span><br><span class="line">      <span class="comment">// set parameters for insert statement</span></span><br><span class="line">      insertStmt.setString(<span class="number">1</span>, r.id)</span><br><span class="line">      insertStmt.setDouble(<span class="number">2</span>, r.temperature)</span><br><span class="line">      <span class="comment">// execute insert statement</span></span><br><span class="line">      insertStmt.execute()</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">override</span> <span class="function"><span class="keyword">def</span> <span class="title">close</span></span>(): <span class="type">Unit</span> = &#123;</span><br><span class="line">    insertStmt.close()</span><br><span class="line">    updateStmt.close()</span><br><span class="line">    conn.close()</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上述代码实现了一个简单的<code>幂等 UPSERT</code> 操作。</p>
+<h2 id="事务-Sink-Connector"><a href="#事务-Sink-Connector" class="headerlink" title="事务 Sink Connector"></a>事务 Sink Connector</h2><p>Flink 提供了两个模板来用于实现自定义的事务 Sink 算子，两者都实现了 <code>CheckpointListener</code> 接口–用于接收来自 <code>JobManager</code> 的完成了的 checkpoints：</p>
+<ul>
+<li><p><code>GenericWriteAheadSink</code></p>
+<ol>
+<li>收集每个 <code>checkpoint</code> 的所有数据，并保存在 sink 任务的<em>算子状态</em>中。</li>
+<li>这些状态也会被 Checkpointed。</li>
+<li><p>当任务接收到 <em>checkpoint 完成</em> 的通知后，将这个 <code>checkpoint</code> 对应的所有数据都写入到外部系统。</p>
+<p>只能做到 <code>at-least-once</code> 的一致性保证：<strong>只要上述第二步的状态在应用失败前还没有被正确 Checkpointed，就有可能会重复 Commit.</strong></p>
+</li>
+</ol>
+</li>
+<li><p><code>TwoPhaseCommitSinkFunction</code><br>  这个接口会利用外部系统自身的<em>事务</em>。</p>
+<ol>
+<li>对每个 <code>checkpoint</code>，开启一个新的事务，并在这个事务的上下文下将所有的数据都传给外部系统；</li>
+<li><p>当接收到 <code>checkpoint 完成</code> 的通知时，将事务<strong>提交</strong>了。</p>
+<p>通常来说，在分布式系统中使用两阶段提交是一个非常昂贵的操作。<br>但是在 Flink 的语境中，每个 checkpoint 只会运行一次这个协议，因此带来的开销并不大。<br><code>2PC</code>方法的运作方式和 <code>WAL sink</code> 相似，但是它不会将数据存储在 Flink 应用状态中，而是将数据写在外部系统的事务中。</p>
+</li>
+</ol>
+</li>
+</ul>
+<h1 id="异步接入外部系统"><a href="#异步接入外部系统" class="headerlink" title="异步接入外部系统"></a>异步接入外部系统</h1><p>一个常见的需求是：</p>
+<p><strong>对数据流中每个数据而言，需要去外部存储系统中查询相关的其他信息，补充到数据中，然后形成一条新的数据流。</strong></p>
+<p>通常可以这样做：</p>
+<p><strong>实现一个 <code>MapFunction</code>, 为每个数据查询外部存储系统中的相关信息，等待返回结果，然后形成新的数据流。</strong></p>
+<p>这么做很简单直接，但是会有每个数据的延时问题。</p>
+<p>Flink 提供了一个 <code>AsyncFunction</code> 来减轻外部 IO 调用的延时。前提是外部系统能支持异步调用。</p>
+<p><code>AsyncFunction</code> 的接口如下：</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">trait</span> <span class="title">AsyncFunction</span>[<span class="type">IN</span>, <span class="type">OUT</span>] <span class="keyword">extends</span> <span class="title">Function</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">asyncInvoke</span></span>(input: <span class="type">IN</span>, resultFuture: <span class="type">ResultFuture</span>[<span class="type">OUT</span>]): <span class="type">Unit</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>asyncInvoke</code> 方法会在每个数据调用。</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> readings: <span class="type">DataStream</span>[<span class="type">SensorReading</span>] = ???</span><br><span class="line"></span><br><span class="line"><span class="keyword">val</span> sensorLocations: <span class="type">DataStream</span>[(<span class="type">String</span>, <span class="type">String</span>)] = <span class="type">AsyncDataStream</span></span><br><span class="line">  <span class="comment">// orderedWait 可以保证输出的数据和输入的顺序是一样的</span></span><br><span class="line">  <span class="comment">// unorderedWait 只能保证 水位 和 checkpoints 是对齐的的。</span></span><br><span class="line">  .orderedWait(</span><br><span class="line">    readings,</span><br><span class="line">    <span class="keyword">new</span> <span class="type">DerbyAsyncFunction</span>,</span><br><span class="line">    <span class="number">5</span>, <span class="type">TimeUnit</span>.<span class="type">SECONDS</span>,    <span class="comment">// timeout requests after 5 seconds</span></span><br><span class="line">    <span class="number">100</span>) </span><br><span class="line">	<span class="comment">// at most 100 concurrent requests</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">DerbyAsyncFunction</span></span></span><br><span class="line"><span class="class">    <span class="keyword">extends</span> <span class="title">AsyncFunction</span>[<span class="type">SensorReading</span>, (<span class="type">String</span>, <span class="type">String</span>)] </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// caching execution context used to handle the query threads</span></span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">lazy</span> <span class="keyword">val</span> cachingPoolExecCtx =</span><br><span class="line">    <span class="type">ExecutionContext</span>.fromExecutor(<span class="type">Executors</span>.newCachedThreadPool())</span><br><span class="line">  <span class="comment">// direct execution context to forward result future to callback object</span></span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">lazy</span> <span class="keyword">val</span> directExecCtx =</span><br><span class="line">    <span class="type">ExecutionContext</span>.fromExecutor(</span><br><span class="line">      org.apache.flink.runtime.concurrent.<span class="type">Executors</span>.directExecutor())</span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">    * Executes JDBC query in a thread and handles the resulting Future</span></span><br><span class="line"><span class="comment">    * with an asynchronous callback.</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">  <span class="keyword">override</span> <span class="function"><span class="keyword">def</span> <span class="title">asyncInvoke</span></span>(</span><br><span class="line">      reading: <span class="type">SensorReading</span>,</span><br><span class="line">      resultFuture: <span class="type">ResultFuture</span>[(<span class="type">String</span>, <span class="type">String</span>)]): <span class="type">Unit</span> = &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">val</span> sensor = reading.id</span><br><span class="line">    <span class="comment">// get room from Derby table as Future</span></span><br><span class="line">    <span class="keyword">val</span> room: <span class="type">Future</span>[<span class="type">String</span>] = <span class="type">Future</span> &#123;</span><br><span class="line">      <span class="comment">// Creating a new connection and statement for each record.</span></span><br><span class="line">      <span class="comment">// Note: This is NOT best practice!</span></span><br><span class="line">      <span class="comment">// Connections and prepared statements should be cached.</span></span><br><span class="line">      <span class="keyword">val</span> conn = <span class="type">DriverManager</span></span><br><span class="line">        .getConnection(</span><br><span class="line">          <span class="string">"jdbc:derby:memory:flinkExample"</span>, </span><br><span class="line">          <span class="keyword">new</span> <span class="type">Properties</span>())</span><br><span class="line">      <span class="keyword">val</span> query = conn.createStatement()</span><br><span class="line">      </span><br><span class="line">      <span class="comment">// submit query and wait for result. this is a synchronous call.</span></span><br><span class="line">      <span class="keyword">val</span> result = query.executeQuery(</span><br><span class="line">        <span class="string">s"SELECT room FROM SensorLocations WHERE sensor = '<span class="subst">$sensor</span>'"</span>)</span><br><span class="line"></span><br><span class="line">      <span class="comment">// get room if there is one</span></span><br><span class="line">      <span class="keyword">val</span> room = <span class="keyword">if</span> (result.next()) &#123;</span><br><span class="line">        result.getString(<span class="number">1</span>)</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="string">"UNKNOWN ROOM"</span></span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="comment">// close resultset, statement, and connection</span></span><br><span class="line">      result.close()</span><br><span class="line">      query.close()</span><br><span class="line">      conn.close()</span><br><span class="line">      <span class="comment">// return room</span></span><br><span class="line">      room</span><br><span class="line">    &#125;(cachingPoolExecCtx)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// apply result handling callback on the room future</span></span><br><span class="line">    room.onComplete &#123;</span><br><span class="line">      <span class="keyword">case</span> <span class="type">Success</span>(r) =&gt; resultFuture.complete(<span class="type">Seq</span>((sensor, r)))</span><br><span class="line">      <span class="keyword">case</span> <span class="type">Failure</span>(e) =&gt; resultFuture.completeExceptionally(e)</span><br><span class="line">    &#125;(directExecCtx)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可以看到，应用 <code>AsyncFunciton</code> 的异步算子是被 <code>AsyncDataStream</code> 调用的。</p>
+<p><strong>不要这样做</strong>:</p>
+<ul>
+<li>不要发送一个会阻塞 <code>asyncInvoke()</code> 方法的请求</li>
+<li>不要在 <code>asyncInvoke()</code> 方法中等待请求的完成。</li>
+</ul>
+<p>(To be continued…)</p>
+
+      
+    </div>
+
+    
+      
+      
+
+
+
+      
+      
+    
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/数据处理/">数据处理</a>
+            
+              <a href="/tags/读书笔记/">读书笔记</a>
+            
+              <a href="/tags/Flink/">Flink</a>
+            
+          </div>
+        
+        
+        
+  <nav class="post-nav">
+    
+    
+      <a class="next" href="/2019/03/03/scala-map-flatmap/">
+        <span class="next-text nav-default">Scala Map vs. FlatMap</span>
+        <span class="prev-text nav-mobile">下一篇</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+
+      </footer>
+    
+
+  </article>
+
+
+          </div>
+          
+  <div class="comments" id="comments">
+    
+      <div id="vcomments"></div>
+    
+  </div>
+
+
+        </div>
+      </main>
+
+      <footer id="footer" class="footer">
+
+  <div class="social-links">
+    
+      
+        
+          <a href="mailto:pengye91@gmail.com" class="iconfont icon-email" title="email"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        
+          <a href="https://github.com/pengye91" class="iconfont icon-github" title="github"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+
+    
+      
+      <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    
+  </div>
+
+
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://hexo.io/">Hexo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">
+    
+    &copy; 
+     
+      2018 - 
+    
+    2019
+
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">xyp</span>
+  </span>
+</div>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+
+    
+  
+  
+<!-- valine Comments -->
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//cdn.jsdelivr.net/gh/xcss/valine@v1.3.3/dist/Valine.min.js"></script>
+<script type="text/javascript">
+    new Valine({
+        el: '#vcomments',
+        notify: false,
+        verify: false,
+        visitor: true,
+        app_id: "xeDhasO1xV7F1SpCG0oRuiol-gzGzoHsz",
+        app_key: "wgFvo2YMOmn0Qcv7YPFxtePy",
+        placeholder: "在此评论......",
+        avatar: 'identicon'
+    });
+</script>
+
+
+  
+
+  
+
+
+
+    
+  
+
+
+
+  
+  
+
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/pjax/jquery.pjax.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/nprogress/nprogress.min.js"></script>
+  
+
+
+    <script type="text/javascript" src="/js/src/even.js?v=2.10.1"></script>
+
+  </body>
+</html>
