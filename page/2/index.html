@@ -233,6 +233,57 @@
     <header class="post-header">
       <h1 class="post-title">
         
+          <a class="post-link" href="/2018/12/18/scala-option-some-none-pattern/">Scala Option/Some/None 模式</a>
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2018-12-18
+        </span>
+        
+          <span class="post-category">
+            
+              <a href="/categories/Scala/">Scala</a>
+            
+          </span>
+        
+        
+      </div>
+    </header>
+
+    
+    
+
+
+    <div class="post-content">
+      
+        
+        
+          
+        
+
+        
+          <h2 id="方法返回一个-Option"><a href="#方法返回一个-Option" class="headerlink" title="方法返回一个 Option"></a>方法返回一个 <code>Option</code></h2><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">toInt</span></span>(s: <span class="type">String</span>): <span class="type">Option</span>[<span class="type">Int</span>] = &#123;</span><br><span class="line">   <span class="keyword">try</span> &#123;</span><br><span class="line">       <span class="type">Some</span>(<span class="type">Integer</span>.parseInt(s.trim))</span><br><span class="line">   &#125; <span class="keyword">catch</span> &#123;</span><br><span class="line">       <span class="keyword">case</span> e: <span class="type">Exception</span> =&gt; <span class="type">None</span></span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          <div class="read-more">
+            <a href="/2018/12/18/scala-option-some-none-pattern/" class="read-more-link">阅读更多</a>
+          </div>
+        
+      
+    </div>
+
+    
+
+    
+
+  </article>
+
+      
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
           <a class="post-link" href="/2018/12/09/Hadoop中的Join/">Hadoop 中的 Join</a>
         
       </h1>
@@ -712,77 +763,6 @@
 <p>所以有了<em>多主节点</em>的模型：<strong>每个主节点都要将数据变化的过程告诉其他所有节点(包括其他主节点)</strong>。</p>
           <div class="read-more">
             <a href="/2018/11/04/野猪书读书笔记第五章2/" class="read-more-link">阅读更多</a>
-          </div>
-        
-      
-    </div>
-
-    
-
-    
-
-  </article>
-
-      
-        
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          <a class="post-link" href="/2018/10/30/野猪书读书笔记第五章1/">野猪书读书笔记第五章(续1)</a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2018-10-30
-        </span>
-        
-          <span class="post-category">
-            
-              <a href="/categories/读书笔记/">读书笔记</a>
-            
-              <a href="/categories/读书笔记/设计数据密集型应用/">设计数据密集型应用</a>
-            
-              <a href="/categories/读书笔记/设计数据密集型应用/数据/">数据</a>
-            
-          </span>
-        
-        
-      </div>
-    </header>
-
-    
-    
-
-
-    <div class="post-content">
-      
-        
-        
-          
-        
-
-        
-          <center><img src="/images/designing-data-intensive-applications.png" alt=""></center>
-
-<p><strong>副本</strong></p>
-<p>副本的作用：</p>
-<ul>
-<li>地理位置上距离使用者更近</li>
-<li>当系统的某些节点挂掉后可以继续正常运行</li>
-<li>减小读操作的负载</li>
-</ul>
-<p>备份这件事情最麻烦的地方在于：<strong>处理备份数据的变化</strong></p>
-<p>有三种算法来处理节点间的数据变化：</p>
-<ul>
-<li>单 leader</li>
-<li>多 leader</li>
-<li>无 leader</li>
-</ul>
-<p>处理副本时还需要做一些权衡：<strong>同步备份</strong>还是<strong>异步备份</strong>，<strong>如何处理失败的备份</strong>。</p>
-          <div class="read-more">
-            <a href="/2018/10/30/野猪书读书笔记第五章1/" class="read-more-link">阅读更多</a>
           </div>
         
       
