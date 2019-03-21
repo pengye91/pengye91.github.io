@@ -273,7 +273,7 @@
 <a id="more"></a>
 <h1 id="应用一致性保证"><a href="#应用一致性保证" class="headerlink" title="应用一致性保证"></a>应用一致性保证</h1><p>当应用失败时，Flink 可以从 Checkpoint 中恢复所有的状态。</p>
 <p>但为了实现数据一致性保证，这远远不够。因此需要在 <code>source</code> 和 <code>sink</code> 端也介入 checkpoint 和 恢复机制。</p>
-<p><img src="images/flink/1551509187430.png" alt="Alt text"></p>
+<p><img src="/images/flink/1551509187430.png" alt="Alt text"></p>
 <p>为了提供应用的 <code>exactly-once</code> 状态一致性保证，每个 <code>source</code> 都需要有 <code>checkpoint</code> 机制来保存上次读的位置：</p>
 <ul>
 <li>提供保存已读 <code>offset</code> 功能的文件系统；</li>

@@ -287,7 +287,7 @@
 <h2 id="driver-和-executor-概述"><a href="#driver-和-executor-概述" class="headerlink" title="driver 和 executor 概述"></a><code>driver</code> 和 <code>executor</code> 概述</h2><p><code>driver</code> 负责从上层掌控所有工作的控制流；<br><code>executor</code> 负责以 <code>task</code> 的形式执行这些工作；除此之外，<code>executor</code> 还负责存储用户手动 <code>cache()</code> 的数据。</p>
 <p><code>driver</code> 和 <code>executor</code> 在整个应用运行期间通常会保持不变。（1.3 以后可以用<a href="http://spark.apache.org/docs/1.2.0/job-scheduling.html#dynamic-resource-allocation" target="_blank" rel="noopener">动态资源分配</a>来动态管理）</p>
 <p>每个 <code>executor</code> 都有一些 <code>slots</code> 用于运行 <code>tasks</code>：这些任务可以在这个 executor 的生命周期内并行地运行。</p>
-<h2 id="job-stage-task"><a href="#job-stage-task" class="headerlink" title="job,stage,task"></a><code>job</code>,<code>stage</code>,<code>task</code></h2><center><img src="images/spark_tuning/1553071574538.png" alt="Alt text"></center>
+<h2 id="job-stage-task"><a href="#job-stage-task" class="headerlink" title="job,stage,task"></a><code>job</code>,<code>stage</code>,<code>task</code></h2><center><img src="/images/spark_tuning/1553071574538.png" alt="Alt text"></center>
 
 <p>如上图所示，在执行层次的最上层是 <code>jobs</code>:</p>
 <p>在 Spark 应用内部调用一个 <code>action</code> 方法就会触发一个 Spark job 的启动。</p>
@@ -314,7 +314,7 @@
 <figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> tokenized = sc.textFile(args(<span class="number">0</span>)).flatMap(_.split(' '))</span><br><span class="line"><span class="keyword">val</span> wordCounts = tokenized.map((_, <span class="number">1</span>)).reduceByKey(_ + _)</span><br><span class="line"><span class="keyword">val</span> filtered = wordCounts.filter(_._2 &gt;= <span class="number">1000</span>)</span><br><span class="line"><span class="keyword">val</span> charCounts = filtered.flatMap(_._1.toCharArray).map((_, <span class="number">1</span>)).</span><br><span class="line">  reduceByKey(_ + _)</span><br><span class="line">charCounts.collect()</span><br></pre></td></tr></table></figure>
 <p>上述代码会以 <code>reduceByKey</code> 为分界线产生 3 个 <code>stage</code>。</p>
 <p>对于更为复杂一点的操作如：</p>
-<center><img src="images/spark_tuning/1553101691290.png" alt="Alt text"></center>
+<center><img src="/images/spark_tuning/1553101691290.png" alt="Alt text"></center>
 
 <p>每个洋红框都表示一个 stage。</p>
 <h2 id="shuffle"><a href="#shuffle" class="headerlink" title="shuffle"></a>shuffle</h2><p>在每个 stage 的边界，数据都被 <strong>父 Stage</strong> 中的 task 写到磁盘上，并且由 <strong>子 Stage</strong> 中的 task 跨网络远程取走:</p>
@@ -341,10 +341,10 @@
 <p>这两个 <code>reduceByKey</code> transformation 会造成两次 shuffle。</p>
 <p>当两个 rdd 都被 <code>reduceByKey</code> 操作重新分为<strong>相同个数的分区</strong>时，<code>join</code> 算子就不会造成新的 shuffle：</p>
 <p>这是因为在分区数相同时，RDD1 在同一个结果分区中的 keys 只可能出现在 RDD2 的一个分区中。因此 RDD3 的一个分区只依赖于 RDD1 的一个分区 和 RDD2 的一个分区，所以就没有第三个 shuffle：</p>
-<center><img src="images/spark_tuning/1553184746735.png" alt="Alt text"></center>
+<center><img src="/images/spark_tuning/1553184746735.png" alt="Alt text"></center>
 
 <p>当使用不同的 partitioner 时，只有 partitioner 较小的 rdd 需要 reshuffle:</p>
-<center><img src="images/spark_tuning/1553185011134.png" alt="Alt text"></center>
+<center><img src="/images/spark_tuning/1553185011134.png" alt="Alt text"></center>
 
 
 <h2 id="广播变量"><a href="#广播变量" class="headerlink" title="广播变量"></a>广播变量</h2><p>在 join 两个数据集时，还有一种方法可以避免 shuffle：<a href="https://spark.apache.org/docs/2.2.0/rdd-programming-guide.html#broadcast-variables" target="_blank" rel="noopener">广播变量</a>。</p>
