@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://pengye91.github.io/2019/06/22/spark-distinct-vs-groupBy/</loc>
+    
+    <lastmod>2019-06-22T17:23:38.520Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://pengye91.github.io/2019/04/08/scala-nothingness/</loc>
     
     <lastmod>2019-04-09T14:18:23.129Z</lastmod>
