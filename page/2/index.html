@@ -145,7 +145,7 @@
 </ul>
 <p><strong>函数式编程限制的是<em>怎样</em>写程序，而非<em>表达</em>什么样的程序。</strong></p>
           <div class="read-more">
-            <a href="/2019/02/06/scala-fp-1/" class="read-more-link">Read more..</a>
+            <a href="/2019/02/06/scala-fp-1/" class="read-more-link">Read more...</a>
           </div>
         </div></article>
       <article class="post">
@@ -166,7 +166,7 @@
 
     <div class="post-content"><h1 id="前提"><a href="#前提" class="headerlink" title="前提"></a>前提</h1><p>先上一段例子代码:</p>
           <div class="read-more">
-            <a href="/2019/02/05/flink-learning-3/" class="read-more-link">Read more..</a>
+            <a href="/2019/02/05/flink-learning-3/" class="read-more-link">Read more...</a>
           </div>
         </div></article>
       <article class="post">
@@ -197,7 +197,7 @@
 
 <p>组件间的交互如上图所示。</p>
           <div class="read-more">
-            <a href="/2019/02/02/flink-learning-2/" class="read-more-link">Read more..</a>
+            <a href="/2019/02/02/flink-learning-2/" class="read-more-link">Read more...</a>
           </div>
         </div></article>
       <article class="post">
@@ -222,7 +222,7 @@
 <p>它不是传统的<em>关系型数据库</em>，所以缺少 ACID 等事务相关特性，但也因此带来了比 RDBMS 更强的<em>扩展性</em>；</p>
 <p>同时，HBase 中保存的数据也不必像 RDBMS 一样必须满足 schema 的限制，因此很适合存储<em>非结构化</em>或者<em>半结构化</em>的数据。</p>
           <div class="read-more">
-            <a href="/2018/12/27/hbase-architecture/" class="read-more-link">Read more..</a>
+            <a href="/2018/12/27/hbase-architecture/" class="read-more-link">Read more...</a>
           </div>
         </div></article>
       <article class="post">
@@ -243,7 +243,7 @@
     <div class="post-content"><p>为了减小一张表里的数据量，<code>Hive</code> 提供了 <code>分区</code> 的功能，基本思路就是<em>把每个分区的数据放在 HDFS 里独立的文件夹中</em>，这样在扫描全表的时候被扫描的数据量就变小了。常见的分区策略是<em>按时间分区</em>。</p>
 <p>但是在一些场景下，即使在分区后，每个分区下面数据量也很大，这时候就可以用 Hive 的 <code>Buckets</code> 功能了。</p>
           <div class="read-more">
-            <a href="/2018/12/20/hive-bucket/" class="read-more-link">Read more..</a>
+            <a href="/2018/12/20/hive-bucket/" class="read-more-link">Read more...</a>
           </div>
         </div></article>
       <article class="post">
@@ -262,7 +262,7 @@
 
     <div class="post-content"><h2 id="方法返回一个-Option"><a href="#方法返回一个-Option" class="headerlink" title="方法返回一个 Option"></a>方法返回一个 <code>Option</code></h2><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">toInt</span></span>(s: <span class="type">String</span>): <span class="type">Option</span>[<span class="type">Int</span>] = &#123;</span><br><span class="line">   <span class="keyword">try</span> &#123;</span><br><span class="line">       <span class="type">Some</span>(<span class="type">Integer</span>.parseInt(s.trim))</span><br><span class="line">   &#125; <span class="keyword">catch</span> &#123;</span><br><span class="line">       <span class="keyword">case</span> e: <span class="type">Exception</span> =&gt; <span class="type">None</span></span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
           <div class="read-more">
-            <a href="/2018/12/18/scala-option-some-none-pattern/" class="read-more-link">Read more..</a>
+            <a href="/2018/12/18/scala-option-some-none-pattern/" class="read-more-link">Read more...</a>
           </div>
         </div></article>
       <article class="post">
@@ -289,7 +289,7 @@
 <li>在需要更细粒度的操作时可以手撸代码。</li>
 </ul>
           <div class="read-more">
-            <a href="/2018/12/09/Hadoop中的Join/" class="read-more-link">Read more..</a>
+            <a href="/2018/12/09/Hadoop中的Join/" class="read-more-link">Read more...</a>
           </div>
         </div></article>
       <article class="post">
@@ -311,7 +311,7 @@
     <div class="post-content"><p>当数据集数量超过单机能承受的范围时，就需要使用分布式文件系统了。但和其他分布式系统一样，由于有网络编程模型的介入，其复杂程度变得不可估量。</p>
 <p>Hadoop 拥有一套通用的文件系统抽象逻辑，可以接入本地文件系统、Amazon S3、Ceph 等文件系统，但 HDFS 才是 Hadoop 的主要使用的分布式文件系统。</p>
           <div class="read-more">
-            <a href="/2018/12/06/hadoop组合拳HDFS/" class="read-more-link">Read more..</a>
+            <a href="/2018/12/06/hadoop组合拳HDFS/" class="read-more-link">Read more...</a>
           </div>
         </div></article>
       <article class="post">
@@ -332,7 +332,7 @@
 
     <div class="post-content"><p>历史啊特点啊什么的就不说了，直接开搞！</p>
           <div class="read-more">
-            <a href="/2018/12/06/hadoop组合拳MR初窥/" class="read-more-link">Read more..</a>
+            <a href="/2018/12/06/hadoop组合拳MR初窥/" class="read-more-link">Read more...</a>
           </div>
         </div></article>
       <article class="post">
@@ -352,7 +352,7 @@
 
     <div class="post-content"><p>编写 Spark 程序的一大好处是: 如果想要提升计算力和效率，只需要增加机器就可以了。对用户来说，只需要先在本地或者小的集群上先测试，然后不需修改任何代码就可以在生产环境执行。</p>
           <div class="read-more">
-            <a href="/2018/11/24/在集群上运行Spark/" class="read-more-link">Read more..</a>
+            <a href="/2018/11/24/在集群上运行Spark/" class="read-more-link">Read more...</a>
           </div>
         </div></article>
       <nav class="pagination"><a class="prev" href="/">
