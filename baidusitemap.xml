@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://pengye91.github.io/2020/07/19/data-arch-1/</loc>
+    <lastmod>2020-07-19T14:30:39.104Z</lastmod>
+  </url>  <url>
     <loc>https://pengye91.github.io/2019/06/22/spark-distinct-vs-groupBy/</loc>
     <lastmod>2019-06-23T05:32:10.112Z</lastmod>
   </url>  <url>
