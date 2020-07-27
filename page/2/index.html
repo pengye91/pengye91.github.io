@@ -233,6 +233,70 @@
     <header class="post-header">
       <h1 class="post-title">
         
+          <a class="post-link" href="/2019/02/21/flink-learning-4/">Flink 学习笔记之四 时间和窗口</a>
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2019-02-21
+        </span>
+        
+          <span class="post-category">
+            
+              <a href="/categories/Flink/">Flink</a>
+            
+              <a href="/categories/Flink/读书笔记/">读书笔记</a>
+            
+              <a href="/categories/Flink/读书笔记/数据处理/">数据处理</a>
+            
+          </span>
+        
+        
+      </div>
+    </header>
+
+    
+    
+
+
+    <div class="post-content">
+      
+        
+        
+          
+        
+
+        
+          <h1 id="设置处理时间"><a href="#设置处理时间" class="headerlink" title="设置处理时间"></a>设置处理时间</h1><p>在流处理系统中，<strong>时间</strong>是一个非常重要的概念。Flink 可以设置下面三种事件时间。</p>
+<ul>
+<li><code>ProcessingTime</code><br>  <code>ProcessingTime</code> 意味着算子使用<strong>数据被处理时所在机器的系统时间</strong>。<ul>
+<li>优点：延时低，因为算子不用等待按顺序来的数据</li>
+<li>缺点：结果不是非确定的。因为每个窗口的数据内容取决于数据到达的速度。</li>
+</ul>
+</li>
+<li><code>EventTime</code><br>  <code>EventTime</code> 指的是算子使用<strong>数据本身包含的时间信息</strong>作为当前时间。每个数据都携带一个时间戳和水位线。当一个水位通知说在给定的时间范围内所有数据已经到达时，<code>event-time</code> 窗口就会触发计算。<br>  <code>EventTime</code> 窗口计算出的结果是确定的：<strong>结果和数据到达的顺序无关</strong>。</li>
+<li><code>IngestionTime</code><br>  <code>IngestionTime</code> 是数据进入流处理器的时间。可以将 <code>IngestionTime</code> 理解为 <code>source operator</code> 的 <code>ProcessingTime</code> </li>
+</ul>
+          <div class="read-more">
+            <a href="/2019/02/21/flink-learning-4/" class="read-more-link">阅读更多</a>
+          </div>
+        
+      
+    </div>
+
+    
+
+    
+
+  </article>
+
+      
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
           <a class="post-link" href="/2019/02/06/scala-fp-1/">Scala 函数式编程 一</a>
         
       </h1>
@@ -741,59 +805,6 @@
           <p>历史啊特点啊什么的就不说了，直接开搞！</p>
           <div class="read-more">
             <a href="/2018/12/06/hadoop组合拳MR初窥/" class="read-more-link">阅读更多</a>
-          </div>
-        
-      
-    </div>
-
-    
-
-    
-
-  </article>
-
-      
-        
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          <a class="post-link" href="/2018/11/24/在集群上运行Spark/">Spark 集群相关概念</a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2018-11-24
-        </span>
-        
-          <span class="post-category">
-            
-              <a href="/categories/spark/">spark</a>
-            
-              <a href="/categories/spark/数据/">数据</a>
-            
-          </span>
-        
-        
-      </div>
-    </header>
-
-    
-    
-
-
-    <div class="post-content">
-      
-        
-        
-          
-        
-
-        
-          <p>编写 Spark 程序的一大好处是: 如果想要提升计算力和效率，只需要增加机器就可以了。对用户来说，只需要先在本地或者小的集群上先测试，然后不需修改任何代码就可以在生产环境执行。</p>
-          <div class="read-more">
-            <a href="/2018/11/24/在集群上运行Spark/" class="read-more-link">阅读更多</a>
           </div>
         
       

@@ -233,6 +233,100 @@
     <header class="post-header">
       <h1 class="post-title">
         
+          <a class="post-link" href="/2018/10/21/野猪书读书笔记第三章续2/">野猪书读书笔记第三章(续二)</a>
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2018-10-21
+        </span>
+        
+          <span class="post-category">
+            
+              <a href="/categories/读书笔记/">读书笔记</a>
+            
+              <a href="/categories/读书笔记/设计数据密集型应用/">设计数据密集型应用</a>
+            
+              <a href="/categories/读书笔记/设计数据密集型应用/数据/">数据</a>
+            
+          </span>
+        
+        
+      </div>
+    </header>
+
+    
+    
+
+
+    <div class="post-content">
+      
+        
+        
+          
+        
+
+        
+          <center><img src="/images/designing-data-intensive-applications.png" alt=""></center>
+
+<p>本节介绍数据库的另一种分类：事务处理型(OLTP)和分析处理型数据库(OLAP)。</p>
+<p>OLTP 和 OLAP 的定义就不在此重复了。主要的区别可以参见下面这个表：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">属性</th>
+<th style="text-align:center">OLTP</th>
+<th style="text-align:center">OLAP</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"> 主要的读模式</td>
+<td style="text-align:center">每个查询量都比较小，并且使用一个键来获取</td>
+<td style="text-align:center">在大量数据上进行聚合操作   </td>
+</tr>
+<tr>
+<td style="text-align:left"> 主要的写模式</td>
+<td style="text-align:center">用户输入，随机写入，低延迟</td>
+<td style="text-align:center">批量插入，或者是事件流机制    </td>
+</tr>
+<tr>
+<td style="text-align:left"> 主要被谁使用</td>
+<td style="text-align:center">终端用户，使用网络应用</td>
+<td style="text-align:center">分析师   </td>
+</tr>
+<tr>
+<td style="text-align:left"> 有什么数据</td>
+<td style="text-align:center">最新的数据</td>
+<td style="text-align:center">历史发生的所有数据  </td>
+</tr>
+<tr>
+<td style="text-align:left"> 数据集大小</td>
+<td style="text-align:center">GB 到 TB</td>
+<td style="text-align:center">TB 到 PB   </td>
+</tr>
+</tbody>
+</table>
+          <div class="read-more">
+            <a href="/2018/10/21/野猪书读书笔记第三章续2/" class="read-more-link">阅读更多</a>
+          </div>
+        
+      
+    </div>
+
+    
+
+    
+
+  </article>
+
+      
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
           <a class="post-link" href="/2018/10/20/野猪书读书笔记第三章续1/">野猪书读书笔记第三章(续一)</a>
         
       </h1>

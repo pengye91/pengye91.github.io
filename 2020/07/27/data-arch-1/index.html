@@ -17,8 +17,12 @@
 
 
 
+  <meta name="description" content="数据架构解决方案(1) -- 数据架构组成"/>
 
 
+
+
+  <meta name="keywords" content="数据处理, 数据架构, 解决方案, Lingering Fragments" />
 
 
 
@@ -38,7 +42,7 @@
 
 
 
-<link rel="canonical" href="https://pengye91.github.io/categories/解决方案/数据架构/"/>
+<link rel="canonical" href="https://pengye91.github.io/2020/07/27/data-arch-1/"/>
 
 
 
@@ -95,11 +99,7 @@
   window.config = {"title":"Lingering Fragments","subtitle":"一些想法和总结","description":null,"author":"xyp","language":"zh-CN","timezone":"Asia/Shanghai","url":"https://pengye91.github.io","root":"/","permalink":":year/:month/:day/:title/","permalink_defaults":null,"source_dir":"source","public_dir":"public","tag_dir":"tags","archive_dir":"archives","category_dir":"categories","code_dir":"downloads/code","i18n_dir":":lang","skip_render":null,"new_post_name":":title.md","default_layout":"post","titlecase":false,"external_link":true,"filename_case":0,"render_drafts":false,"post_asset_folder":false,"relative_link":false,"future":true,"highlight":{"enable":true,"auto_detect":false,"line_number":true,"tab_replace":null,"first_line_number":"always1"},"default_category":"uncategorized","category_map":null,"tag_map":null,"date_format":"YYYY-MM-DD","time_format":"HH:mm:ss","per_page":10,"pagination_dir":"page","theme":"even","deploy":{"type":"git","repo":"https://github.com/pengye91/pengye91.github.io.git","branch":"master"},"ignore":[],"keywords":null,"index_generator":{"per_page":10,"order_by":"-date","path":""},"sitemap":{"path":"sitemap.xml"},"baidusitemap":{"path":"baidusitemap.xml"},"archive_generator":{"per_page":10,"yearly":true,"monthly":true,"daily":false},"category_generator":{"per_page":10},"tag_generator":{"per_page":10},"marked":{"gfm":true,"pedantic":false,"sanitize":false,"tables":true,"breaks":true,"smartLists":true,"smartypants":true,"modifyAnchors":"","autolink":true},"server":{"port":4000,"log":false,"compress":false,"header":true},"since":2018,"favicon":"/favicon.ico","rss":"default","menu":{"Home":"/","Archives":"/archives/","Tags":"/tags","Categories":"/categories","About":"/about"},"color":"cobalt blue","mode":"default","toc":true,"fancybox":true,"pjax":true,"copyright":{"enable":false,"license":"<a rel=\"license\" href=\"http://creativecommons.org/licenses/by-nc/4.0/\" target=\"_blank\">知识共享署名-非商业性使用 4.0 国际许可协议</a>"},"reward":{"enable":false,"qrCode":{"wechat":null,"alipay":null}},"social":{"email":"pengye91@gmail.com","stack-overflow":null,"twitter":null,"facebook":null,"linkedin":null,"google":null,"github":"https://github.com/pengye91","weibo":null,"zhihu":null,"douban":null,"pocket":null,"tumblr":null,"instagram":null},"leancloud":{"app_id":null,"app_key":null},"baidu_analytics":null,"baidu_verification":null,"google_analytics":"UA-127442719-1","google_verification":null,"disqus_shortname":null,"valine":{"appid":"xeDhasO1xV7F1SpCG0oRuiol-gzGzoHsz","appkey":"wgFvo2YMOmn0Qcv7YPFxtePy","notify":false,"verify":false,"avatar":"identicon","visitor":true,"placeholder":"在此评论......"},"changyan":{"appid":null,"appkey":null},"livere_datauid":null,"version":"2.10.1"};
 </script>
 
-    <title>
-  
-    数据架构 · Lingering Fragments
-  
-</title>
+    <title> 数据架构解决方案(1) -- 数据架构组成 - Lingering Fragments </title>
   </head>
 
   <body><div id="mobile-navbar" class="mobile-navbar">
@@ -229,62 +229,117 @@
           <div id="content" class="content">
             
   
-  
-  
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          数据架构解决方案(1) -- 数据架构组成
+        
+      </h1>
 
-  <section id="archive" class="archive">
-    
-      
-        <div class="archive-title category">
-          <h2 class="archive-name">数据架构</h2>
-        </div>
-      
-    
-
-    
-      
-
-      <div class="archive-post">
-        <span class="archive-post-time">
-          
-            2020-07-27
-          
+      <div class="post-meta">
+        <span class="post-time">
+          2020-07-27
         </span>
-        <span class="archive-post-title">
-          <a href="/2020/07/27/data-arch-1/" class="archive-post-link">
-            数据架构解决方案(1) -- 数据架构组成
-          </a>
-        </span>
+        
+          <span class="post-category">
+            
+              <a href="/categories/解决方案/">解决方案</a>
+            
+              <a href="/categories/解决方案/数据架构/">数据架构</a>
+            
+              <a href="/categories/解决方案/数据架构/方法论/">方法论</a>
+            
+          </span>
+        
+        
       </div>
+    </header>
+
+    
+    
+  <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#数据架构组件"><span class="toc-text">数据架构组件</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#数据流水线和数据湖"><span class="toc-text">数据流水线和数据湖</span></a></li></ol></li></ol>
+    </div>
+  </div>
+
+
+
+    <div class="post-content">
+      
+        <p><a href="https://xieyuanpeng.com/2020/07/19/data-arch-0/" target="_blank" rel="noopener">前文</a>说到，写这系列文章的目的是试图总结近几年我在参与构建和学习构建数据应用项目中趋同的部分，所以，我先描述一下我认为目前主流数据应用的组成以及构建这些组件的注意事项。</p>
+<a id="more"></a>
+<h1 id="数据架构组件"><a href="#数据架构组件" class="headerlink" title="数据架构组件"></a>数据架构组件</h1><p>总的来说，目前主流的数据应用从数据的被处理时间维度上可以分为 3 类大的组件：</p>
+<center><img src="/images/data-arch/1/components.jpg" alt=""></center>
+
+<ul>
+<li><p><strong>数据流水线和数据湖</strong></p>
+<p>这是整个数据架构中最基础也是最重要的部分，负责所有数据的 接入，收集，ETL，建模，暂存，最终存储等。</p>
+</li>
+<li><p><strong>数据分析</strong></p>
+<p>规整的数据存入数据湖后，需要经过进一步的处理和分析后才能产生真正的业务价值。</p>
+</li>
+<li><p><strong>数据应用于业务</strong></p>
+<p>这是整个数据架构的最终端，有业务价值的数据只有最终真正地被应用到业务中，才是有意义的，否则整个架构地构建都是没有意义的。</p>
+</li>
+</ul>
+<h2 id="数据流水线和数据湖"><a href="#数据流水线和数据湖" class="headerlink" title="数据流水线和数据湖"></a>数据流水线和数据湖</h2>
+      
+    </div>
+
     
       
+      
 
-      <div class="archive-post">
-        <span class="archive-post-time">
-          
-            2020-07-19
-          
-        </span>
-        <span class="archive-post-title">
-          <a href="/2020/07/19/data-arch-0/" class="archive-post-link">
-            数据架构解决方案(0)
-          </a>
-        </span>
-      </div>
-    
-  </section>
 
-  
-  <nav class="pagination">
+
+      
+      
     
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/数据处理/">数据处理</a>
+            
+              <a href="/tags/数据架构/">数据架构</a>
+            
+              <a href="/tags/解决方案/">解决方案</a>
+            
+          </div>
+        
+        
+        
+  <nav class="post-nav">
+    
+    
+      <a class="next" href="/2020/07/19/data-arch-0/">
+        <span class="next-text nav-default">数据架构解决方案(0)</span>
+        <span class="prev-text nav-mobile">下一篇</span>
+        <i class="iconfont icon-right"></i>
+      </a>
     
   </nav>
 
 
+      </footer>
+    
+
+  </article>
 
 
           </div>
           
+  <div class="comments" id="comments">
+    
+      <div id="vcomments"></div>
+    
+  </div>
+
 
         </div>
       </main>

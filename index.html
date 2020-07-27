@@ -233,6 +233,61 @@
     <header class="post-header">
       <h1 class="post-title">
         
+          <a class="post-link" href="/2020/07/27/data-arch-1/">数据架构解决方案(1) -- 数据架构组成</a>
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2020-07-27
+        </span>
+        
+          <span class="post-category">
+            
+              <a href="/categories/解决方案/">解决方案</a>
+            
+              <a href="/categories/解决方案/数据架构/">数据架构</a>
+            
+              <a href="/categories/解决方案/数据架构/方法论/">方法论</a>
+            
+          </span>
+        
+        
+      </div>
+    </header>
+
+    
+    
+
+
+    <div class="post-content">
+      
+        
+        
+          
+        
+
+        
+          <p><a href="https://xieyuanpeng.com/2020/07/19/data-arch-0/" target="_blank" rel="noopener">前文</a>说到，写这系列文章的目的是试图总结近几年我在参与构建和学习构建数据应用项目中趋同的部分，所以，我先描述一下我认为目前主流数据应用的组成以及构建这些组件的注意事项。</p>
+          <div class="read-more">
+            <a href="/2020/07/27/data-arch-1/" class="read-more-link">阅读更多</a>
+          </div>
+        
+      
+    </div>
+
+    
+
+    
+
+  </article>
+
+      
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
           <a class="post-link" href="/2020/07/19/data-arch-0/">数据架构解决方案(0)</a>
         
       </h1>
@@ -760,70 +815,6 @@
 </ul>
           <div class="read-more">
             <a href="/2019/02/27/flink-learning-5/" class="read-more-link">阅读更多</a>
-          </div>
-        
-      
-    </div>
-
-    
-
-    
-
-  </article>
-
-      
-        
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          <a class="post-link" href="/2019/02/21/flink-learning-4/">Flink 学习笔记之四 时间和窗口</a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2019-02-21
-        </span>
-        
-          <span class="post-category">
-            
-              <a href="/categories/Flink/">Flink</a>
-            
-              <a href="/categories/Flink/读书笔记/">读书笔记</a>
-            
-              <a href="/categories/Flink/读书笔记/数据处理/">数据处理</a>
-            
-          </span>
-        
-        
-      </div>
-    </header>
-
-    
-    
-
-
-    <div class="post-content">
-      
-        
-        
-          
-        
-
-        
-          <h1 id="设置处理时间"><a href="#设置处理时间" class="headerlink" title="设置处理时间"></a>设置处理时间</h1><p>在流处理系统中，<strong>时间</strong>是一个非常重要的概念。Flink 可以设置下面三种事件时间。</p>
-<ul>
-<li><code>ProcessingTime</code><br>  <code>ProcessingTime</code> 意味着算子使用<strong>数据被处理时所在机器的系统时间</strong>。<ul>
-<li>优点：延时低，因为算子不用等待按顺序来的数据</li>
-<li>缺点：结果不是非确定的。因为每个窗口的数据内容取决于数据到达的速度。</li>
-</ul>
-</li>
-<li><code>EventTime</code><br>  <code>EventTime</code> 指的是算子使用<strong>数据本身包含的时间信息</strong>作为当前时间。每个数据都携带一个时间戳和水位线。当一个水位通知说在给定的时间范围内所有数据已经到达时，<code>event-time</code> 窗口就会触发计算。<br>  <code>EventTime</code> 窗口计算出的结果是确定的：<strong>结果和数据到达的顺序无关</strong>。</li>
-<li><code>IngestionTime</code><br>  <code>IngestionTime</code> 是数据进入流处理器的时间。可以将 <code>IngestionTime</code> 理解为 <code>source operator</code> 的 <code>ProcessingTime</code> </li>
-</ul>
-          <div class="read-more">
-            <a href="/2019/02/21/flink-learning-4/" class="read-more-link">阅读更多</a>
           </div>
         
       
