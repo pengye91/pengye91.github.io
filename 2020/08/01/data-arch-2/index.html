@@ -22,7 +22,7 @@
 
 
 
-  <meta name="keywords" content="数据架构, 解决方案, 数据处理, Data Pipeline, 数据湖, Lingering Fragments" />
+  <meta name="keywords" content="数据处理, 数据架构, 解决方案, Data Pipeline, 数据湖, Lingering Fragments" />
 
 
 
@@ -261,7 +261,7 @@
   <div class="post-toc" id="post-toc">
     <h2 class="post-toc-title">文章目录</h2>
     <div class="post-toc-content">
-      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#主要考虑的问题"><span class="toc-text">主要考虑的问题</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#源数据接入"><span class="toc-text">源数据接入</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#代码嵌入"><span class="toc-text">代码嵌入</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#限制实现的语言"><span class="toc-text">限制实现的语言</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#限制依赖包的依赖"><span class="toc-text">限制依赖包的依赖</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#让依赖包对源数据方可见"><span class="toc-text">让依赖包对源数据方可见</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#让依赖包可运维"><span class="toc-text">让依赖包可运维</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#版本管理"><span class="toc-text">版本管理</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#代理-Agent"><span class="toc-text">代理 Agent</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#专用的接口"><span class="toc-text">专用的接口</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#其他工具"><span class="toc-text">其他工具</span></a></li></ol></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#主要考虑的问题"><span class="toc-text">主要考虑的问题</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#源数据接入"><span class="toc-text">源数据接入</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#主流方法"><span class="toc-text">主流方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#代码嵌入"><span class="toc-text">代码嵌入</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#限制实现的语言"><span class="toc-text">限制实现的语言</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#限制依赖包的依赖"><span class="toc-text">限制依赖包的依赖</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#让依赖包对源数据方可见"><span class="toc-text">让依赖包对源数据方可见</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#让依赖包可运维"><span class="toc-text">让依赖包可运维</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#版本管理"><span class="toc-text">版本管理</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#代理-Agent"><span class="toc-text">代理 Agent</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#专用的接口"><span class="toc-text">专用的接口</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#版本管理-1"><span class="toc-text">版本管理</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#其他工具"><span class="toc-text">其他工具</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#风险管理"><span class="toc-text">风险管理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#版本控制"><span class="toc-text">版本控制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#源数据生成系统故障"><span class="toc-text">源数据生成系统故障</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#源数据收集系统被错误使用"><span class="toc-text">源数据收集系统被错误使用</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#数据交付"><span class="toc-text">数据交付</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#数据治理"><span class="toc-text">数据治理</span></a></li></ol>
     </div>
   </div>
 
@@ -288,22 +288,75 @@
 <li>外部系统会如何访问本系统交付的数据；</li>
 </ul>
 <p>接下来就详细看一下这几个方面。</p>
-<h2 id="源数据接入"><a href="#源数据接入" class="headerlink" title="源数据接入"></a>源数据接入</h2><p>源数据是指那些你构建的数据解决方案处理的最初的数据来源。源数据来源的范围很广：App 应用日志，传感器数据，打点日志，服务器日志，爬虫爬下来的网页，数据库 binlog，等等。通常情况下，源数据团队和数据处理团队是两个分开的团队，因此，你是很难控制源数据的产生方式和数据格式的。在这种场景下，有一个很方便的指标可以衡量源数据接入系统的成熟度：<strong><code>和源数据团队在一起沟通的时间越短，数据接入系统越成熟</code></strong>。</p>
-<p>目前用于收集源数据的主流方法包括：</p>
-<h2 id="代码嵌入"><a href="#代码嵌入" class="headerlink" title="代码嵌入"></a>代码嵌入</h2><p>提供依赖包，将代码嵌入到源数据生成系统中, 源数据方调用接口发送数据。用这种方式需要考虑一下几个点：</p>
-<h3 id="限制实现的语言"><a href="#限制实现的语言" class="headerlink" title="限制实现的语言"></a>限制实现的语言</h3><p>  考虑用一种语言实现核心功能，而后通过其他调用、链接等方式实现对多种语言的支持。可以参考 <a href="https://www.confluent.io/blog/12-programming-languages-walk-into-a-kafka-cluster/" target="_blank" rel="noopener">Kafka 对多种客户端语言支持的方案</a>。</p>
-<h3 id="限制依赖包的依赖"><a href="#限制依赖包的依赖" class="headerlink" title="限制依赖包的依赖"></a>限制依赖包的依赖</h3><p>  提供的依赖包一定要尽可能少的使用其他依赖，原因是</p>
+<h1 id="源数据接入"><a href="#源数据接入" class="headerlink" title="源数据接入"></a>源数据接入</h1><p>源数据是指那些你构建的数据解决方案处理的最初的数据来源。源数据来源的范围很广：App 应用日志，传感器数据，打点日志，服务器日志，爬虫爬下来的网页，数据库 binlog，等等。通常情况下，源数据团队和数据处理团队是两个分开的团队，因此，你是很难控制源数据的产生方式和数据格式的。在这种场景下，有一个很方便的指标可以衡量源数据接入系统的成熟度：<strong><code>和源数据团队在一起沟通的时间越短，数据接入系统越成熟</code></strong>。</p>
+<h2 id="主流方法"><a href="#主流方法" class="headerlink" title="主流方法"></a>主流方法</h2><p>目前用于源数据收集的主流方法包括：</p>
+<h3 id="代码嵌入"><a href="#代码嵌入" class="headerlink" title="代码嵌入"></a>代码嵌入</h3><p>提供依赖包，将代码嵌入到源数据生成系统中, 源数据方调用接口发送数据。用这种方式需要考虑一下几个点：</p>
+<h4 id="限制实现的语言"><a href="#限制实现的语言" class="headerlink" title="限制实现的语言"></a>限制实现的语言</h4><p>  考虑用一种语言实现核心功能，而后通过其他调用、链接等方式实现对多种语言的支持。可以参考 <a href="https://www.confluent.io/blog/12-programming-languages-walk-into-a-kafka-cluster/" target="_blank" rel="noopener">Kafka 对多种客户端语言支持的方案</a>。</p>
+<h4 id="限制依赖包的依赖"><a href="#限制依赖包的依赖" class="headerlink" title="限制依赖包的依赖"></a>限制依赖包的依赖</h4><p>  提供的依赖包一定要尽可能少的使用其他依赖，原因是</p>
 <ul>
 <li>一方面减小引入其他 bug 的可能；</li>
 <li>另一方面减小依赖冲突的可能。</li>
 </ul>
-<h3 id="让依赖包对源数据方可见"><a href="#让依赖包对源数据方可见" class="headerlink" title="让依赖包对源数据方可见"></a>让依赖包对源数据方可见</h3><p>  让源数据方可以查看依赖包的源代码，从而尽可能打消他们使用的顾虑。</p>
-<h3 id="让依赖包可运维"><a href="#让依赖包可运维" class="headerlink" title="让依赖包可运维"></a>让依赖包可运维</h3><p>  一定保证这部分代码的可运维性。比如要保证这部分代码能生成可读的运行时日志和指标。</p>
-<h3 id="版本管理"><a href="#版本管理" class="headerlink" title="版本管理"></a>版本管理</h3><p>  由于依赖包运行在本团队不可控的代码中，所以很难保证依赖包的更新。因此，在依赖包的版本管理上，一定要考虑到向后兼容性。另外，在设计之初就要考虑到接口的兼容程度。</p>
-<h2 id="代理-Agent"><a href="#代理-Agent" class="headerlink" title="代理 Agent"></a>代理 Agent</h2><p>  一个独立的进程专门用于收集并发送数据。常见的包括服务器状态 Agent, 打点日志 Agent 等。</p>
-<h2 id="专用的接口"><a href="#专用的接口" class="headerlink" title="专用的接口"></a>专用的接口</h2><p>  比如建一个专用于收集源数据的 REST 接口，不同的源数据方统一向这个接口发送数据。</p>
-<h2 id="其他工具"><a href="#其他工具" class="headerlink" title="其他工具"></a>其他工具</h2><p>  比如 <a href="https://sqoop.apache.org/" target="_blank" rel="noopener">Apache Sqoop</a>，<a href="https://hadoop.apache.org/docs/current/hadoop-project-dist/hadoop-common/FileSystemShell.html#put" target="_blank" rel="noopener">HDFS put</a> 等</p>
-
+<h4 id="让依赖包对源数据方可见"><a href="#让依赖包对源数据方可见" class="headerlink" title="让依赖包对源数据方可见"></a>让依赖包对源数据方可见</h4><p>  让源数据方可以查看依赖包的源代码，从而尽可能打消他们使用的顾虑。</p>
+<h4 id="让依赖包可运维"><a href="#让依赖包可运维" class="headerlink" title="让依赖包可运维"></a>让依赖包可运维</h4><p>  一定保证这部分代码的可运维性。比如要保证这部分代码能生成可读的运行时日志和指标。</p>
+<h4 id="版本管理"><a href="#版本管理" class="headerlink" title="版本管理"></a>版本管理</h4><p>  由于依赖包运行在本团队不可控的代码中，所以很难保证依赖包的更新。因此，在依赖包的版本管理上，一定要考虑到向后兼容性。另外，在设计之初就要考虑到接口的兼容程度。</p>
+<h3 id="代理-Agent"><a href="#代理-Agent" class="headerlink" title="代理 Agent"></a>代理 Agent</h3><p>  一个独立的进程专门用于收集并发送数据。常见的包括服务器状态 Agent, 打点日志 Agent 等。</p>
+<h3 id="专用的接口"><a href="#专用的接口" class="headerlink" title="专用的接口"></a>专用的接口</h3><p>  比如建一个专用于收集源数据的 <code>RESTful 接口</code>，不同的源数据方统一向这个接口发送数据。</p>
+<h4 id="版本管理-1"><a href="#版本管理-1" class="headerlink" title="版本管理"></a>版本管理</h4><p>  和<code>代码嵌入</code>一样，版本管理对于接口也是重中之重，在构建之初就应该将版本演化的事情考虑进来。</p>
+<h3 id="其他工具"><a href="#其他工具" class="headerlink" title="其他工具"></a>其他工具</h3><p>  比如 <a href="https://sqoop.apache.org/" target="_blank" rel="noopener">Apache Sqoop</a>，<a href="https://hadoop.apache.org/docs/current/hadoop-project-dist/hadoop-common/FileSystemShell.html#put" target="_blank" rel="noopener">HDFS put</a> 等</p>
+<h2 id="风险管理"><a href="#风险管理" class="headerlink" title="风险管理"></a>风险管理</h2><p>在构建源数据收集系统时，除了要考虑上述这些接入方法，还必须考虑系统带来的各种风险：</p>
+<h3 id="版本控制"><a href="#版本控制" class="headerlink" title="版本控制"></a>版本控制</h3><p>已经说过很多遍了，版本管理很重要！无论使用哪种接入方法，都应该在设计的时候考虑到<code>向后兼容</code>以及<code>平滑更新</code>的方法。</p>
+<h3 id="源数据生成系统故障"><a href="#源数据生成系统故障" class="headerlink" title="源数据生成系统故障"></a>源数据生成系统故障</h3><p>不管是什么原因，源数据方总是有可能出故障的。在设计之初，我们需要考虑到这种情况：</p>
+<ol>
+<li><p>系统故障是不是由本系统提供的依赖包或者接口引起的，如果有这种可能的话，应该如何避免；</p>
+</li>
+<li><p>故障发生后，可能引起的后果会有哪些：  </p>
+<ul>
+<li>比如数据会不会丢失；</li>
+<li>整个流水线会不会因此停止运作；</li>
+<li>影响的时间和范围有多大；</li>
+</ul>
+</li>
+<li><p>如果发生故障是不可避免的，那就应该<code>建立一套完善的监控和报警机制</code>，将故障持续的时间减少到最小；</p>
+</li>
+<li><p>做好<strong>高可用</strong>的准备。当这套流水线出现故障时，如果能做到及时上线另一套流水线，就能将由故障造成的影响降到最低了。</p>
+</li>
+</ol>
+<h3 id="源数据收集系统被错误使用"><a href="#源数据收集系统被错误使用" class="headerlink" title="源数据收集系统被错误使用"></a>源数据收集系统被错误使用</h3><blockquote>
+<p>永远不要相信你的用户会正确使用你的产品。只要你提供了某个功能，就要假设用户错误使用它们的可能。</p>
+</blockquote>
+<p>在数据收集系统的关键部分做好防护措施是永远不会出错的，这些措施包括：</p>
+<ul>
+<li><p><strong>限流</strong></p>
+<p>根据优先级，限制某些源数据方能发送数据的上限。同时做好监控和报警，以防止是因为某些异常或错误造成的。</p>
+</li>
+<li><p><strong>丢弃数据</strong></p>
+<p><strong>限流</strong>有可能导致源数据端数据积压，最终导致整个源数据生成系统崩溃，这是得不偿失的。</p>
+<p>所以，在少量数据可以被丢失的情况(比如不重要的日志手机系统，或者本身就有采样的系统)，直接丢弃部分数据是更好的解决方案。</p>
+</li>
+<li><p><strong>熔断</strong></p>
+<p>和<strong>丢弃</strong>类似，只是这个方案更激进。</p>
+<p>当资源(CPU, 内存，网络带宽)不能及时到位的情况下，为了保证最核心的功能能正常使用的情况下，将某些不重要的服务停掉是最佳方案。</p>
+</li>
+</ul>
+<p><strong>需要注意的是，这些方案一定是所有相关方都知道的情况下才能决定的。</strong></p>
+<h1 id="数据交付"><a href="#数据交付" class="headerlink" title="数据交付"></a>数据交付</h1><p>在设计数据流水线时，我们需要向下游提供关于交付的数据的质量保证。一般情况下，有下面几个级别的数据交付保证：</p>
+<ul>
+<li><p>至多一次</p>
+<p>对每条接收到的数据的处理至多处理一次，也就是说系统可能会丢失数据。这种保证是比较容易实现的，但是只对那些对数据精确性不十分在意的系统(比如只需要计算某些聚合指标的日志统计系统)可用。</p>
+</li>
+<li><p>至少一次</p>
+<p>系统可能会重复某条数据，但不会丢失任何一条。</p>
+<p>可以保证所有数据都被处理，但是处理系统可能需要花额外的精力来做去重处理。</p>
+<p><strong>这是业务中比较常见的能提供的交付保证</strong>。</p>
+</li>
+<li><p>正好一次</p>
+<p>这是最好但也最复杂的一种机制。有一些工具声称提供这种机制，比如 <a href="https://flink.apache.org/" target="_blank" rel="noopener">Apache Flink</a>，但是为了实现这种保证，需要一些额外的组件配合才行。<br>在业务系统中，需要在 <em>维护工具的复杂度</em> 和 <em>重新考虑真正的业务需求</em> 之间再仔细衡量。</p>
+<p>如果真的需要实现<strong>正好一次</strong>的交付保证，那就要仔细考量工具的使用和维护了。</p>
+</li>
+</ul>
+<p>在实际业务中，需要根据业务的真实需求和实现的复杂度来选择交付保证。一旦确定了之后，需要和所有相关方沟通和解释，并且将情况写进相关文档中以便大家都清楚。</p>
+<h1 id="数据治理"><a href="#数据治理" class="headerlink" title="数据治理"></a>数据治理</h1>
       
     </div>
 
@@ -322,11 +375,11 @@
         
           <div class="post-tags">
             
+              <a href="/tags/数据处理/">数据处理</a>
+            
               <a href="/tags/数据架构/">数据架构</a>
             
               <a href="/tags/解决方案/">解决方案</a>
-            
-              <a href="/tags/数据处理/">数据处理</a>
             
               <a href="/tags/Data-Pipeline/">Data Pipeline</a>
             
