@@ -233,6 +233,68 @@
     <header class="post-header">
       <h1 class="post-title">
         
+          <a class="post-link" href="/2020/10/09/data-arch-3/">数据架构解决方案(3) -- 数据处理和数据分析</a>
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2020-10-09
+        </span>
+        
+          <span class="post-category">
+            
+              <a href="/categories/解决方案/">解决方案</a>
+            
+              <a href="/categories/解决方案/数据架构/">数据架构</a>
+            
+              <a href="/categories/解决方案/数据架构/方法论/">方法论</a>
+            
+          </span>
+        
+        
+      </div>
+    </header>
+
+    
+    
+
+
+    <div class="post-content">
+      
+        
+        
+          
+        
+
+        
+          <p>这是数据架构解决方案系列博客的第三篇，系列的其他文章：</p>
+<ol start="0">
+<li><a href="https://xieyuanpeng.com/2020/07/19/data-arch-0/" target="_blank" rel="noopener">概述</a></li>
+<li><a href="https://xieyuanpeng.com/2020/07/27/data-arch-1/" target="_blank" rel="noopener">数据架构组成</a></li>
+<li><a href="https://xieyuanpeng.com/2020/08/21/data-arch-2/" target="_blank" rel="noopener">数据流水线和数据分析</a></li>
+</ol>
+<p>所有的数据系统的最终目的都是为了让一个组织从它拥有的数据中能发掘出有价值的东西，如果不能有效地从原始数据中挖掘出能为提升组织作出贡献的价值，技术栈再怎么厉害都是没有用的。</p>
+<p>本篇文章主要介绍如何对数据做分析处理以便能更有效地挖掘数据价值。</p>
+          <div class="read-more">
+            <a href="/2020/10/09/data-arch-3/" class="read-more-link">阅读更多</a>
+          </div>
+        
+      
+    </div>
+
+    
+
+    
+
+  </article>
+
+      
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
           <a class="post-link" href="/2020/08/01/data-arch-2/">数据架构解决方案(2) -- 数据流水线和数据湖</a>
         
       </h1>
@@ -764,70 +826,6 @@
           <p>Flink 没有自己的源系统和数据存储系统，所以都要依赖外部系统。</p>
           <div class="read-more">
             <a href="/2019/03/05/flink-learning-6/" class="read-more-link">阅读更多</a>
-          </div>
-        
-      
-    </div>
-
-    
-
-    
-
-  </article>
-
-      
-        
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          <a class="post-link" href="/2019/03/03/scala-map-flatmap/">Scala Map vs. FlatMap</a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2019-03-03
-        </span>
-        
-          <span class="post-category">
-            
-              <a href="/categories/Scala/">Scala</a>
-            
-              <a href="/categories/Scala/编程语言/">编程语言</a>
-            
-          </span>
-        
-        
-      </div>
-    </header>
-
-    
-    
-
-
-    <div class="post-content">
-      
-        
-        
-          
-        
-
-        
-          <p>在处理 Scala 的数据结构时，<code>map</code> 和 <code>flatMap</code> 是经常被调用的两个集合类的方法。</p>
-<p><code>map</code> 方法经常被作用于 <code>collections</code>，并且是 <code>Traversable</code> 特质的一个成员。</p>
-<blockquote>
-<p>关于 <code>Traversable</code> 和 <code>Iterable</code> 的区别，可以参照<a href="https://stackoverflow.com/questions/7425370/scala-what-is-the-difference-between-traversable-and-iterable-traits-in-scala-c" target="_blank" rel="noopener">这个回答</a>。</p>
-</blockquote>
-<p><code>map</code> 方法基本功能为: <strong>遍历整个<em>集合</em>的每个元素，将这个集合转换为一个新的集合。</strong><br><code>flatMap</code> 方法的功能为: <strong>先在整个集合上调用 <code>map</code> 方法，然后再在结果集合上调用 <code>flatten</code> 方法。</strong></p>
-<p>本文试图从三个使用场景上分析 <code>map</code> 和 <code>flatMap</code> 方法的用法:</p>
-<ul>
-<li><code>Collections</code></li>
-<li><code>Options</code></li>
-<li><code>Futures</code></li>
-</ul>
-          <div class="read-more">
-            <a href="/2019/03/03/scala-map-flatmap/" class="read-more-link">阅读更多</a>
           </div>
         
       

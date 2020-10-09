@@ -233,6 +233,70 @@
     <header class="post-header">
       <h1 class="post-title">
         
+          <a class="post-link" href="/2019/03/03/scala-map-flatmap/">Scala Map vs. FlatMap</a>
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2019-03-03
+        </span>
+        
+          <span class="post-category">
+            
+              <a href="/categories/Scala/">Scala</a>
+            
+              <a href="/categories/Scala/编程语言/">编程语言</a>
+            
+          </span>
+        
+        
+      </div>
+    </header>
+
+    
+    
+
+
+    <div class="post-content">
+      
+        
+        
+          
+        
+
+        
+          <p>在处理 Scala 的数据结构时，<code>map</code> 和 <code>flatMap</code> 是经常被调用的两个集合类的方法。</p>
+<p><code>map</code> 方法经常被作用于 <code>collections</code>，并且是 <code>Traversable</code> 特质的一个成员。</p>
+<blockquote>
+<p>关于 <code>Traversable</code> 和 <code>Iterable</code> 的区别，可以参照<a href="https://stackoverflow.com/questions/7425370/scala-what-is-the-difference-between-traversable-and-iterable-traits-in-scala-c" target="_blank" rel="noopener">这个回答</a>。</p>
+</blockquote>
+<p><code>map</code> 方法基本功能为: <strong>遍历整个<em>集合</em>的每个元素，将这个集合转换为一个新的集合。</strong><br><code>flatMap</code> 方法的功能为: <strong>先在整个集合上调用 <code>map</code> 方法，然后再在结果集合上调用 <code>flatten</code> 方法。</strong></p>
+<p>本文试图从三个使用场景上分析 <code>map</code> 和 <code>flatMap</code> 方法的用法:</p>
+<ul>
+<li><code>Collections</code></li>
+<li><code>Options</code></li>
+<li><code>Futures</code></li>
+</ul>
+          <div class="read-more">
+            <a href="/2019/03/03/scala-map-flatmap/" class="read-more-link">阅读更多</a>
+          </div>
+        
+      
+    </div>
+
+    
+
+    
+
+  </article>
+
+      
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
           <a class="post-link" href="/2019/02/27/flink-learning-5/">Flink 学习笔记之五 状态操作符和用户函数</a>
         
       </h1>
@@ -755,62 +819,6 @@
 </ul>
           <div class="read-more">
             <a href="/2018/12/09/Hadoop中的Join/" class="read-more-link">阅读更多</a>
-          </div>
-        
-      
-    </div>
-
-    
-
-    
-
-  </article>
-
-      
-        
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          <a class="post-link" href="/2018/12/06/hadoop组合拳HDFS/">hadoop组合拳HDFS</a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2018-12-06
-        </span>
-        
-          <span class="post-category">
-            
-              <a href="/categories/Hadoop/">Hadoop</a>
-            
-              <a href="/categories/Hadoop/数据处理/">数据处理</a>
-            
-              <a href="/categories/Hadoop/数据处理/MapReduce/">MapReduce</a>
-            
-          </span>
-        
-        
-      </div>
-    </header>
-
-    
-    
-
-
-    <div class="post-content">
-      
-        
-        
-          
-        
-
-        
-          <p>当数据集数量超过单机能承受的范围时，就需要使用分布式文件系统了。但和其他分布式系统一样，由于有网络编程模型的介入，其复杂程度变得不可估量。</p>
-<p>Hadoop 拥有一套通用的文件系统抽象逻辑，可以接入本地文件系统、Amazon S3、Ceph 等文件系统，但 HDFS 才是 Hadoop 的主要使用的分布式文件系统。</p>
-          <div class="read-more">
-            <a href="/2018/12/06/hadoop组合拳HDFS/" class="read-more-link">阅读更多</a>
           </div>
         
       
