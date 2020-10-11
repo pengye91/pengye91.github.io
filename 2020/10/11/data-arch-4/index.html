@@ -258,6 +258,13 @@
 
     
     
+  <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#系统延迟和吞吐量"><span class="toc-text">系统延迟和吞吐量</span></a></li></ol>
+    </div>
+  </div>
+
 
 
     <div class="post-content">
@@ -276,7 +283,22 @@
 </ol>
 <p>下一步，也是直面真实用户的重要一步，就是将构建好的数据应用部署上线，给用户（包括组织内部的和外部的）提供构建好的服务。</p>
 <a id="more"></a>
-
+<p>对于一个面向用户的线上数据应用而言，有下面这几个指标需要特别注意：</p>
+<ul>
+<li><p><strong>响应延迟</strong></p>
+<p>用户执行的一个操作需要花多少时间才能得到响应？</p>
+</li>
+<li><p><strong>系统吞吐量</strong></p>
+<p>整个系统在一个单位时间内可以同时处理多少个用户操作？</p>
+</li>
+<li><p><strong>一致性</strong></p>
+<p>不管系统是如何架构的，提供的一致性模型是怎样的？是强一致还是最终一致？实现这个一致性的代价是什么？</p>
+</li>
+<li><p><strong>可用性</strong></p>
+<p>系统的失败恢复机制是怎样的？</p>
+</li>
+</ul>
+<h2 id="系统延迟和吞吐量"><a href="#系统延迟和吞吐量" class="headerlink" title="系统延迟和吞吐量"></a>系统延迟和吞吐量</h2>
       
     </div>
 
