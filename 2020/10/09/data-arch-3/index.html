@@ -17,7 +17,7 @@
 
 
 
-  <meta name="description" content="数据架构解决方案(3) -- 数据处理和数据分析"/>
+  <meta name="description" content="数据架构解决方案(3) -- 数据处理和分析方法论"/>
 
 
 
@@ -96,10 +96,10 @@
 
 
 <script>
-  window.config = {"title":"Lingering Fragments","subtitle":"一些想法和总结","description":null,"author":"xyp","language":"zh-CN","timezone":"Asia/Shanghai","url":"https://pengye91.github.io","root":"/","permalink":":year/:month/:day/:title/","permalink_defaults":null,"source_dir":"source","public_dir":"public","tag_dir":"tags","archive_dir":"archives","category_dir":"categories","code_dir":"downloads/code","i18n_dir":":lang","skip_render":null,"new_post_name":":title.md","default_layout":"post","titlecase":false,"external_link":true,"filename_case":0,"render_drafts":false,"post_asset_folder":false,"relative_link":false,"future":true,"highlight":{"enable":true,"auto_detect":false,"line_number":true,"tab_replace":null,"first_line_number":"always1"},"default_category":"uncategorized","category_map":null,"tag_map":null,"date_format":"YYYY-MM-DD","time_format":"HH:mm:ss","per_page":10,"pagination_dir":"page","theme":"even","deploy":{"type":"git","repo":"https://github.com/pengye91/pengye91.github.io.git","branch":"master"},"ignore":[],"keywords":null,"index_generator":{"per_page":10,"order_by":"-date","path":""},"sitemap":{"path":"sitemap.xml"},"baidusitemap":{"path":"baidusitemap.xml"},"category_generator":{"per_page":10},"archive_generator":{"per_page":10,"yearly":true,"monthly":true,"daily":false},"tag_generator":{"per_page":10},"marked":{"gfm":true,"pedantic":false,"sanitize":false,"tables":true,"breaks":true,"smartLists":true,"smartypants":true,"modifyAnchors":"","autolink":true},"server":{"port":4000,"log":false,"compress":false,"header":true},"since":2018,"favicon":"/favicon.ico","rss":"default","menu":{"Home":"/","Archives":"/archives/","Tags":"/tags","Categories":"/categories","About":"/about"},"color":"cobalt blue","mode":"default","toc":true,"fancybox":true,"pjax":true,"copyright":{"enable":false,"license":"<a rel=\"license\" href=\"http://creativecommons.org/licenses/by-nc/4.0/\" target=\"_blank\">知识共享署名-非商业性使用 4.0 国际许可协议</a>"},"reward":{"enable":false,"qrCode":{"wechat":null,"alipay":null}},"social":{"email":"pengye91@gmail.com","stack-overflow":null,"twitter":null,"facebook":null,"linkedin":null,"google":null,"github":"https://github.com/pengye91","weibo":null,"zhihu":null,"douban":null,"pocket":null,"tumblr":null,"instagram":null},"leancloud":{"app_id":null,"app_key":null},"baidu_analytics":null,"baidu_verification":null,"google_analytics":"UA-127442719-1","google_verification":null,"disqus_shortname":null,"valine":{"appid":"xeDhasO1xV7F1SpCG0oRuiol-gzGzoHsz","appkey":"wgFvo2YMOmn0Qcv7YPFxtePy","notify":false,"verify":false,"avatar":"identicon","visitor":true,"placeholder":"在此评论......"},"changyan":{"appid":null,"appkey":null},"livere_datauid":null,"version":"2.10.1"};
+  window.config = {"title":"Lingering Fragments","subtitle":"一些想法和总结","description":null,"author":"xyp","language":"zh-CN","timezone":"Asia/Shanghai","url":"https://pengye91.github.io","root":"/","permalink":":year/:month/:day/:title/","permalink_defaults":null,"source_dir":"source","public_dir":"public","tag_dir":"tags","archive_dir":"archives","category_dir":"categories","code_dir":"downloads/code","i18n_dir":":lang","skip_render":null,"new_post_name":":title.md","default_layout":"post","titlecase":false,"external_link":true,"filename_case":0,"render_drafts":false,"post_asset_folder":false,"relative_link":false,"future":true,"highlight":{"enable":true,"auto_detect":false,"line_number":true,"tab_replace":null,"first_line_number":"always1"},"default_category":"uncategorized","category_map":null,"tag_map":null,"date_format":"YYYY-MM-DD","time_format":"HH:mm:ss","per_page":10,"pagination_dir":"page","theme":"even","deploy":{"type":"git","repo":"https://github.com/pengye91/pengye91.github.io.git","branch":"master"},"ignore":[],"keywords":null,"index_generator":{"per_page":10,"order_by":"-date","path":""},"sitemap":{"path":"sitemap.xml"},"baidusitemap":{"path":"baidusitemap.xml"},"archive_generator":{"per_page":10,"yearly":true,"monthly":true,"daily":false},"category_generator":{"per_page":10},"marked":{"gfm":true,"pedantic":false,"sanitize":false,"tables":true,"breaks":true,"smartLists":true,"smartypants":true,"modifyAnchors":"","autolink":true},"tag_generator":{"per_page":10},"server":{"port":4000,"log":false,"compress":false,"header":true},"since":2018,"favicon":"/favicon.ico","rss":"default","menu":{"Home":"/","Archives":"/archives/","Tags":"/tags","Categories":"/categories","About":"/about"},"color":"cobalt blue","mode":"default","toc":true,"fancybox":true,"pjax":true,"copyright":{"enable":false,"license":"<a rel=\"license\" href=\"http://creativecommons.org/licenses/by-nc/4.0/\" target=\"_blank\">知识共享署名-非商业性使用 4.0 国际许可协议</a>"},"reward":{"enable":false,"qrCode":{"wechat":null,"alipay":null}},"social":{"email":"pengye91@gmail.com","stack-overflow":null,"twitter":null,"facebook":null,"linkedin":null,"google":null,"github":"https://github.com/pengye91","weibo":null,"zhihu":null,"douban":null,"pocket":null,"tumblr":null,"instagram":null},"leancloud":{"app_id":null,"app_key":null},"baidu_analytics":null,"baidu_verification":null,"google_analytics":"UA-127442719-1","google_verification":null,"disqus_shortname":null,"valine":{"appid":"xeDhasO1xV7F1SpCG0oRuiol-gzGzoHsz","appkey":"wgFvo2YMOmn0Qcv7YPFxtePy","notify":false,"verify":false,"avatar":"identicon","visitor":true,"placeholder":"在此评论......"},"changyan":{"appid":null,"appkey":null},"livere_datauid":null,"version":"2.10.1"};
 </script>
 
-    <title> 数据架构解决方案(3) -- 数据处理和数据分析 - Lingering Fragments </title>
+    <title> 数据架构解决方案(3) -- 数据处理和分析方法论 - Lingering Fragments </title>
   </head>
 
   <body><div id="mobile-navbar" class="mobile-navbar">
@@ -233,7 +233,7 @@
     <header class="post-header">
       <h1 class="post-title">
         
-          数据架构解决方案(3) -- 数据处理和数据分析
+          数据架构解决方案(3) -- 数据处理和分析方法论
         
       </h1>
 
@@ -261,7 +261,7 @@
   <div class="post-toc" id="post-toc">
     <h2 class="post-toc-title">文章目录</h2>
     <div class="post-toc-content">
-      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#定义问题"><span class="toc-text">定义问题</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#定义问题"><span class="toc-text">定义问题</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#风险管理"><span class="toc-text">风险管理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#兼听则明"><span class="toc-text">兼听则明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#在多个团队中建立信任"><span class="toc-text">在多个团队中建立信任</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#实现解决问题的方案"><span class="toc-text">实现解决问题的方案</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#解决方案必须是可维护的，而不能是一次性的"><span class="toc-text">解决方案必须是可维护的，而不能是一次性的</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#解决方案必须可以被不同的人运营和维护"><span class="toc-text">解决方案必须可以被不同的人运营和维护</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#数据处理和分析团队的人员组成"><span class="toc-text">数据处理和分析团队的人员组成</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#总结"><span class="toc-text">总结</span></a></li></ol>
     </div>
   </div>
 
@@ -276,12 +276,12 @@
 <li><a href="https://xieyuanpeng.com/2020/08/01/data-arch-2/" target="_blank" rel="noopener">数据流水线和数据湖</a></li>
 </ol>
 <p>所有的数据系统的最终目的都是为了让一个组织从它拥有的数据中能发掘出有价值的东西，如果不能有效地从原始数据中挖掘出能为提升组织作出贡献的价值，技术栈再怎么厉害都是没有用的。</p>
-<p>本篇文章主要介绍如何用数据分析和数据处理方法来更有效地挖掘数据价值。</p>
+<p>本篇文章主要介绍一些数据分析和处理方法论来更有效地挖掘数据价值。</p>
 <a id="more"></a>
 <p>对于这个主题，可以从两个更高层次的角度来拆分：</p>
 <ul>
-<li>搞清楚我们要处理的问题是什么；</li>
-<li>实现具体的处理和分析方法来解决这些问题。</li>
+<li>搞清楚我们要解决的问题是什么；</li>
+<li>如何实现具体的处理和分析方法来解决这些问题。</li>
 </ul>
 <h1 id="定义问题"><a href="#定义问题" class="headerlink" title="定义问题"></a>定义问题</h1><p>通常情况下(只要你不是在一个刚成立的创业公司里)，为了让数据产生价值，你们已经有足够多悬而未决的问题了。。。但这并不意味着所有这些问题都是值得被解决的，或者说，解决这个问题的收益/付出比可能很低。</p>
 <p>为了实现让数据产生价值的目标，<strong>问出正确的问题是很难的一件事情。</strong> 尤其是为了同一个目标有很多看起来很有意义的问题被提出来的时候，这些问题中有些是有潜在影响力的，有些则不然。当然，也有可能正确的问题从来没被提出来过。</p>
@@ -294,12 +294,42 @@
 <p>想要知道这些问题的答案，你必须和相关利益方坐下来开好几个长会。。。更坏的情况是，你们讨论了好几轮之后还是没有明确的答案，<strong>大家都不知道他们想要的究竟是什么</strong>。</p>
 <p>看了一些资料并结合我自己的经验，我总结了一些可以开启讨论的问题：</p>
 <ul>
-<li>对于可追踪的用户参与相关指标而言，哪些是最重要的？</li>
-<li>影响用户使用公司产品的因素有哪些？</li>
-<li>相比用户期望得到的，我们产品提供的有什么差距？</li>
-<li>我们的产品有没有真实从用户反馈得到的痛点？</li>
+<li><strong>对于可追踪的与用户参与相关的指标而言，哪些是最重要的？</strong></li>
+<li><strong>影响用户使用公司产品的指标有哪些？</strong></li>
+<li><strong>相比用户期望得到的，我们产品提供的有什么差距？</strong></li>
 </ul>
 <p>为了得到这些问题的答案，下一步就是要开始工作了：定义具体的指标，绘制可视化数据等，并且<strong>在开始后的过程中，可以发现新的相关问题和解决方法</strong>。</p>
+<p>总而言之，要得到有用的问题的关键点在于：</p>
+<ul>
+<li>提供足够多的相关信息；</li>
+<li>明确要实现的目标；</li>
+<li>理解这个问题的影响力。</li>
+</ul>
+<h2 id="风险管理"><a href="#风险管理" class="headerlink" title="风险管理"></a>风险管理</h2><h3 id="兼听则明"><a href="#兼听则明" class="headerlink" title="兼听则明"></a>兼听则明</h3><p>和之前的过程一样，确保你的信息是来自多个团队和相关利益方，而不仅仅是管理层或者直接相关团队。道理不用赘述了，从多个视角看待同一个目标会得到不同的问题，事前了解清楚个团队对这个目标的态度有助于提前做好各种准备。</p>
+<h3 id="在多个团队中建立信任"><a href="#在多个团队中建立信任" class="headerlink" title="在多个团队中建立信任"></a>在多个团队中建立信任</h3><p>注意：要表现出你在组织中是一个<strong>合作者</strong>，而不是来挑刺儿的。你需要和相关利益群体紧密合作，获取他们的信任，一起把事儿做成了。</p>
+<p>这个阶段的挑战是确认你正在定义正确的问题。一个有效方法是：经常公开地就要达成的目标和各相关团队进行交流。这看起来似乎是常识，但通常可以<strong>避免将责任推到组织的某一个团队</strong>。在某些情况下，把注意力放在某一个特定问题上可能会使组织中的某些人员或团体受到负面影响。你懂的</p>
+<p>一个可行的绕过这些政治陷阱的方法是：<strong>找到跨部门的联系人</strong>，确保他们了解定义问题的迭代过程，然后经常与这些人沟通，从而减少任何意外。</p>
+<h1 id="实现解决问题的方案"><a href="#实现解决问题的方案" class="headerlink" title="实现解决问题的方案"></a>实现解决问题的方案</h1><p>一旦问题和解决办法被确定，接下来就是如何实现了。</p>
+<p>在实现的时候，一定要<strong>记得我们试图解决的原始问题是什么</strong>，因为在很多时候，我们在解决问题的过程中容易走到另一条路上。当然，我们在解决的过程中还应该<strong>保持足够的灵活性</strong>，以适应需求的改动。</p>
+<p>另外有两点需要在实现的过程注意：</p>
+<h2 id="解决方案必须是可维护的，而不能是一次性的"><a href="#解决方案必须是可维护的，而不能是一次性的" class="headerlink" title="解决方案必须是可维护的，而不能是一次性的"></a>解决方案必须是可维护的，而不能是一次性的</h2><p>为了解决一个问题，最直接快速的方法是写一个一次性的解决方案，但这种方法是完全不可维护的：这意味着如果有后续的需求改动，必须要再重新写一套解决方案。</p>
+<p>更好的方法是，<strong>构建一个可以解决多种类型问题的平台</strong>。这有点类似传统的数据仓库理论中的数据集市和数据仓库的关系。</p>
+<h2 id="解决方案必须可以被不同的人运营和维护"><a href="#解决方案必须可以被不同的人运营和维护" class="headerlink" title="解决方案必须可以被不同的人运营和维护"></a>解决方案必须可以被不同的人运营和维护</h2><p>通常，我们会认为构建解决方案的人同样会来运维这个解决方案，这本来是没有问题的。但是需要考虑到人员流失和团队内角色重新分配的情况，因此，最好每个解决方案都有详细的文档和运维方法，让团队内甚至团队外所有人都可以胜任运维的工作。</p>
+<h1 id="数据处理和分析团队的人员组成"><a href="#数据处理和分析团队的人员组成" class="headerlink" title="数据处理和分析团队的人员组成"></a>数据处理和分析团队的人员组成</h1><p>和构建数据流水线和数据湖不同，数据分析团队的<strong>首要能力是发现问题</strong>，其次是夸团队合作，以及找到解决问题的方法。因此，团队需要的角色有下面这些：</p>
+<ul>
+<li><p><strong>善于找到正确问题的人</strong></p>
+<p>团队内最重要的角色，他们需要在日常业务中发现问题，而这些问题可能对组织有巨大影响。为了做到这一点，需要对业务非常熟悉，而且需要和组织里的其他团队有频繁交流。</p>
+<p>通常情况下，这个角色都是由团队内熟悉业务的成员担任，比如项目管理，产品管理，或者是团队 leader。当然也可以是研发人员或者是分析师。</p>
+</li>
+<li><p><strong>架构师</strong></p>
+<p>这里架构师的作用就是构建上面说的能解决多种相似类型的平台。</p>
+</li>
+<li><p><strong>解决问题的人</strong></p>
+<p>有了问题和平台，就需要解决问题的人了。通常情况下，需要数据分析师和数据工程师将解决问题的方法实现。</p>
+<p>另外，还需要运维人员负责将整个方案部署上线并进行运营和维护。</p>
+</li>
+</ul>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>本篇文章主要介绍了一些在数据处理和分析方面如何提出正确的问题以及如何解决它们的方法论。</p>
 
       
     </div>
