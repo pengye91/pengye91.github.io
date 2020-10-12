@@ -261,7 +261,7 @@
   <div class="post-toc" id="post-toc">
     <h2 class="post-toc-title">文章目录</h2>
     <div class="post-toc-content">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#系统延迟和吞吐量"><span class="toc-text">系统延迟和吞吐量</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#系统延迟和吞吐量"><span class="toc-text">系统延迟和吞吐量</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#风险管理"><span class="toc-text">风险管理</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#状态局部性"><span class="toc-text">状态局部性</span></a></li></ol>
     </div>
   </div>
 
@@ -298,7 +298,55 @@
 <p>系统的失败恢复机制是怎样的？</p>
 </li>
 </ul>
-<h2 id="系统延迟和吞吐量"><a href="#系统延迟和吞吐量" class="headerlink" title="系统延迟和吞吐量"></a>系统延迟和吞吐量</h2>
+<h2 id="系统延迟和吞吐量"><a href="#系统延迟和吞吐量" class="headerlink" title="系统延迟和吞吐量"></a>系统延迟和吞吐量</h2><p>一个应用最基础的功能：增删查改，数据应用也不例外。</p>
+<p>我们在设计一个面向线上的数据应用时，对于每一个操作都应该有下面几个考虑：</p>
+<ul>
+<li><p><strong>竞争条件</strong></p>
+<p>通俗来说，比如两个客户端试图同时修改一行数据，应该怎么操作？</p>
+<p>有多种方案可以参考：</p>
+<ul>
+<li><p>后来者胜</p>
+<p>这种方案比较简单，就是谁后到达就覆盖之前的修改。</p>
+</li>
+<li><p>事务锁</p>
+<p>加锁意味着，要么在数据存储的地方(比如数据库)加上锁，防止竞争，要么在存储之前(比如服务器)加上锁。比较常见的锁有<a href="https://draveness.me/database-concurrency-control/" target="_blank" rel="noopener">乐观锁和悲观锁</a>。</p>
+</li>
+</ul>
+</li>
+<li><p><strong>异步还是同步</strong></p>
+<p>当系统对于一个请求的处理可能在多处都有状态存储的时候，一个完全同步的操作处理可以保证状态的一致性，但这么做可能导致响应时间的延迟。</p>
+<p>对于这种长链路操作来说，如果使用异步操作，那就有可能在多个存储点的状态不一致。</p>
+<p>可以简单理解为<strong>强一致性和最终一致性</strong>。</p>
+<p>当设计一个面向线上的应用时，需要考虑：</p>
+<ul>
+<li><p><strong>要响应速度还是数据一致</strong></p>
+<p>如果使用异步模型，就有可能在一个时间窗口内多处数据不一致的情况。</p>
+<p>这是一个永恒的 trade-off，只能按照你的具体案例具体考虑。</p>
+</li>
+</ul>
+</li>
+<li><p><strong>性能的一致性</strong></p>
+<p>在上线一个应用之前，我们都会做性能测试，包括各种压测。</p>
+<p>但是，你能保证你的测试覆盖了多种情况吗？</p>
+<ul>
+<li>如果更新和插入的顺序发生了变化，系统的响应还是一样的吗？</li>
+<li>当存储的数据量成倍增加的情况下，系统的响应会受到怎样的影响？</li>
+<li>当查询的数据量成倍增加的时候，系统的响应是成倍增加吗？</li>
+<li>当有数据更新和插入时，查询的响应会受到怎样的影响？</li>
+</ul>
+</li>
+</ul>
+<h3 id="风险管理"><a href="#风险管理" class="headerlink" title="风险管理"></a>风险管理</h3><p>对于延迟和吞吐量这类指标来说，最大的风险就是：<strong>上线后的真实指标和上线前的测试结果匹配不上</strong>。</p>
+<p>要解决这种可能的不合预期的风险的方法也很直接：<strong>多测，多沟通</strong>。列出几点需要注意的事项：</p>
+<ul>
+<li>对每次测试都做文档记录。</li>
+<li>对每次测试的改动都记录原因。</li>
+<li>对每次测试的结果都要抱有怀疑的态度。</li>
+<li>如果可能的话，让多个团队参与测试用例的设计。</li>
+<li>如果可能的话，让多个团队参与测试。</li>
+</ul>
+<p>另外，一定要注意在代码实现的时候多使用<strong>接口</strong>。因为在测试阶段，很非常大的概率你会更改代码的时候，如果能保持接口一致，将会对你的重构有莫大的帮助。</p>
+<h2 id="状态局部性"><a href="#状态局部性" class="headerlink" title="状态局部性"></a>状态局部性</h2>
       
     </div>
 
