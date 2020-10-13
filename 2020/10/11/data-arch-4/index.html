@@ -261,7 +261,7 @@
   <div class="post-toc" id="post-toc">
     <h2 class="post-toc-title">文章目录</h2>
     <div class="post-toc-content">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#系统延迟和吞吐量"><span class="toc-text">系统延迟和吞吐量</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#风险管理"><span class="toc-text">风险管理</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#状态局部性"><span class="toc-text">状态局部性</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#系统延迟和吞吐量"><span class="toc-text">系统延迟和吞吐量</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#风险管理"><span class="toc-text">风险管理</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#一致性"><span class="toc-text">一致性</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#状态存储在客户端"><span class="toc-text">状态存储在客户端</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#存储在服务器"><span class="toc-text">存储在服务器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#存储在单一数据中心"><span class="toc-text">存储在单一数据中心</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#存储在多区域多数据中心"><span class="toc-text">存储在多区域多数据中心</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#风险管理-1"><span class="toc-text">风险管理</span></a></li></ol></li></ol>
     </div>
   </div>
 
@@ -346,7 +346,55 @@
 <li>如果可能的话，让多个团队参与测试。</li>
 </ul>
 <p>另外，一定要注意在代码实现的时候多使用<strong>接口</strong>。因为在测试阶段，很非常大的概率你会更改代码的时候，如果能保持接口一致，将会对你的重构有莫大的帮助。</p>
-<h2 id="状态局部性"><a href="#状态局部性" class="headerlink" title="状态局部性"></a>状态局部性</h2>
+<h2 id="一致性"><a href="#一致性" class="headerlink" title="一致性"></a>一致性</h2><p>在分布式系统中，一个状态可能会存在于多个地方，主要有下面这几种场景：</p>
+<ul>
+<li><p>客户端</p>
+<p>状态存储在用户使用的客户端。</p>
+</li>
+<li><p>服务器</p>
+<p>状态存在用户客户端连接的服务器。</p>
+</li>
+<li><p>数据中心</p>
+<p>一个数据中心可能向多个应用服务器提供数据存储服务。</p>
+</li>
+<li><p>多数据中心</p>
+<p>一个应用的数据和状态可能被存在多副本的多数据中心中。</p>
+</li>
+</ul>
+<p>基于不同的目标和需求，不同的场景有不同的需要考虑的因素：</p>
+<h3 id="状态存储在客户端"><a href="#状态存储在客户端" class="headerlink" title="状态存储在客户端"></a>状态存储在客户端</h3><p>将状态直接缓存在客户端并且允许客户端修改有一些明显的优势：<strong>高性能</strong>以及<strong>高扩展性</strong>。但是缺陷也同样存在：</p>
+<ul>
+<li><p><strong>易失性</strong></p>
+<p>客户端随时都可能挂掉，这将导致数据在持久化到服务器之前就丢失了。</p>
+</li>
+<li><p><strong>安全</strong></p>
+<p>客户端所在的主机可能是不可靠的，当我们强烈依赖客户端的可靠性时，这种方案可能造成数据泄露。</p>
+</li>
+</ul>
+<p>比如，你的电脑的 <code>/etc/hosts</code> 可以理解为在客户端存储的一份状态。</p>
+<h3 id="存储在服务器"><a href="#存储在服务器" class="headerlink" title="存储在服务器"></a>存储在服务器</h3><p>将状态存储在服务器（基本上）可以忽略安全问题了，但是会面临<strong>用户分区</strong>的问题。</p>
+<p>在某些场景下，用户在服务器的分布时固定的，比如对于一些游戏服务器，就需要维护同样一组用户的数据在同一台（组）服务器中。</p>
+<p>在更多的场景下，用户分区时随机的，比如大部分微服务架构的 Web 应用，某个用户接入到哪台服务器完全取决于负载均衡策略。</p>
+<p>当你开始考虑这个问题的时候，意味着你可能需要将状态移到统一的 <em>数据中心</em> 中。</p>
+<h3 id="存储在单一数据中心"><a href="#存储在单一数据中心" class="headerlink" title="存储在单一数据中心"></a>存储在单一数据中心</h3><p>这可能是你见过的最常见的状态存储位置，比如 NoSQL 系统，关系型数据库，ES, 分布式缓存系统。</p>
+<p>将数据存储在统一的一个数据中心，当你的服务器也都在同一个区域中时，这是一个好的架构。</p>
+<p>单一数据中心通常会在同一区域中创建副本，以保证当某个节点挂掉后，可以由备份节点提供服务，保证 SLA。</p>
+<p>但是，如果整个区域的机房都挂掉（这并不罕见），这个方案就可能导致服务中断。这个时候，可能你需要考虑<em>多区域数据中心</em>。</p>
+<h3 id="存储在多区域多数据中心"><a href="#存储在多区域多数据中心" class="headerlink" title="存储在多区域多数据中心"></a>存储在多区域多数据中心</h3><p>多数据中心架构有多种模式，选择怎样使用取决于具体的需求和限制：</p>
+<ul>
+<li><p><strong>异地容灾</strong></p>
+<p>正如上面提到的，使用单一数据中心可能会在这个数据中心机房挂掉的时候导致服务不可用。</p>
+<p>使用多数据中心可以部分解决这个问题，因为这种场景通常的一致性模型通常是<strong>最终一致性</strong>，所以当某个数据中心挂掉后，整个系统的服务可以继续提供，但是数据可能有部分丢失。</p>
+</li>
+<li><p><strong>锁</strong></p>
+<p>为了保证跨区域的多数据中心的数据一致性，全局锁是其中一种方法。</p>
+<p>全局锁的想法比较简单：<strong>某个资源被全局地锁定，要想获取这个资源，必须先拿到对应的锁。</strong></p>
+</li>
+</ul>
+<p>关于多数据中心的数据一致性问题，可以参考<a href="https://xieyuanpeng.com/2018/11/04/%E9%87%8E%E7%8C%AA%E4%B9%A6%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E7%AC%AC%E4%BA%94%E7%AB%A02/" target="_blank" rel="noopener">这系列读书笔记</a>，详细介绍了各种技术解决方案，这里不再赘述。</p>
+<h3 id="风险管理-1"><a href="#风险管理-1" class="headerlink" title="风险管理"></a>风险管理</h3><p>最好在项目计划初期就开始讨论关于数据一致性问题的方案，因为方案一旦确定就很难改变了。</p>
+<p>当计划确定后，需要用文档详细记录选择的理由以及这个选择将会对用户带来什么样的影响，比如时强一致性还是最终一致性，什么情况下用户的数据可能丢失等。并且要确保这个文档是所有相关人员都能看到的。</p>
+
       
     </div>
 
