@@ -17,12 +17,12 @@
 
 
 
-  <meta name="description" content="数据架构解决方案(4) -- 数据处理应用的部署"/>
+  <meta name="description" content="数据架构解决方案(4) -- 数据处理应用的部署和运维"/>
 
 
 
 
-  <meta name="keywords" content="数据架构, 解决方案, 应用, 部署, Lingering Fragments" />
+  <meta name="keywords" content="数据架构, 解决方案, 应用, 部署, 运维, Lingering Fragments" />
 
 
 
@@ -96,10 +96,10 @@
 
 
 <script>
-  window.config = {"title":"Lingering Fragments","subtitle":"一些想法和总结","description":null,"author":"xyp","language":"zh-CN","timezone":"Asia/Shanghai","url":"https://pengye91.github.io","root":"/","permalink":":year/:month/:day/:title/","permalink_defaults":null,"source_dir":"source","public_dir":"public","tag_dir":"tags","archive_dir":"archives","category_dir":"categories","code_dir":"downloads/code","i18n_dir":":lang","skip_render":null,"new_post_name":":title.md","default_layout":"post","titlecase":false,"external_link":true,"filename_case":0,"render_drafts":false,"post_asset_folder":false,"relative_link":false,"future":true,"highlight":{"enable":true,"auto_detect":false,"line_number":true,"tab_replace":null,"first_line_number":"always1"},"default_category":"uncategorized","category_map":null,"tag_map":null,"date_format":"YYYY-MM-DD","time_format":"HH:mm:ss","per_page":10,"pagination_dir":"page","theme":"even","deploy":{"type":"git","repo":"https://github.com/pengye91/pengye91.github.io.git","branch":"master"},"ignore":[],"keywords":null,"index_generator":{"per_page":10,"order_by":"-date","path":""},"sitemap":{"path":"sitemap.xml"},"baidusitemap":{"path":"baidusitemap.xml"},"archive_generator":{"per_page":10,"yearly":true,"monthly":true,"daily":false},"category_generator":{"per_page":10},"tag_generator":{"per_page":10},"marked":{"gfm":true,"pedantic":false,"sanitize":false,"tables":true,"breaks":true,"smartLists":true,"smartypants":true,"modifyAnchors":"","autolink":true},"server":{"port":4000,"log":false,"compress":false,"header":true},"since":2018,"favicon":"/favicon.ico","rss":"default","menu":{"Home":"/","Archives":"/archives/","Tags":"/tags","Categories":"/categories","About":"/about"},"color":"cobalt blue","mode":"default","toc":true,"fancybox":true,"pjax":true,"copyright":{"enable":false,"license":"<a rel=\"license\" href=\"http://creativecommons.org/licenses/by-nc/4.0/\" target=\"_blank\">知识共享署名-非商业性使用 4.0 国际许可协议</a>"},"reward":{"enable":false,"qrCode":{"wechat":null,"alipay":null}},"social":{"email":"pengye91@gmail.com","stack-overflow":null,"twitter":null,"facebook":null,"linkedin":null,"google":null,"github":"https://github.com/pengye91","weibo":null,"zhihu":null,"douban":null,"pocket":null,"tumblr":null,"instagram":null},"leancloud":{"app_id":null,"app_key":null},"baidu_analytics":null,"baidu_verification":null,"google_analytics":"UA-127442719-1","google_verification":null,"disqus_shortname":null,"valine":{"appid":"xeDhasO1xV7F1SpCG0oRuiol-gzGzoHsz","appkey":"wgFvo2YMOmn0Qcv7YPFxtePy","notify":false,"verify":false,"avatar":"identicon","visitor":true,"placeholder":"在此评论......"},"changyan":{"appid":null,"appkey":null},"livere_datauid":null,"version":"2.10.1"};
+  window.config = {"title":"Lingering Fragments","subtitle":"一些想法和总结","description":null,"author":"xyp","language":"zh-CN","timezone":"Asia/Shanghai","url":"https://pengye91.github.io","root":"/","permalink":":year/:month/:day/:title/","permalink_defaults":null,"source_dir":"source","public_dir":"public","tag_dir":"tags","archive_dir":"archives","category_dir":"categories","code_dir":"downloads/code","i18n_dir":":lang","skip_render":null,"new_post_name":":title.md","default_layout":"post","titlecase":false,"external_link":true,"filename_case":0,"render_drafts":false,"post_asset_folder":false,"relative_link":false,"future":true,"highlight":{"enable":true,"auto_detect":false,"line_number":true,"tab_replace":null,"first_line_number":"always1"},"default_category":"uncategorized","category_map":null,"tag_map":null,"date_format":"YYYY-MM-DD","time_format":"HH:mm:ss","per_page":10,"pagination_dir":"page","theme":"even","deploy":{"type":"git","repo":"https://github.com/pengye91/pengye91.github.io.git","branch":"master"},"ignore":[],"keywords":null,"index_generator":{"per_page":10,"order_by":"-date","path":""},"sitemap":{"path":"sitemap.xml"},"baidusitemap":{"path":"baidusitemap.xml"},"category_generator":{"per_page":10},"archive_generator":{"per_page":10,"yearly":true,"monthly":true,"daily":false},"tag_generator":{"per_page":10},"marked":{"gfm":true,"pedantic":false,"sanitize":false,"tables":true,"breaks":true,"smartLists":true,"smartypants":true,"modifyAnchors":"","autolink":true},"server":{"port":4000,"log":false,"compress":false,"header":true},"since":2018,"favicon":"/favicon.ico","rss":"default","menu":{"Home":"/","Archives":"/archives/","Tags":"/tags","Categories":"/categories","About":"/about"},"color":"cobalt blue","mode":"default","toc":true,"fancybox":true,"pjax":true,"copyright":{"enable":false,"license":"<a rel=\"license\" href=\"http://creativecommons.org/licenses/by-nc/4.0/\" target=\"_blank\">知识共享署名-非商业性使用 4.0 国际许可协议</a>"},"reward":{"enable":false,"qrCode":{"wechat":null,"alipay":null}},"social":{"email":"pengye91@gmail.com","stack-overflow":null,"twitter":null,"facebook":null,"linkedin":null,"google":null,"github":"https://github.com/pengye91","weibo":null,"zhihu":null,"douban":null,"pocket":null,"tumblr":null,"instagram":null},"leancloud":{"app_id":null,"app_key":null},"baidu_analytics":null,"baidu_verification":null,"google_analytics":"UA-127442719-1","google_verification":null,"disqus_shortname":null,"valine":{"appid":"xeDhasO1xV7F1SpCG0oRuiol-gzGzoHsz","appkey":"wgFvo2YMOmn0Qcv7YPFxtePy","notify":false,"verify":false,"avatar":"identicon","visitor":true,"placeholder":"在此评论......"},"changyan":{"appid":null,"appkey":null},"livere_datauid":null,"version":"2.10.1"};
 </script>
 
-    <title> 数据架构解决方案(4) -- 数据处理应用的部署 - Lingering Fragments </title>
+    <title> 数据架构解决方案(4) -- 数据处理应用的部署和运维 - Lingering Fragments </title>
   </head>
 
   <body><div id="mobile-navbar" class="mobile-navbar">
@@ -233,7 +233,7 @@
     <header class="post-header">
       <h1 class="post-title">
         
-          数据架构解决方案(4) -- 数据处理应用的部署
+          数据架构解决方案(4) -- 数据处理应用的部署和运维
         
       </h1>
 
@@ -261,7 +261,7 @@
   <div class="post-toc" id="post-toc">
     <h2 class="post-toc-title">文章目录</h2>
     <div class="post-toc-content">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#系统延迟和吞吐量"><span class="toc-text">系统延迟和吞吐量</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#风险管理"><span class="toc-text">风险管理</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#一致性"><span class="toc-text">一致性</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#状态存储在客户端"><span class="toc-text">状态存储在客户端</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#存储在服务器"><span class="toc-text">存储在服务器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#存储在单一数据中心"><span class="toc-text">存储在单一数据中心</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#存储在多区域多数据中心"><span class="toc-text">存储在多区域多数据中心</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#风险管理-1"><span class="toc-text">风险管理</span></a></li></ol></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#系统延迟和吞吐量"><span class="toc-text">系统延迟和吞吐量</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#风险管理"><span class="toc-text">风险管理</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#一致性"><span class="toc-text">一致性</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#状态存储在客户端"><span class="toc-text">状态存储在客户端</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#存储在服务器"><span class="toc-text">存储在服务器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#存储在单一数据中心"><span class="toc-text">存储在单一数据中心</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#存储在多区域多数据中心"><span class="toc-text">存储在多区域多数据中心</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#风险管理-1"><span class="toc-text">风险管理</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#可用性"><span class="toc-text">可用性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#风险管理-2"><span class="toc-text">风险管理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数据应用部署运维的成员组成"><span class="toc-text">数据应用部署运维的成员组成</span></a></li></ol>
     </div>
   </div>
 
@@ -281,7 +281,7 @@
 <li>如何将源数据初步处理并且暂存；</li>
 <li>如何从暂存的数据中进一步榨取出价值。</li>
 </ol>
-<p>下一步，也是直面真实用户的重要一步，就是将构建好的数据应用部署上线，给用户（包括组织内部的和外部的）提供构建好的服务。</p>
+<p>下一步，也是直面真实用户的重要一步，就是将构建好的数据应用部署上线并且持续运维，给用户（包括组织内部的和外部的）提供构建好的服务。</p>
 <a id="more"></a>
 <p>对于一个面向用户的线上数据应用而言，有下面这几个指标需要特别注意：</p>
 <ul>
@@ -394,7 +394,43 @@
 <p>关于多数据中心的数据一致性问题，可以参考<a href="https://xieyuanpeng.com/2018/11/04/%E9%87%8E%E7%8C%AA%E4%B9%A6%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E7%AC%AC%E4%BA%94%E7%AB%A02/" target="_blank" rel="noopener">这系列读书笔记</a>，详细介绍了各种技术解决方案，这里不再赘述。</p>
 <h3 id="风险管理-1"><a href="#风险管理-1" class="headerlink" title="风险管理"></a>风险管理</h3><p>最好在项目计划初期就开始讨论关于数据一致性问题的方案，因为方案一旦确定就很难改变了。</p>
 <p>当计划确定后，需要用文档详细记录选择的理由以及这个选择将会对用户带来什么样的影响，比如时强一致性还是最终一致性，什么情况下用户的数据可能丢失等。并且要确保这个文档是所有相关人员都能看到的。</p>
-
+<h2 id="可用性"><a href="#可用性" class="headerlink" title="可用性"></a>可用性</h2><p>可用性不用多说，肯定很重要了。重要就意味着 <strong>不是那么容易就能实现</strong>。</p>
+<p>系列几种因素可能都会影响系统可用性：</p>
+<ul>
+<li><p><strong>人为因素</strong></p>
+<p>是人就会犯错。</p>
+<p>实际上，错误的配置、不匹配的代码版本、没有被测试覆盖的代码等，都可能造成线上服务不可用。</p>
+</li>
+<li><p><strong>升级</strong></p>
+<p>软件系统的升级可以分为多个层次：</p>
+<pre><code>操作系统版本升级 -&gt; 系统 lib 包版本 -&gt; 语言版本 -&gt; 依赖包版本 -&gt; 源代码版本 -&gt; 接口版本
+</code></pre><p>每一层的版本升级都有可能造成线上服务不可用。</p>
+</li>
+<li><p><strong>硬件失败</strong></p>
+<p>不管你在什么环境中运行，<strong>长时间运行的硬件一定会失败</strong>!</p>
+</li>
+<li><p><strong>恶意攻击</strong></p>
+<p>恶意攻击（比如 DDoS 攻击）也可能会造成系统停服。</p>
+</li>
+</ul>
+<p>在设计系统之初，就应该考虑在各种场景下的恢复方案，以达到满足你向用户承诺的 SLA。下面是几种可能的修复方案：</p>
+<ul>
+<li><p><strong>服务器的失败恢复</strong></p>
+<p>最直接的做法：当一台服务器失败了，将用户请求转发到另一台服务器。</p>
+<p>当数据和状态都保存在数据中心（而不是服务器本地）时，单机失败的影响几乎没有。</p>
+</li>
+<li><p><strong>缓存服务器失败</strong></p>
+<p>当缓存服务器失败时，应该立即使用<strong>持久化存储</strong>（比如 RDB），然后切换到另一台可用的缓存服务器，并逐渐将状态和数据拉取到缓存中。</p>
+<p>在这种场景下，重要的一点是：<strong>缓存不是唯一的数据源</strong>。</p>
+</li>
+<li><p><strong>跨区域的多数据中心失败</strong></p>
+<p>当你选择使用<strong>多数据中心</strong>存储数据时，你应该知道，对于多数据中心，数据的同步时最终一致性的，这就意味着，当出现某区域的数据中心失败时，可能有部分还没来得及同步到其他数据中心的数据就会丢失。丢失的数据多少取决于你系统的延迟和吞吐量。</p>
+<p>另外，使用多数据中心还有一个需要考虑的问题：如何解决跨区域的写。你可以采用单主中心，也可以使用多主中心机制。技术细节可以参考<a href="https://xieyuanpeng.com/2018/11/04/%E9%87%8E%E7%8C%AA%E4%B9%A6%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E7%AC%AC%E4%BA%94%E7%AB%A02/" target="_blank" rel="noopener">这个笔记</a>。</p>
+</li>
+</ul>
+<h2 id="风险管理-2"><a href="#风险管理-2" class="headerlink" title="风险管理"></a>风险管理</h2><p>  对于复杂的分布式系统，要尽早测试系统的可用性。一种常见的方法是，在测试的时候，故意让某一模块失败，然后观察系统的可用性。这就是所谓的 <strong><a href="https://github.com/Netflix/chaosmonkey" target="_blank" rel="noopener">Chaos Monkey</a></strong>。</p>
+<p>  这种测试结果可以用于描述系统对于部分模块失败的响应以及 SLA 的保证情况。如果你做得好的话，还可以在团队内构建出一种以减少系统失败为第一优先级的工程师文化。参考 Netflix 关于 <strong>Chaos Monkey</strong> 的<a href="https://netflixtechblog.com/the-netflix-simian-army-16e57fbab116" target="_blank" rel="noopener">首篇博客</a>。</p>
+<h2 id="数据应用部署运维的成员组成"><a href="#数据应用部署运维的成员组成" class="headerlink" title="数据应用部署运维的成员组成"></a>数据应用部署运维的成员组成</h2>
       
     </div>
 
@@ -420,6 +456,8 @@
               <a href="/tags/应用/">应用</a>
             
               <a href="/tags/部署/">部署</a>
+            
+              <a href="/tags/运维/">运维</a>
             
           </div>
         
