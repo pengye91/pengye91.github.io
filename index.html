@@ -233,6 +233,70 @@
     <header class="post-header">
       <h1 class="post-title">
         
+          <a class="post-link" href="/2020/10/19/data-arch-5/">数据架构解决方案(5) -- 选择具体的技术方案</a>
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2020-10-19
+        </span>
+        
+          <span class="post-category">
+            
+              <a href="/categories/解决方案/">解决方案</a>
+            
+              <a href="/categories/解决方案/数据架构/">数据架构</a>
+            
+              <a href="/categories/解决方案/数据架构/方法论/">方法论</a>
+            
+          </span>
+        
+        
+      </div>
+    </header>
+
+    
+    
+
+
+    <div class="post-content">
+      
+        
+        
+          
+        
+
+        
+          <p>这是数据架构解决方案系列博客的第五篇，系列的其他文章：</p>
+<ol start="0">
+<li><a href="https://xieyuanpeng.com/2020/07/19/data-arch-0/" target="_blank" rel="noopener">概述</a></li>
+<li><a href="https://xieyuanpeng.com/2020/07/27/data-arch-1/" target="_blank" rel="noopener">数据架构组成</a></li>
+<li><a href="https://xieyuanpeng.com/2020/08/01/data-arch-2/" target="_blank" rel="noopener">数据流水线和数据湖</a></li>
+<li><a href="https://xieyuanpeng.com/2020/10/09/data-arch-3/" target="_blank" rel="noopener">数据处理和分析方法论</a></li>
+<li><a href="https://xieyuanpeng.com/2020/10/11/data-arch-4/" target="_blank" rel="noopener">运维数据应用</a></li>
+</ol>
+<p>到目前为止，我们讨论了如何从头构建一个完整数据应用架构。接下来的文章是以上面 4 章为骨架和脉络，介绍更细节和具体的方法。</p>
+<p>首先，我们先来了解在做技术选型的时候，如何评估一个技术方案的好坏，以及怎么评估具体的方案是否适合我们的项目。</p>
+          <div class="read-more">
+            <a href="/2020/10/19/data-arch-5/" class="read-more-link">阅读更多</a>
+          </div>
+        
+      
+    </div>
+
+    
+
+    
+
+  </article>
+
+      
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
           <a class="post-link" href="/2020/10/11/data-arch-4/">数据架构解决方案(4) -- 数据处理应用的部署和运维</a>
         
       </h1>
@@ -771,73 +835,6 @@
 </ul>
           <div class="read-more">
             <a href="/2019/03/23/tuning-spark-2/" class="read-more-link">阅读更多</a>
-          </div>
-        
-      
-    </div>
-
-    
-
-    
-
-  </article>
-
-      
-        
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          <a class="post-link" href="/2019/03/22/tuning-spark-1/">Spark 调优 上</a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2019-03-22
-        </span>
-        
-          <span class="post-category">
-            
-              <a href="/categories/Spark/">Spark</a>
-            
-              <a href="/categories/Spark/调优/">调优</a>
-            
-              <a href="/categories/Spark/调优/数据处理/">数据处理</a>
-            
-          </span>
-        
-        
-      </div>
-    </header>
-
-    
-    
-
-
-    <div class="post-content">
-      
-        
-        
-          
-        
-
-        
-          <blockquote>
-<p>本篇文章是在结合自己业务和<a href="https://blog.cloudera.com/blog/2015/03/how-to-tune-your-apache-spark-jobs-part-1/" target="_blank" rel="noopener">这篇文章</a>的基础上写的。</p>
-</blockquote>
-<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>在编写和维护一个 Spark 程序的过程中，会遇到一些相关术语：</p>
-<ul>
-<li><p><code>transformation</code>, <code>action</code>, <code>RDD</code>, <code>DataSet</code>, <code>DataFrame</code></p>
-<p>  理解这一层次的<em>原语</em>对于写出一个 Spark 很重要。因为一个 Spark 程序都是由这些结构和操作构成的。</p>
-</li>
-<li><p><code>job</code>, <code>stage</code>, <code>task</code></p>
-<p>  如果想要<strong>写出一个好的 Spark 程序</strong>，理解这一层的原语就变得很重要。因为当你发现你的 Spark 程序运行得很慢或者报错了，你需要到 web UI 上查看原因，而这就是你需要理解这些术语的原因。</p>
-</li>
-</ul>
-<p>总之，要写出一个高效的 Spark 程序，理解其底层运行模型是至关重要的。</p>
-          <div class="read-more">
-            <a href="/2019/03/22/tuning-spark-1/" class="read-more-link">阅读更多</a>
           </div>
         
       
