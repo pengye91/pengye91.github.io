@@ -261,7 +261,7 @@
   <div class="post-toc" id="post-toc">
     <h2 class="post-toc-title">文章目录</h2>
     <div class="post-toc-content">
-      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#风险分类"><span class="toc-text">风险分类</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#管理风险"><span class="toc-text">管理风险</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#将系统架构的风险分类"><span class="toc-text">将系统架构的风险分类</span></a></li></ol></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#风险分类"><span class="toc-text">风险分类</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#管理风险"><span class="toc-text">管理风险</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#将系统架构的风险分类"><span class="toc-text">将系统架构的风险分类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#技术风险"><span class="toc-text">技术风险</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#团队风险"><span class="toc-text">团队风险</span></a></li></ol></li></ol>
     </div>
   </div>
 
@@ -321,6 +321,29 @@
 <p>下一步是选择并实现组件需要的技术，如下图所示。然后可以将组件分配给团队成员来处理，并根据团队成员和技术来评估相应的风险。我们将从技术风险入手，讨论此过程。</p>
 <center><img src="/images/data-arch/5/sub-components-tech.png" alt=""></center>
 
+<p>上图展示了我们为每一类场景选择了一个具体的技术方案，目前我们可以将这些技术方案看做是一个场景的占位符，表示这只是我们在设计之初的选择，在实现和验证的过程中，可以随时用另一个可能更适合的技术方案替换掉。这也提醒了我们在设计和实现的时候，使用 <strong>可替换接口</strong> 的重要性。</p>
+<h2 id="技术风险"><a href="#技术风险" class="headerlink" title="技术风险"></a>技术风险</h2><p>对于一个团队来说，权衡一个技术方案的风险权重有时候并不是那么容易，因为在没有真正上生产环境之前，所有的测试和数据都只能当做参考。但<strong>直觉通常可以起到一定作用</strong>：比如，如果你和团队以前有在生产环境中使用过某项技术的经验，那么该技术的风险评级应该较低。相反地，你应该给一个你很少或根本没有经验的技术定一个更高的风险评级。</p>
+<p>此外，了解一项技术可能会涉及到多个层次的知识。</p>
+<p>以 SQL 为例，某些团队可能有多年的 MySQL 使用经验，但可能对 Hive、Spark SQL或 Impala, ClickHouse 等较新的 SQL 查询引擎没有太多的经验。由于不同的查询引擎的行为方式可能会不一样，支持的 SQL 标准也不一样，所以了解这些功能和限制对于使用这些系统是非常关键的。</p>
+<p>当我们说我们知道一项技术时，我们需要自上而下地了解它。</p>
+<h2 id="团队风险"><a href="#团队风险" class="headerlink" title="团队风险"></a>团队风险</h2><p>一个团队的风险取决于你对团队成员的<strong>个人能力</strong>的认识、以及团队<strong>完成任务和不能按时完成任务</strong>的历史。通常情况下，如果团队中新成员或者实战经验尚浅的成员较多的话，可能意味着该团队的风险权重更高。</p>
+<p>此外，不管经验水平如何，每个团队都有不同类型的具有不同技能的人员。下面简单介绍一下一个完善的团队至少应该的一些角色:</p>
+<ul>
+<li><p><strong>QA</strong></p>
+<p>QA 负责确保项目具有非常高的测试覆盖率，保证交付的数据的高质量。优秀的 QA 还应该保持对细节的专注，比如：代码是完全版本控制的，代码的合理注释等等。</p>
+</li>
+<li><p><strong>调研人员</strong></p>
+<p>这个角色负责调研并测试各类新软件。他们的作用是在更改设计或方法为时已晚之前，详细并且合理地测试这些新的技术方案，并了解可能存在的风险。</p>
+</li>
+<li><p><strong>开发人员</strong></p>
+<p>这类角色负责理解业务细节，并且将业务需求转换为代码，真正的将业务完成。</p>
+</li>
+<li><p><strong>协调人员</strong></p>
+<p>与其他团队和管理层进行及时有效的沟通对于本团队而言是一项重要的任务。</p>
+<p>并不是所有的开发人员都喜欢这个任务，因为这个角色继续要了解技术实现的细节，也需要掌握和人沟通的技巧。</p>
+</li>
+</ul>
+<p>除此之外，</p>
 
       
     </div>
