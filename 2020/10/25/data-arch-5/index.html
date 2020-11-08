@@ -17,7 +17,7 @@
 
 
 
-  <meta name="description" content="数据架构解决方案(5) -- 数据架构中的风险管理"/>
+  <meta name="description" content="数据架构解决方案(5) -- 数据架构中的风险管理(一)"/>
 
 
 
@@ -99,7 +99,7 @@
   window.config = {"title":"Lingering Fragments","subtitle":"一些想法和总结","description":null,"author":"xyp","language":"zh-CN","timezone":"Asia/Shanghai","url":"https://pengye91.github.io","root":"/","permalink":":year/:month/:day/:title/","permalink_defaults":null,"source_dir":"source","public_dir":"public","tag_dir":"tags","archive_dir":"archives","category_dir":"categories","code_dir":"downloads/code","i18n_dir":":lang","skip_render":null,"new_post_name":":title.md","default_layout":"post","titlecase":false,"external_link":true,"filename_case":0,"render_drafts":false,"post_asset_folder":false,"relative_link":false,"future":true,"highlight":{"enable":true,"auto_detect":false,"line_number":true,"tab_replace":null,"first_line_number":"always1"},"default_category":"uncategorized","category_map":null,"tag_map":null,"date_format":"YYYY-MM-DD","time_format":"HH:mm:ss","per_page":10,"pagination_dir":"page","theme":"even","deploy":{"type":"git","repo":"https://github.com/pengye91/pengye91.github.io.git","branch":"master"},"ignore":[],"keywords":null,"index_generator":{"per_page":10,"order_by":"-date","path":""},"sitemap":{"path":"sitemap.xml"},"baidusitemap":{"path":"baidusitemap.xml"},"archive_generator":{"per_page":10,"yearly":true,"monthly":true,"daily":false},"category_generator":{"per_page":10},"tag_generator":{"per_page":10},"marked":{"gfm":true,"pedantic":false,"sanitize":false,"tables":true,"breaks":true,"smartLists":true,"smartypants":true,"modifyAnchors":"","autolink":true},"server":{"port":4000,"log":false,"compress":false,"header":true},"since":2018,"favicon":"/favicon.ico","rss":"default","menu":{"Home":"/","Archives":"/archives/","Tags":"/tags","Categories":"/categories","About":"/about"},"color":"cobalt blue","mode":"default","toc":true,"fancybox":true,"pjax":true,"copyright":{"enable":false,"license":"<a rel=\"license\" href=\"http://creativecommons.org/licenses/by-nc/4.0/\" target=\"_blank\">知识共享署名-非商业性使用 4.0 国际许可协议</a>"},"reward":{"enable":false,"qrCode":{"wechat":null,"alipay":null}},"social":{"email":"pengye91@gmail.com","stack-overflow":null,"twitter":null,"facebook":null,"linkedin":null,"google":null,"github":"https://github.com/pengye91","weibo":null,"zhihu":null,"douban":null,"pocket":null,"tumblr":null,"instagram":null},"leancloud":{"app_id":null,"app_key":null},"baidu_analytics":null,"baidu_verification":null,"google_analytics":"UA-127442719-1","google_verification":null,"disqus_shortname":null,"valine":{"appid":"xeDhasO1xV7F1SpCG0oRuiol-gzGzoHsz","appkey":"wgFvo2YMOmn0Qcv7YPFxtePy","notify":false,"verify":false,"avatar":"identicon","visitor":true,"placeholder":"在此评论......"},"changyan":{"appid":null,"appkey":null},"livere_datauid":null,"version":"2.10.1"};
 </script>
 
-    <title> 数据架构解决方案(5) -- 数据架构中的风险管理 - Lingering Fragments </title>
+    <title> 数据架构解决方案(5) -- 数据架构中的风险管理(一) - Lingering Fragments </title>
   </head>
 
   <body><div id="mobile-navbar" class="mobile-navbar">
@@ -233,7 +233,7 @@
     <header class="post-header">
       <h1 class="post-title">
         
-          数据架构解决方案(5) -- 数据架构中的风险管理
+          数据架构解决方案(5) -- 数据架构中的风险管理(一)
         
       </h1>
 
@@ -261,7 +261,7 @@
   <div class="post-toc" id="post-toc">
     <h2 class="post-toc-title">文章目录</h2>
     <div class="post-toc-content">
-      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#风险分类"><span class="toc-text">风险分类</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#管理风险"><span class="toc-text">管理风险</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#将系统架构的风险分类"><span class="toc-text">将系统架构的风险分类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#技术风险"><span class="toc-text">技术风险</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#团队风险"><span class="toc-text">团队风险</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#其他团队相关的风险"><span class="toc-text">其他团队相关的风险</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#需求风险"><span class="toc-text">需求风险</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#给风险分级"><span class="toc-text">给风险分级</span></a></li></ol></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#风险分类"><span class="toc-text">风险分类</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#管理风险"><span class="toc-text">管理风险</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#将系统架构的风险分类"><span class="toc-text">将系统架构的风险分类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#技术风险"><span class="toc-text">技术风险</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#团队风险"><span class="toc-text">团队风险</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#其他团队相关的风险"><span class="toc-text">其他团队相关的风险</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#需求风险"><span class="toc-text">需求风险</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#给风险分级"><span class="toc-text">给风险分级</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#降低风险"><span class="toc-text">降低风险</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#总结"><span class="toc-text">总结</span></a></li></ol>
     </div>
   </div>
 
@@ -391,7 +391,54 @@
 <h2 id="给风险分级"><a href="#给风险分级" class="headerlink" title="给风险分级"></a>给风险分级</h2><p>根据上述的三种风险类别，总结之后可以给每个组件分个级别，分了级别后，才能更有针对性的应对这些风险。</p>
 <center><img src="/images/data-arch/5/risk-level.png" alt=""></center>
 
-<p>如图所示，给每个组件分好风险级别后，</p>
+<p>如图所示，给每个组件分好风险级别后，可以给出说明为什么某个组件的风险高。</p>
+<p>举例说明：</p>
+<ul>
+<li><p><strong>流处理</strong></p>
+<ol>
+<li><p><em>经验</em> (技术风险)</p>
+<p> 我们团队以前从来没有处理过相关场景的问题。</p>
+</li>
+<li><p><em>零数据丢失</em> （技术风险）</p>
+<p> 一条数据都不能丢失，这对于团队来说引入了一个复杂的技术场景，而且上线后的运维工作会变得更加不易。</p>
+</li>
+</ol>
+</li>
+</ul>
+<h2 id="降低风险"><a href="#降低风险" class="headerlink" title="降低风险"></a>降低风险</h2><p>给风险分级后，就可以着手降低风险了。有些方法已经介绍过，这里做一个补漏和总结：</p>
+<ul>
+<li><p><strong>固化需求</strong></p>
+<p>如上所说，详细明确的功能需求可以帮助将需求风险降到最低。</p>
+</li>
+<li><p><strong>确保给你的需求得到所有利益相关者的认同</strong></p>
+</li>
+<li><p><strong>明确项目职责范围并确保利益相关者同意</strong></p>
+</li>
+<li><p><strong>明确与其他团队的接口要求和协议</strong></p>
+<p>定义好接口可以帮助降低架构风险，因为当需求有变更的时候，可以更容易地重构组件或替换技术栈。</p>
+</li>
+<li><p><strong>优先考虑风险较大的组件</strong></p>
+<p>尽早处理风险较大的子组件可以留出额外的时间，以防遇到更多问题。</p>
+</li>
+<li><p><strong>将风险更高的子任务分给更有经验的团队成员</strong></p>
+</li>
+<li><p><strong>利用外部资源帮助解决信息不透明(不对等)的情况</strong></p>
+</li>
+<li><p><strong>使用原型和 POC 来降低前期架构风险</strong></p>
+</li>
+<li><p><strong>用风险较小的组件替换风险较高的组件</strong></p>
+<p>例如，在假设的风险分解中，我们可能决定用可用团队成员更熟悉的工具（如 Spark Structured Streaming）替换 Flink 来处理流式数据。</p>
+</li>
+</ul>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>本篇主要介绍了在构建数据架构过程中可能会遇到的三种风险，以及如何将它们化小的方法。</p>
+<ul>
+<li><p>技术风险</p>
+</li>
+<li><p>团队成员风险</p>
+</li>
+<li><p>需求风险</p>
+</li>
+</ul>
 
       
     </div>
