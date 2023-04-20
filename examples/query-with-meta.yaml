@@ -1,0 +1,3 @@
+config:
+  meta:
+    address: db-databend-meta:9191

@@ -1,0 +1,10 @@
+replicaCount: 3
+config:
+  clsuterId: cluster1
+  meta:
+    address: db-databend-meta:9191
+  storage:
+    type: s3
+    s3:
+      accessKeyId: "xxx"
+      secretAccessKey: "xxx"
