@@ -28,7 +28,7 @@ jobs:
       - name: Publish Helm chart
         uses: helm/chart-releaser-action@v1.4.0
         with:
-          charts_repo_url: https://pengye91.github.io
+          charts_repo_url: https://pengye91.github.io/charts/
         env:
           CR_TOKEN: "${{ secrets.CR_TOKEN }}"
           CR_SKIP_EXISTING: true
