@@ -6,7 +6,7 @@ metadata:
   labels:
     {{- include "databend-query.labels" . | nindent 4 }}
 spec:
-  accessModes: ["ReadWriteMany"]
+  accessModes: ["ReadWriteOnce"]
   resources:
     requests:
       storage: {{ .Values.persistence.size }}
