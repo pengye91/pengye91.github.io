@@ -39,6 +39,9 @@ serviceMonitor:
   enabled: false
   port: metric
 
+envs:
+  TEST_KEY: TEST_VALUE
+
 # Config settings to go into the mounted config.toml
 config:
   # [query]
