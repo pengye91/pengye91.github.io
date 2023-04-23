@@ -107,10 +107,6 @@ spec:
             - name: config
               # Note: subPath volume mount will not receive ConfigMap update.
               mountPath: /etc/databend-query
-            {{- if .Values.persistence.enabled }}
-            - name: data
-              mountPath: {{ .Values.persistence.mountPath }}
-            {{- end }}
         {{- if .Values.sidecars }}
         {{- include "common.tplvalues.render" (dict "value" .Values.sidecars "context" $) | nindent 8 }}
         {{- end }}
