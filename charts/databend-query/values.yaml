@@ -48,6 +48,7 @@ config:
   query:
     maxActiveSessions: 256
     waitTimeoutMills: 5000
+    shareEndpointAddr: "127.0.0.1:13003"
 
     tenantId: ""
     clusterId: default
