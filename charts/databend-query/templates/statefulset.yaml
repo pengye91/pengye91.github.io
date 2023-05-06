@@ -101,7 +101,7 @@ spec:
               value: "8000"
             {{- range $key, $val := .Values.envs }}
             - name: {{ $key }}
-              value: {{ $val}}
+              value: {{ $val | quote }}
             {{- end }}
           volumeMounts:
             - name: config
