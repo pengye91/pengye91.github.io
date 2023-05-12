@@ -335,4 +335,35 @@ entries:
     urls:
     - https://github.com/pengye91/pengye91.github.io/releases/download/databend-query-0.5.4/databend-query-0.5.4.tgz
     version: 0.5.4
-generated: "2023-05-06T08:54:29.679909742Z"
+  kube-starrocks:
+  - apiVersion: v2
+    appVersion: 2.5.5
+    created: "2023-05-12T03:36:21.414049809Z"
+    description: kube-starrocks collects Kubernetes manifests, starrocks combined
+      with documentation and scripts to provide easy to operate end-to-end Kubernetes
+      cluster deploy starrocks using the starrocks operator.
+    digest: 361a78d2f7a0e27c277395e95749bce147b6126289fd456b537ba1d25b271dd3
+    home: https://github.com/StarRocks/starrocks-kubernetes-operator
+    icon: https://avatars.githubusercontent.com/u/88238841
+    keywords:
+    - operator
+    - starrocks
+    - database
+    - olap
+    kubeVersion: '>=1.18.3-0'
+    maintainers:
+    - email: caixiaohua@starrocks.com
+      name: Kevin Cai
+    - email: shensida@starrocks.com
+      name: SidaShen
+    - email: fushilei@starrocks.com
+      name: ShileiFu
+    name: kube-starrocks
+    sources:
+    - https://github.com/StarRocks/helm-charts
+    - https://github.com/StarRocks/starrocks
+    type: application
+    urls:
+    - https://github.com/pengye91/pengye91.github.io/releases/download/kube-starrocks-1.6.1/kube-starrocks-1.6.1.tgz
+    version: 1.6.1
+generated: "2023-05-12T03:36:21.414083909Z"
