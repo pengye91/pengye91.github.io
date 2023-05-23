@@ -32,6 +32,7 @@ service:
     metric: 7070
     admin: 8080
     flight: 9090
+    flight-sql: 8900
   # Annotations to add to the service
   annotations: {}
 

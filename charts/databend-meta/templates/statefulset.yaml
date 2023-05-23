@@ -11,6 +11,8 @@ spec:
   serviceName: {{ $fullName }}
   replicas: {{ .Values.replicaCount }}
   {{- if $bootstrap }}
+  updateStrategy:
+    type: RollingUpdate
   podManagementPolicy: OrderedReady
   {{- else }}
   podManagementPolicy: Parallel
