@@ -10,6 +10,7 @@ metadata:
   {{- end }}
 spec:
   type: {{ .Values.service.type }}
+  sessionAffinity: ClientIP
   ports:
     {{- range $key, $val := .Values.service.ports }}
     - port: {{ $val }}
@@ -19,4 +20,3 @@ spec:
     {{- end }}
   selector:
     {{- include "databend-query.selectorLabels" . | nindent 4 }}
-    statefulset.kubernetes.io/pod-name: {{ include "databend-query.fullname" . }}-0
