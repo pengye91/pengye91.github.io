@@ -335,6 +335,18 @@ entries:
     urls:
     - https://github.com/pengye91/pengye91.github.io/releases/download/databend-query-0.5.4/databend-query-0.5.4.tgz
     version: 0.5.4
+  dremio:
+  - apiVersion: v1
+    created: "2023-05-23T07:55:40.57199719Z"
+    digest: b759efaf9fc2b59057214dd95478660e398022fe4076a210aa722a74e736f724
+    home: https://www.dremio.com/
+    keywords:
+    - dremio
+    - data
+    name: dremio
+    urls:
+    - https://github.com/pengye91/pengye91.github.io/releases/download/dremio-2.0.0/dremio-2.0.0.tgz
+    version: 2.0.0
   kube-starrocks:
   - apiVersion: v2
     appVersion: 2.5.5
@@ -366,4 +378,4 @@ entries:
     urls:
     - https://github.com/pengye91/pengye91.github.io/releases/download/kube-starrocks-1.6.1/kube-starrocks-1.6.1.tgz
     version: 1.6.1
-generated: "2023-05-12T03:36:21.414083909Z"
+generated: "2023-05-23T07:55:40.572344299Z"
