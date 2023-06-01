@@ -35,8 +35,9 @@ spec:
       containers:
         - name: {{ .Chart.Name }}
           command:
-            - sleep
-            - 2592000
+            - /databend-query
+            - -c
+            - /etc/databend-query/config.toml
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
