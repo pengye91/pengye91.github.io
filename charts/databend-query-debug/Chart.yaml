@@ -1,5 +1,5 @@
 apiVersion: v2
-name: databend-query
+name: databend-query-debug
 description: A Helm chart for databend query
 icon: https://databend.rs/img/favicon.svg
 home: https://databend.rs
