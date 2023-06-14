@@ -64,7 +64,7 @@ spec:
                       --grpc-api-address ${POD_IP}:9191 \
                       --raft-api-port 28004 \
                       --raft-listen-host ${POD_IP} \
-                      --raft-advertise-host ${POD_NAME}.{{ $fullName }}.${POD_NAMESPACE}.svc.cluster.local \
+                      --raft-advertise-host ${POD_NAME}.{{ $fullName }}.${POD_NAMESPACE}.svc \
                       --grpc-api-advertise-host ${POD_IP} \
                       --config-id ${ID} \
                       --single
@@ -82,10 +82,10 @@ spec:
                       --grpc-api-address ${POD_IP}:9191 \
                       --raft-api-port 28004 \
                       --raft-listen-host ${POD_IP} \
-                      --raft-advertise-host ${POD_NAME}.{{ $fullName }}.${POD_NAMESPACE}.svc.cluster.local \
+                      --raft-advertise-host ${POD_NAME}.{{ $fullName }}.${POD_NAMESPACE}.svc \
                       --grpc-api-advertise-host ${POD_IP} \
                       --config-id ${ID} \
-                      --join ${NAME}-0.{{ $fullName }}.${POD_NAMESPACE}.svc.cluster.local:28004
+                      --join ${NAME}-0.{{ $fullName }}.${POD_NAMESPACE}.svc:28004
                   ;;
                 esac
             {{- else }}
@@ -100,10 +100,10 @@ spec:
                   --grpc-api-address ${POD_IP}:9191 \
                   --raft-api-port 28004 \
                   --raft-listen-host ${POD_IP} \
-                  --raft-advertise-host ${POD_NAME}.{{ $fullName }}.${POD_NAMESPACE}.svc.cluster.local \
+                  --raft-advertise-host ${POD_NAME}.{{ $fullName }}.${POD_NAMESPACE}.svc \
                   --grpc-api-advertise-host ${POD_IP} \
             {{- range $i := until $replicaCount }}
-                  --join ${NAME}-{{ $i }}.{{ $fullName }}.${POD_NAMESPACE}.svc.cluster.local:28004 \
+                  --join ${NAME}-{{ $i }}.{{ $fullName }}.${POD_NAMESPACE}.svc:28004 \
             {{- end }}
                   --config-id ${ID}
             {{- end }}
