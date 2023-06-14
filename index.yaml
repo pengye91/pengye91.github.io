@@ -3,6 +3,31 @@ entries:
   databend-meta:
   - apiVersion: v2
     appVersion: v1.1.58-nightly
+    created: "2023-06-14T03:58:02.065152413Z"
+    dependencies:
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      version: 1.x.x
+    description: A Helm chart for databend meta
+    digest: 9753b2bed5fcb6a9786d1d7a9c7f8e65e63d88b715e606bd9306954720a7c85d
+    home: https://databend.rs
+    icon: https://databend.rs/img/favicon.svg
+    keywords:
+    - olap
+    - cloud data warehouse
+    - meta
+    - kv
+    maintainers:
+    - email: cloud.dev@datafuselabs.com
+      name: cloud.dev
+      url: https://databend.com
+    name: databend-meta
+    type: application
+    urls:
+    - https://github.com/pengye91/pengye91.github.io/releases/download/databend-meta-1.1.5/databend-meta-1.1.5.tgz
+    version: 1.1.5
+  - apiVersion: v2
+    appVersion: v1.1.58-nightly
     created: "2023-06-14T03:41:56.623392978Z"
     dependencies:
     - name: common
@@ -669,4 +694,4 @@ entries:
     urls:
     - https://github.com/pengye91/pengye91.github.io/releases/download/kube-starrocks-1.6.1/kube-starrocks-1.6.1.tgz
     version: 1.6.1
-generated: "2023-06-14T03:41:56.62365808Z"
+generated: "2023-06-14T03:58:02.065251215Z"
