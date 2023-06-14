@@ -29,6 +29,7 @@ service:
   ports:
     admin: 28002
     grpc: 9191
+    raft: 28004
   # Annotations to add to the service
   annotations: {}
 
