@@ -53,6 +53,30 @@ entries:
     version: 0.6.2
   databend-query:
   - apiVersion: v2
+    appVersion: v1.1.58-nightly
+    created: "2023-06-14T02:51:59.408037924Z"
+    dependencies:
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      version: 1.x.x
+    description: A Helm chart for databend query
+    digest: 4a9037e7b0bd7842336e69e44d3ef4a1c5a05668af825f977b41d17ffba60c07
+    home: https://databend.rs
+    icon: https://databend.rs/img/favicon.svg
+    keywords:
+    - olap
+    - cloud data warehouse
+    - query
+    maintainers:
+    - email: cloud.dev@datafuselabs.com
+      name: cloud.dev
+      url: https://databend.com
+    name: databend-query
+    type: application
+    urls:
+    - https://github.com/pengye91/pengye91.github.io/releases/download/databend-query-1.1.4/databend-query-1.1.4.tgz
+    version: 1.1.4
+  - apiVersion: v2
     appVersion: v1.1.0-nightly
     created: "2023-06-01T03:31:58.079162005Z"
     dependencies:
@@ -572,4 +596,4 @@ entries:
     urls:
     - https://github.com/pengye91/pengye91.github.io/releases/download/kube-starrocks-1.6.1/kube-starrocks-1.6.1.tgz
     version: 1.6.1
-generated: "2023-06-14T01:49:57.411811155Z"
+generated: "2023-06-14T02:51:59.408272328Z"
