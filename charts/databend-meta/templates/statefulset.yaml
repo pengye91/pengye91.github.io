@@ -10,13 +10,7 @@ metadata:
 spec:
   serviceName: {{ $fullName }}
   replicas: {{ .Values.replicaCount }}
-  {{- if $bootstrap }}
-  updateStrategy:
-    type: RollingUpdate
-  podManagementPolicy: OrderedReady
-  {{- else }}
   podManagementPolicy: Parallel
-  {{- end }}
   selector:
     matchLabels:
       {{- include "databend-meta.selectorLabels" . | nindent 6 }}
