@@ -109,7 +109,7 @@ spec:
               mountPath: /etc/databend-query
             {{- if .Values.cache.enabled }}
             - name: data
-              mountPath: {{ .Values.cache.path | default "/data/databend/cache" | quote }}
+              mountPath: {{ .Values.persistence.mountPath | default "/data" | quote }}
             {{- end }}
         {{- if .Values.sidecars }}
         {{- include "common.tplvalues.render" (dict "value" .Values.sidecars "context" $) | nindent 8 }}
